@@ -1,0 +1,7 @@
+- git
+    - [gitignore 的全局添加【递归】](https://www.bilibili.com/video/BV1WL411u7Xk)
+        - 去主标签查看笔记/注释：[编程开发](../tags/编程开发.md)
+        - 时长：453 秒
+        - 日期：[2021-11-07](../month/202111.md)
+        - 标签：编程开发,计算机,Linux,Shell,git
+        - [封面](http://i1.hdslb.com/bfs/archive/91148d942b1944d341ddef63173fa23391ae8b06.jpg)

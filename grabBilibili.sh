@@ -20,8 +20,7 @@ grabHistory() {
 grabFirstPage() {
 	URL=${bArch}1
 	# curl -s -o - -b "$COOKIE" "$URL" | jq .data.arc_audits | jq -r '.[]|.Archive|[.title,.bvid,.ptime]|@csv' >$RES
-	# curl -s -o - -b "$COOKIE" "$URL" | jq .data.arc_audits | jq '.[]|.Archive' | jq -n '{bvid,title,cover,tag,duration,desc,(.ptime | strftime("%Y-%m-%d"))}' >$RES
-	curl -s -o - -b "$COOKIE" "$URL" | jq .data.arc_audits | jq '.[]|.Archive' | jq '{bvid,title,cover,tag,duration,desc}"",ptime|"(todate)"}' >$RES
+	curl -s -o - -b "$COOKIE" "$URL" | jq .data.arc_audits | jq '.[]|.Archive' | jq '.ptime |= strflocaltime("%Y-%m-%d")' | jq '{bvid,title,cover,tag,duration,desc,ptime}' >$RES
 }
 
 # Main.

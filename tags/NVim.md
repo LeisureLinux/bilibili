@@ -1,0 +1,7 @@
+- NVim
+    - [shfmt：Shell 脚本的格式化](https://www.bilibili.com/video/BV1hU4y1g72L)
+        - 去主标签查看笔记/注释：[编程开发](../tags/编程开发.md)
+        - 时长：405 秒
+        - 日期：[2021-11-07](../month/202111.md)
+        - 标签：编程开发,计算机,Linux,Shell,Vim,NVim,插件,代码美化
+        - [封面](http://i2.hdslb.com/bfs/archive/e190d5d385867a55379fc2a3cdbf2344d8ee2ad7.jpg)
