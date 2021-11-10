@@ -11,9 +11,10 @@ grabHistory() {
 	# 抓取历史存量
 	# 共抓取13页
 	cat /dev/null >$RES
-	for p in $(seq 1 13); do
+	for p in $(seq 1 14); do
 		URL=${bArch}$p
-		curl -s -o - -b "$COOKIE" "$URL" | jq .data.arc_audits | jq -r '.[]|.Archive|[.title,.bvid,.ptime]|@csv' >>$RES
+		curl -s -o - -b "$COOKIE" "$URL" | jq .data.arc_audits | jq '.[]|.Archive' | jq '.ptime |= strflocaltime("%Y-%m-%d")' | jq '{bvid,title,cover,tag,duration,desc,ptime}' >>$RES
+		# curl -s -o - -b "$COOKIE" "$URL" | jq .data.arc_audits | jq -r '.[]|.Archive|[.title,.bvid,.ptime]|@csv' >>$RES
 	done
 }
 
@@ -24,4 +25,4 @@ grabFirstPage() {
 }
 
 # Main.
-grabFirstPage
+grabHistory

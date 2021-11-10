@@ -57,7 +57,7 @@ for row in $(cat "bilibili.json" | jq -r '.|@base64'); do
 	OTHER_TAGS=""
 	for t in $(echo $TAGS | sed 's#,#\n#g'); do
 		MD_TAG="tags/${t}.md"
-		[ ! -s "$MD_TAG" ] && echo "- $t [返回上层](../)" >$MD_TAG
+		[ ! -s "$MD_TAG" ] && echo "- $t ([返回上层](../))" >$MD_TAG
 		if [ "$t" == "$FIRST_TAG" ]; then
 			continue
 		fi

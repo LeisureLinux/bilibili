@@ -8,3 +8,9 @@
         - 简介：
             > "awk 大法好，越用越奇妙"
 
+    - [介绍一个操作 CSV 文件的 Vim 插件](https://www.bilibili.com/video/BV1bT4y1d7uM)
+        - 去主标签查看笔记/注释：[编程开发](../tags/编程开发.md)
+        - 时长：627 秒
+        - 日期：[2021-11-05](../month/202111.md)
+        - 标签：编程开发,计算机,Linux,Shell,Vim,Nvim,Github,CSV,大数据
+        - [封面](http://i1.hdslb.com/bfs/archive/1f26b62e32bdad00ef3b0b2dc647b366ba425d5d.jpg)

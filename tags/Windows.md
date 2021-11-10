@@ -11,3 +11,27 @@
         - 日期：[2021-11-06](../month/202111.md)
         - 标签：计算机,Linux,Shell,Windows,WSL
         - [封面](http://i1.hdslb.com/bfs/archive/e251104dcc334620a2dc9fee52911db7a3a322fb.jpg)
+    - [MinGW 和 MinGW-w64，Windows 上的 C语言编译器](https://www.bilibili.com/video/BV17r4y1y7cj)
+        - 去主标签查看笔记/注释：[编程开发](../tags/编程开发.md)
+        - 时长：251 秒
+        - 日期：[2021-11-06](../month/202111.md)
+        - 标签：编程开发,c语言,c++,计算机,Linux,Shell,Windows,Cygwin
+        - [封面](http://i0.hdslb.com/bfs/archive/d0ddd6e865e3d7c02723f4a846113f6c349830e3.jpg)
+    - [Windows 上的包管理工具 MSYS2](https://www.bilibili.com/video/BV1jv411M7SW)
+        - 去主标签查看笔记/注释：[计算机](../tags/计算机.md)
+        - 时长：312 秒
+        - 日期：[2021-11-06](../month/202111.md)
+        - 标签：计算机,Linux,Windows,软件包管理
+        - [封面](http://i0.hdslb.com/bfs/archive/d90af6eff99a1b3ca80c700fe36fb7dc5ac0b922.jpg)
+    - [微软的 ReFS 文件系统以及Win7和微软何时消灭 NTFS？](https://www.bilibili.com/video/BV19g411K7t9)
+        - 去主标签查看笔记/注释：[计算机](../tags/计算机.md)
+        - 时长：459 秒
+        - 日期：[2021-11-06](../month/202111.md)
+        - 标签：计算机,Linux,Shell,Windows,文件系统,NTFS,操作系统
+        - [封面](http://i1.hdslb.com/bfs/archive/e6f7b40dade7922fc24d41c627257633d636b757.jpg)
+    - [Windows 上想用Linux类环境的可以考虑下Cygwin](https://www.bilibili.com/video/BV1444y1e7uL)
+        - 去主标签查看笔记/注释：[计算机](../tags/计算机.md)
+        - 时长：184 秒
+        - 日期：[2021-11-06](../month/202111.md)
+        - 标签：计算机,Linux,Shell,Windows,Cygwin
+        - [封面](http://i2.hdslb.com/bfs/archive/45f9e2a0a5784c8f41b15255ba308c07e9a90d5f.jpg)
