@@ -11,9 +11,6 @@
         - 日期：[2021-10-29](../markmap/202110.html)
         - 标签：c语言,python,计算机,linux,qt,git
         - [封面](http://i2.hdslb.com/bfs/archive/538baaec64aeb7fd97f16187777c010b0be0b411.jpg)
-        - 简介：
-            > "qmake 文件 增加 make install 功能，github 添加软件库，发行版本，熟练使用 github"
-
     - [qmake的目录整理+gitignore](https://www.bilibili.com/video/BV1Pu411o7TE)
         - 去主标签查看笔记/注释：[编程开发](../markmap/编程开发.html)
         - 时长：803 秒

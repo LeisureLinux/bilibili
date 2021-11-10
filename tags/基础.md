@@ -5,6 +5,3 @@
         - 日期：[2021-09-21](../markmap/202109.html)
         - 标签：电脑,软件,linux,it,编程,基础,计算机
         - [封面](http://i0.hdslb.com/bfs/archive/8388a6eb5cee67703ebfec758932624b987a8453.jpg)
-        - 简介：
-            > "Linux Shell 编程， 美元符号的引用。"
-

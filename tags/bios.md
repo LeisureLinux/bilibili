@@ -11,6 +11,3 @@
         - 日期：[2021-10-23](../markmap/202110.html)
         - 标签：计算机,linux,ubuntu,bios
         - [封面](http://i1.hdslb.com/bfs/archive/ef2d09638b99da0a23aae9409be5de2e86570e52.jpg)
-        - 简介：
-            > "通过操作系统命令行修改 BIOS 信息，包括 BIOS 密码，资产标签，启动顺序"
-

@@ -5,6 +5,3 @@
         - 日期：[2021-10-17](../markmap/202110.html)
         - 标签：打卡挑战,devoos,linux,shell编程
         - [封面](http://i0.hdslb.com/bfs/archive/34a3a1c879b7cbd959cf5bb59fc0232394883fbb.jpg)
-        - 简介：
-            > "-"
-

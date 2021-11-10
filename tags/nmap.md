@@ -5,6 +5,3 @@
         - 日期：[2021-10-01](../markmap/202110.html)
         - 标签：linux,教程,操作系统,命令行工具,dns,tcpdump,nmap
         - [封面](http://i0.hdslb.com/bfs/archive/50bf253e3a36b89b9956615e5a0a0539be1f8df3.jpg)
-        - 简介：
-            > "nmap/lsof/nslookup/dig/host/traceroute/tcpdump/getent"
-

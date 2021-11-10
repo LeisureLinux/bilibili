@@ -5,8 +5,3 @@
         - 日期：[2021-10-30](../markmap/202110.html)
         - 标签：编程开发,c语言,计算机,linux,qt,shell,vim,ctags
         - [封面](http://i0.hdslb.com/bfs/archive/2ac61dd27a0e9d4745c393ef4faf83185a4c6250.jpg)
-        - 简介：
-            > "less is more
-行号
-大小写无关搜索"
-

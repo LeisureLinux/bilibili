@@ -5,8 +5,3 @@
         - 日期：[2021-11-10](../markmap/202111.html)
         - 标签：shell,markdown,bilibili,github,linux
         - [封面](http://i0.hdslb.com/bfs/archive/fd8e7e9ace9d59e192a335fae76b70fc1fdaa384.jpg)
-        - 简介：
-            > "把 B站视频生成 Markdown 文件放到 Github 并通过标签关联视频
-所有视频链接都放到 N+1 个 .md 文件内， N 个 tag  + 1 个月份的 md 文件
-方便检索"
-

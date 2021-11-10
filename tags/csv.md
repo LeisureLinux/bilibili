@@ -5,9 +5,6 @@
         - 日期：[2021-11-07](../markmap/202111.html)
         - 标签：编程开发,计算机,linux,shell,数据处理,awk,csv
         - [封面](http://i0.hdslb.com/bfs/archive/4633bcfd12560321e49a6e42efd042766e0a3dbb.jpg)
-        - 简介：
-            > "awk 大法好，越用越奇妙"
-
     - [介绍一个操作 CSV 文件的 Vim 插件](https://www.bilibili.com/video/BV1bT4y1d7uM)
         - 去主标签查看笔记/注释：[编程开发](../markmap/编程开发.html)
         - 时长：627 秒

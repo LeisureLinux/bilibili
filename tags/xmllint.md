@@ -5,9 +5,3 @@
         - 日期：[2021-10-04](../markmap/202110.html)
         - 标签：linux,教程,操作系统,打卡挑战,xmllint,html解析,bash
         - [封面](http://i2.hdslb.com/bfs/archive/54e3f759dc8905e53dbb06086e1af9b17ad41fda.jpg)
-        - 简介：
-            > "xmllint 
-html 解析
-如何阅读一本书
-Linux BASH"
-

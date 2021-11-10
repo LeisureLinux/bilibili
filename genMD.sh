@@ -41,7 +41,7 @@ for row in $(cat "bilibili.json" | jq -r '.|@base64'); do
 	BVID=$(_jq '.bvid')
 	COVER=$(_jq '.cover')
 	DURATION=$(_jq '.duration')
-	DESC=$(_jq '.desc')
+	DESC=$(_jq '.desc') | tr '\n' '<br>'
 	PTIME=$(_jq '.ptime')
 	# Make the output file as month/<YYYYMM>.md
 	# 文件名不要有短划线

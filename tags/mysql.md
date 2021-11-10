@@ -5,6 +5,3 @@
         - 日期：[2021-10-14](../markmap/202110.html)
         - 标签：linux,打卡挑战,云计算,php,视频教程,web,mysql
         - [封面](http://i0.hdslb.com/bfs/archive/cb570a15b3266e9a658f34cfaeb3d0e8900250c1.jpg)
-        - 简介：
-            > "LAMP 的 Apache 和 PHP 整合的两种方式： modphp 以及 php-fpm；php-fpm 的两种 listen 方式： socket 和 tcp"
-

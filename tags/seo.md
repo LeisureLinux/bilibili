@@ -5,6 +5,3 @@
         - 日期：[2021-10-15](../markmap/202110.html)
         - 标签：打卡挑战,linux,seo,sem
         - [封面](http://i0.hdslb.com/bfs/archive/dece044f025963a9343ad0fe26805f188664e174.jpg)
-        - 简介：
-            > "-"
-

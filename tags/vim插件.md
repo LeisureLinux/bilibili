@@ -5,7 +5,3 @@
         - 日期：[2021-11-03](../markmap/202111.html)
         - 标签：编程开发,c语言,c++,java,计算机,linux,shell,vim,nvim,vim插件
         - [封面](http://i0.hdslb.com/bfs/archive/ff285795baf42eba3778ddbfec3bb55dffddddf0.jpg)
-        - 简介：
-            > "vimrc 下载和解释： https://github.com/LeisureLinux/VimPlugins
-看完这个你不用再看其他讲 Vim 插件的视频了。"
-
