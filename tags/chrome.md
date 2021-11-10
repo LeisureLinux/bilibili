@@ -1,0 +1,13 @@
+- chrome ([返回上层](../))
+    - [把 PHP 程序打包为桌面应用-PHPDesktop 的 Linux 版本介绍](https://www.bilibili.com/video/BV11R4y1J7c3)
+        - 去主标签查看笔记/注释：[编程开发](../markmap/编程开发.html)
+        - 时长：687 秒
+        - 日期：[2021-10-26](../markmap/202110.html)
+        - 标签：编程开发,计算机,linux,web开发,chrome,php
+        - [封面](http://i0.hdslb.com/bfs/archive/d41d28b8f687914b5ab7b376a5c9c0ea67aa926a.jpg)
+    - [维基百科阅读器，浏览器插件 Wikiwand](https://www.bilibili.com/video/BV1if4y177RX)
+        - 去主标签查看笔记/注释：[linux](../markmap/linux.html)
+        - 时长：486 秒
+        - 日期：[2021-10-11](../markmap/202110.html)
+        - 标签：linux,打卡挑战,维基百科,插件,学习,chrome,浏览器
+        - [封面](http://i1.hdslb.com/bfs/archive/8a8dd6fab1b64d885748b995feaf14d8c0aef8d7.jpg)

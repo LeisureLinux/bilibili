@@ -3,13 +3,13 @@
         - 去主标签查看笔记/注释：[编程开发](../markmap/编程开发.html)
         - 时长：453 秒
         - 日期：[2021-11-07](../markmap/202111.html)
-        - 标签：编程开发,计算机,Linux,Shell,git
+        - 标签：编程开发,计算机,linux,shell,git
         - [封面](http://i1.hdslb.com/bfs/archive/91148d942b1944d341ddef63173fa23391ae8b06.jpg)
     - [qmake install & github 发布版本](https://www.bilibili.com/video/BV1jP4y1L7U3)
         - 去主标签查看笔记/注释：[c语言](../markmap/c语言.html)
         - 时长：631 秒
         - 日期：[2021-10-29](../markmap/202110.html)
-        - 标签：c语言,python,计算机,Linux,Qt,git
+        - 标签：c语言,python,计算机,linux,qt,git
         - [封面](http://i2.hdslb.com/bfs/archive/538baaec64aeb7fd97f16187777c010b0be0b411.jpg)
         - 简介：
             > "qmake 文件 增加 make install 功能，github 添加软件库，发行版本，熟练使用 github"
@@ -18,5 +18,5 @@
         - 去主标签查看笔记/注释：[编程开发](../markmap/编程开发.html)
         - 时长：803 秒
         - 日期：[2021-10-29](../markmap/202110.html)
-        - 标签：编程开发,c语言,计算机,Linux,Qt,git
+        - 标签：编程开发,c语言,计算机,linux,qt,git
         - [封面](http://i0.hdslb.com/bfs/archive/849997f604085c99b5ef7fae9bc78c1e5bfd1b55.jpg)

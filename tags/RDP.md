@@ -1,7 +1,0 @@
-- RDP ([返回上层](../))
-    - [Linux 的 RDP 客户端-Freerdp & rdesktop & Remmina](https://www.bilibili.com/video/BV1hU4y1u7Qb)
-        - 去主标签查看笔记/注释：[计算机](../markmap/计算机.html)
-        - 时长：1419 秒
-        - 日期：[2021-10-28](../markmap/202110.html)
-        - 标签：计算机,Linux,RDP,远程控制,终端管控
-        - [封面](http://i0.hdslb.com/bfs/archive/cc48459dec461694bf35633c51556ceb8af68a87.jpg)

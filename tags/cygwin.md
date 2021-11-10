@@ -1,0 +1,13 @@
+- cygwin ([返回上层](../))
+    - [MinGW 和 MinGW-w64，Windows 上的 C语言编译器](https://www.bilibili.com/video/BV17r4y1y7cj)
+        - 去主标签查看笔记/注释：[编程开发](../markmap/编程开发.html)
+        - 时长：251 秒
+        - 日期：[2021-11-06](../markmap/202111.html)
+        - 标签：编程开发,c语言,c++,计算机,linux,shell,windows,cygwin
+        - [封面](http://i0.hdslb.com/bfs/archive/d0ddd6e865e3d7c02723f4a846113f6c349830e3.jpg)
+    - [Windows 上想用Linux类环境的可以考虑下Cygwin](https://www.bilibili.com/video/BV1444y1e7uL)
+        - 去主标签查看笔记/注释：[计算机](../markmap/计算机.html)
+        - 时长：184 秒
+        - 日期：[2021-11-06](../markmap/202111.html)
+        - 标签：计算机,linux,shell,windows,cygwin
+        - [封面](http://i2.hdslb.com/bfs/archive/45f9e2a0a5784c8f41b15255ba308c07e9a90d5f.jpg)

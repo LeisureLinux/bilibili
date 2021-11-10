@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Markmap</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.1.6/dist/style.min.css">
+</head>
+<body>
+<svg id="mindmap"></svg>
+<script src="https://cdn.jsdelivr.net/npm/d3@6.6.0"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.2.6"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.1.6/dist/index.umd.min.js"></script><script>(r => {
+          setTimeout(r);
+        })(() => {
+  const {
+    markmap,
+    mm
+  } = window;
+  const toolbar = new markmap.Toolbar();
+  toolbar.attach(mm);
+  const el = toolbar.render();
+  el.setAttribute('style', 'position:absolute;bottom:20px;right:20px');
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, data) => {
+        const {
+          Markmap
+        } = getMarkmap();
+        window.mm = Markmap.create('svg#mindmap', getOptions == null ? void 0 : getOptions(), data);
+      })(() => window.markmap,null,{"t":"list_item","d":2,"p":{"lines":[0,1]},"v":"json (<a href=\"../\">返回上层</a>)","c":[{"t":"list_item","d":4,"p":{"lines":[1,2]},"v":"<a href=\"https://www.bilibili.com/video/BV1bS4y1d7SE\">如何在命令行下抓取网站 JSON 内容转换成 CSV 格式文件</a>","c":[{"t":"list_item","d":6,"p":{"lines":[2,3]},"v":"去主标签查看笔记/注释：<a href=\"../markmap/编程开发.html\">编程开发</a>"},{"t":"list_item","d":6,"p":{"lines":[3,4]},"v":"时长：338 秒"},{"t":"list_item","d":6,"p":{"lines":[4,5]},"v":"日期：<a href=\"../markmap/202111.html\">2021-11-07</a>"},{"t":"list_item","d":6,"p":{"lines":[5,6]},"v":"标签：编程开发,计算机,linux,shell,数据处理,html,json,浏览器,爬虫"},{"t":"list_item","d":6,"p":{"lines":[6,7]},"v":"<a href=\"http://i0.hdslb.com/bfs/archive/e106816b888ec644adf1555c377aa59ea2150415.jpg\">封面</a>"},{"t":"list_item","d":6,"p":{"lines":[7,8]},"v":"简介：","c":[{"t":"paragraph","d":8,"p":{"lines":[8,12]},"v":"&quot;爬虫原理也讲完了。<br>\n市面上所有的爬虫就是这么处理数据的。<br>\n所谓大数据，你往里丢 JSON 和 丢 CSV 都是可以的，无非是原数据要先处理好，然后通过 BI 来实现数据可视化。<br>\n核心的你要学会 Cookie 是怎么来的。&quot;"}]}]},{"t":"list_item","d":4,"p":{"lines":[13,14]},"v":"<a href=\"https://www.bilibili.com/video/BV1jg411K7WP\">用 jq 命令处理网站上抓下来的 JSON 数据</a>","c":[{"t":"list_item","d":6,"p":{"lines":[14,15]},"v":"去主标签查看笔记/注释：<a href=\"../markmap/编程开发.html\">编程开发</a>"},{"t":"list_item","d":6,"p":{"lines":[15,16]},"v":"时长：347 秒"},{"t":"list_item","d":6,"p":{"lines":[16,17]},"v":"日期：<a href=\"../markmap/202111.html\">2021-11-07</a>"},{"t":"list_item","d":6,"p":{"lines":[17,18]},"v":"标签：编程开发,计算机,linux,shell,数据处理,html,json,浏览器"},{"t":"list_item","d":6,"p":{"lines":[18,19]},"v":"<a href=\"http://i2.hdslb.com/bfs/archive/15845741c1496666228f4fb01d91891661f1f2cd.jpg\">封面</a>"}]}]})</script>
+</body>
+</html>

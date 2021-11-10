@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Markmap</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.1.6/dist/style.min.css">
+</head>
+<body>
+<svg id="mindmap"></svg>
+<script src="https://cdn.jsdelivr.net/npm/d3@6.6.0"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.2.6"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.1.6/dist/index.umd.min.js"></script><script>(r => {
+          setTimeout(r);
+        })(() => {
+  const {
+    markmap,
+    mm
+  } = window;
+  const toolbar = new markmap.Toolbar();
+  toolbar.attach(mm);
+  const el = toolbar.render();
+  el.setAttribute('style', 'position:absolute;bottom:20px;right:20px');
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, data) => {
+        const {
+          Markmap
+        } = getMarkmap();
+        window.mm = Markmap.create('svg#mindmap', getOptions == null ? void 0 : getOptions(), data);
+      })(() => window.markmap,null,{"t":"list_item","d":2,"p":{"lines":[0,1]},"v":"markdown (<a href=\"../\">返回上层</a>)","c":[{"t":"list_item","d":4,"p":{"lines":[1,2]},"v":"<a href=\"https://www.bilibili.com/video/BV1yR4y1E7EN\">把 B站视频生成 Markdown 文件放到 Github 并通过标签关联视频</a>","c":[{"t":"list_item","d":6,"p":{"lines":[2,3]},"v":"去主标签查看笔记/注释：<a href=\"../markmap/shell.html\">shell</a>"},{"t":"list_item","d":6,"p":{"lines":[3,4]},"v":"时长：639 秒"},{"t":"list_item","d":6,"p":{"lines":[4,5]},"v":"日期：<a href=\"../markmap/202111.html\">2021-11-10</a>"},{"t":"list_item","d":6,"p":{"lines":[5,6]},"v":"标签：shell,markdown,bilibili,github,linux"},{"t":"list_item","d":6,"p":{"lines":[6,7]},"v":"<a href=\"http://i0.hdslb.com/bfs/archive/fd8e7e9ace9d59e192a335fae76b70fc1fdaa384.jpg\">封面</a>"},{"t":"list_item","d":6,"p":{"lines":[7,8]},"v":"简介：","c":[{"t":"paragraph","d":8,"p":{"lines":[8,11]},"v":"&quot;把 B站视频生成 Markdown 文件放到 Github 并通过标签关联视频<br>\n所有视频链接都放到 N+1 个 .md 文件内， N 个 tag  + 1 个月份的 md 文件<br>\n方便检索&quot;"}]}]},{"t":"list_item","d":4,"p":{"lines":[12,13]},"v":"<a href=\"https://www.bilibili.com/video/BV1Fr4y1y7eK\">把Markdown文件转化为思维导图</a>","c":[{"t":"list_item","d":6,"p":{"lines":[13,14]},"v":"去主标签查看笔记/注释：<a href=\"../markmap/编程开发.html\">编程开发</a>"},{"t":"list_item","d":6,"p":{"lines":[14,15]},"v":"时长：807 秒"},{"t":"list_item","d":6,"p":{"lines":[15,16]},"v":"日期：<a href=\"../markmap/202111.html\">2021-11-08</a>"},{"t":"list_item","d":6,"p":{"lines":[16,17]},"v":"标签：编程开发,计算机,linux,shell,markdown,思维导图,vim"},{"t":"list_item","d":6,"p":{"lines":[17,18]},"v":"<a href=\"http://i1.hdslb.com/bfs/archive/729eaac4096ce826455d15ad252413f021570740.jpg\">封面</a>"},{"t":"list_item","d":6,"p":{"lines":[18,19]},"v":"简介：","c":[{"t":"paragraph","d":8,"p":{"lines":[19,20]},"v":"&quot;只要你愿意想象，自由的 Linux 总是能给你惊喜！&quot;"}]}]},{"t":"list_item","d":4,"p":{"lines":[21,22]},"v":"<a href=\"https://www.bilibili.com/video/BV1eL411u7vz\">Vim 插件：Markdown 文件预览</a>","c":[{"t":"list_item","d":6,"p":{"lines":[22,23]},"v":"去主标签查看笔记/注释：<a href=\"../markmap/编程开发.html\">编程开发</a>"},{"t":"list_item","d":6,"p":{"lines":[23,24]},"v":"时长：600 秒"},{"t":"list_item","d":6,"p":{"lines":[24,25]},"v":"日期：<a href=\"../markmap/202111.html\">2021-11-07</a>"},{"t":"list_item","d":6,"p":{"lines":[25,26]},"v":"标签：编程开发,计算机,linux,vim,markdown,插件,代码美化"},{"t":"list_item","d":6,"p":{"lines":[26,27]},"v":"<a href=\"http://i0.hdslb.com/bfs/archive/27227c78ab049e9b71fd3d8708cef007f2427d24.jpg\">封面</a>"}]}]})</script>
+</body>
+</html>

@@ -3,9 +3,15 @@
         - 去主标签查看笔记/注释：[编程开发](../markmap/编程开发.html)
         - 时长：1316 秒
         - 日期：[2021-11-03](../markmap/202111.html)
-        - 标签：编程开发,c语言,c++,java,计算机,Linux,Shell,Vim,Nvim,Vim插件
+        - 标签：编程开发,c语言,c++,java,计算机,linux,shell,vim,nvim,vim插件
         - [封面](http://i0.hdslb.com/bfs/archive/ff285795baf42eba3778ddbfec3bb55dffddddf0.jpg)
         - 简介：
             > "vimrc 下载和解释： https://github.com/LeisureLinux/VimPlugins
 看完这个你不用再看其他讲 Vim 插件的视频了。"
 
+    - [Linux 下的 Java SDK环境设置](https://www.bilibili.com/video/BV1UP4y1b7To)
+        - 去主标签查看笔记/注释：[linux](../markmap/linux.html)
+        - 时长：335 秒
+        - 日期：[2021-10-03](../markmap/202110.html)
+        - 标签：linux,教程,操作系统,打卡挑战,java,jdk
+        - [封面](http://i0.hdslb.com/bfs/archive/231ba56ecfb4353d201d0fc94338bdd167539313.jpg)

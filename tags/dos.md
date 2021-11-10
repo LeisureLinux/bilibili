@@ -1,0 +1,7 @@
+- dos ([返回上层](../))
+    - [用Vim 的 Vinarise 插件编辑二进制文件，回到 Pctool 的时代](https://www.bilibili.com/video/BV1w341187FL)
+        - 去主标签查看笔记/注释：[编程开发](../markmap/编程开发.html)
+        - 时长：148 秒
+        - 日期：[2021-11-06](../markmap/202111.html)
+        - 标签：编程开发,计算机,linux,shell,vim,nvim,dos
+        - [封面](http://i1.hdslb.com/bfs/archive/b4e2bf2fc1bbf98d5d359e7dfd64a3620bb97db1.jpg)

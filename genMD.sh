@@ -28,6 +28,7 @@ genMarkmap() {
 		$markmap $f -o markmap/$b.html
 		echo "- [$b](markmap/$b.html)" >>$MD_INDEX
 	done
+	# Will manually generate the homepage
 	$markmap $MD_INDEX -o index.html
 }
 
@@ -50,6 +51,7 @@ for row in $(cat "bilibili.json" | jq -r '.|@base64'); do
 	HTML_MON="markmap/${MON}.html"
 	[ ! -s "$MD_MON" ] && echo "- $MONDASH" >$MD_MON
 	TAGS=$(_jq '.tag')
+	TAGS=$(echo $TAGS | tr '[A-Z]' '[a-z]')
 	FIRST_TAG=$(echo $TAGS | cut -d',' -f1)
 	MD_FIRST="tags/${FIRST_TAG}.md"
 	HTML_FIRST="markmap/${FIRST_TAG}.html"

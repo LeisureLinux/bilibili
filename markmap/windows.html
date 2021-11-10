@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Markmap</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.1.6/dist/style.min.css">
+</head>
+<body>
+<svg id="mindmap"></svg>
+<script src="https://cdn.jsdelivr.net/npm/d3@6.6.0"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.2.6"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.1.6/dist/index.umd.min.js"></script><script>(r => {
+          setTimeout(r);
+        })(() => {
+  const {
+    markmap,
+    mm
+  } = window;
+  const toolbar = new markmap.Toolbar();
+  toolbar.attach(mm);
+  const el = toolbar.render();
+  el.setAttribute('style', 'position:absolute;bottom:20px;right:20px');
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, data) => {
+        const {
+          Markmap
+        } = getMarkmap();
+        window.mm = Markmap.create('svg#mindmap', getOptions == null ? void 0 : getOptions(), data);
+      })(() => window.markmap,null,{"t":"list_item","d":2,"p":{"lines":[0,1]},"v":"windows (<a href=\"../\">返回上层</a>)","c":[{"t":"list_item","d":4,"p":{"lines":[1,2]},"v":"<a href=\"https://www.bilibili.com/video/BV1vR4y1E713\">Remmina的自动化编译脚本，对 NLA 的支持以及 glade 简介</a>","c":[{"t":"list_item","d":6,"p":{"lines":[2,3]},"v":"去主标签查看笔记/注释：<a href=\"../markmap/编程开发.html\">编程开发</a>"},{"t":"list_item","d":6,"p":{"lines":[3,4]},"v":"时长：582 秒"},{"t":"list_item","d":6,"p":{"lines":[4,5]},"v":"日期：<a href=\"../markmap/202111.html\">2021-11-07</a>"},{"t":"list_item","d":6,"p":{"lines":[5,6]},"v":"标签：编程开发,计算机,linux,shell,windows,远程连接,nla,安全认证,计算机安全,gtk编程"},{"t":"list_item","d":6,"p":{"lines":[6,7]},"v":"<a href=\"http://i1.hdslb.com/bfs/archive/db2297c189fcdd3fb256e346a241f71a7f0e64cf.jpg\">封面</a>"}]},{"t":"list_item","d":4,"p":{"lines":[7,8]},"v":"<a href=\"https://www.bilibili.com/video/BV1Fq4y1k7yk\">WSL 无论是1还是2都是垃圾</a>","c":[{"t":"list_item","d":6,"p":{"lines":[8,9]},"v":"去主标签查看笔记/注释：<a href=\"../markmap/计算机.html\">计算机</a>"},{"t":"list_item","d":6,"p":{"lines":[9,10]},"v":"时长：193 秒"},{"t":"list_item","d":6,"p":{"lines":[10,11]},"v":"日期：<a href=\"../markmap/202111.html\">2021-11-06</a>"},{"t":"list_item","d":6,"p":{"lines":[11,12]},"v":"标签：计算机,linux,shell,windows,wsl"},{"t":"list_item","d":6,"p":{"lines":[12,13]},"v":"<a href=\"http://i1.hdslb.com/bfs/archive/e251104dcc334620a2dc9fee52911db7a3a322fb.jpg\">封面</a>"}]},{"t":"list_item","d":4,"p":{"lines":[13,14]},"v":"<a href=\"https://www.bilibili.com/video/BV17r4y1y7cj\">MinGW 和 MinGW-w64，Windows 上的 C语言编译器</a>","c":[{"t":"list_item","d":6,"p":{"lines":[14,15]},"v":"去主标签查看笔记/注释：<a href=\"../markmap/编程开发.html\">编程开发</a>"},{"t":"list_item","d":6,"p":{"lines":[15,16]},"v":"时长：251 秒"},{"t":"list_item","d":6,"p":{"lines":[16,17]},"v":"日期：<a href=\"../markmap/202111.html\">2021-11-06</a>"},{"t":"list_item","d":6,"p":{"lines":[17,18]},"v":"标签：编程开发,c语言,c++,计算机,linux,shell,windows,cygwin"},{"t":"list_item","d":6,"p":{"lines":[18,19]},"v":"<a href=\"http://i0.hdslb.com/bfs/archive/d0ddd6e865e3d7c02723f4a846113f6c349830e3.jpg\">封面</a>"}]},{"t":"list_item","d":4,"p":{"lines":[19,20]},"v":"<a href=\"https://www.bilibili.com/video/BV1jv411M7SW\">Windows 上的包管理工具 MSYS2</a>","c":[{"t":"list_item","d":6,"p":{"lines":[20,21]},"v":"去主标签查看笔记/注释：<a href=\"../markmap/计算机.html\">计算机</a>"},{"t":"list_item","d":6,"p":{"lines":[21,22]},"v":"时长：312 秒"},{"t":"list_item","d":6,"p":{"lines":[22,23]},"v":"日期：<a href=\"../markmap/202111.html\">2021-11-06</a>"},{"t":"list_item","d":6,"p":{"lines":[23,24]},"v":"标签：计算机,linux,windows,软件包管理"},{"t":"list_item","d":6,"p":{"lines":[24,25]},"v":"<a href=\"http://i0.hdslb.com/bfs/archive/d90af6eff99a1b3ca80c700fe36fb7dc5ac0b922.jpg\">封面</a>"}]},{"t":"list_item","d":4,"p":{"lines":[25,26]},"v":"<a href=\"https://www.bilibili.com/video/BV19g411K7t9\">微软的 ReFS 文件系统以及Win7和微软何时消灭 NTFS？</a>","c":[{"t":"list_item","d":6,"p":{"lines":[26,27]},"v":"去主标签查看笔记/注释：<a href=\"../markmap/计算机.html\">计算机</a>"},{"t":"list_item","d":6,"p":{"lines":[27,28]},"v":"时长：459 秒"},{"t":"list_item","d":6,"p":{"lines":[28,29]},"v":"日期：<a href=\"../markmap/202111.html\">2021-11-06</a>"},{"t":"list_item","d":6,"p":{"lines":[29,30]},"v":"标签：计算机,linux,shell,windows,文件系统,ntfs,操作系统"},{"t":"list_item","d":6,"p":{"lines":[30,31]},"v":"<a href=\"http://i1.hdslb.com/bfs/archive/e6f7b40dade7922fc24d41c627257633d636b757.jpg\">封面</a>"}]},{"t":"list_item","d":4,"p":{"lines":[31,32]},"v":"<a href=\"https://www.bilibili.com/video/BV1444y1e7uL\">Windows 上想用Linux类环境的可以考虑下Cygwin</a>","c":[{"t":"list_item","d":6,"p":{"lines":[32,33]},"v":"去主标签查看笔记/注释：<a href=\"../markmap/计算机.html\">计算机</a>"},{"t":"list_item","d":6,"p":{"lines":[33,34]},"v":"时长：184 秒"},{"t":"list_item","d":6,"p":{"lines":[34,35]},"v":"日期：<a href=\"../markmap/202111.html\">2021-11-06</a>"},{"t":"list_item","d":6,"p":{"lines":[35,36]},"v":"标签：计算机,linux,shell,windows,cygwin"},{"t":"list_item","d":6,"p":{"lines":[36,37]},"v":"<a href=\"http://i2.hdslb.com/bfs/archive/45f9e2a0a5784c8f41b15255ba308c07e9a90d5f.jpg\">封面</a>"}]},{"t":"list_item","d":4,"p":{"lines":[37,38]},"v":"<a href=\"https://www.bilibili.com/video/BV1gv411g7Lw\">Windows11的发布以及在中国的前途展望</a>","c":[{"t":"list_item","d":6,"p":{"lines":[38,39]},"v":"去主标签查看笔记/注释：<a href=\"../markmap/linux.html\">linux</a>"},{"t":"list_item","d":6,"p":{"lines":[39,40]},"v":"时长：1366 秒"},{"t":"list_item","d":6,"p":{"lines":[40,41]},"v":"日期：<a href=\"../markmap/202110.html\">2021-10-06</a>"},{"t":"list_item","d":6,"p":{"lines":[41,42]},"v":"标签：linux,打卡挑战,windows,微软,tpm,tcm,国产化,芯片"},{"t":"list_item","d":6,"p":{"lines":[42,43]},"v":"<a href=\"http://i2.hdslb.com/bfs/archive/687f964788f05fd84fb21cf95fbd3e493ea5b00c.jpg\">封面</a>"},{"t":"list_item","d":6,"p":{"lines":[43,44]},"v":"简介：","c":[{"t":"paragraph","d":8,"p":{"lines":[44,45]},"v":"&quot;Windows 11 强制要求 TPM 芯片会丢失中国的市场，国人现在开始应该加强 Linux 桌面的宣传和学习&quot;"}]}]}]})</script>
+</body>
+</html>

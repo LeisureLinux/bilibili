@@ -1,7 +1,0 @@
-- UEFI ([返回上层](../))
-    - [计算机在交给操作系统之前所做的事情，UEFI 和 BIOS  的故事](https://www.bilibili.com/video/BV1kR4y177GX)
-        - 去主标签查看笔记/注释：[计算机](../markmap/计算机.html)
-        - 时长：1544 秒
-        - 日期：[2021-10-24](../markmap/202110.html)
-        - 标签：计算机,Linux,UEFI,BIOS
-        - [封面](http://i2.hdslb.com/bfs/archive/5280f5bcc0ea4baea189885e074f988650c21c80.jpg)
