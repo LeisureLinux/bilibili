@@ -95,5 +95,7 @@ done
 #
 genMarkmap
 
+git add tags/*.md
+git add markmap/*.html
 git commit -a -m "$(date +\"%Y-%m-%d\")"
 git push

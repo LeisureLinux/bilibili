@@ -1,0 +1,7 @@
+- Terminal ([返回上层](../))
+    - [VT220-Terminal 的历史以及 TERM 变量](https://www.bilibili.com/video/BV1nq4y1k7tG)
+        - 去主标签查看笔记/注释：[计算机](../tags/计算机.md)
+        - 时长：213 秒
+        - 日期：[2021-11-06](../month/202111.md)
+        - 标签：计算机,Linux,Shell,操作系统,Terminal
+        - [封面](http://i0.hdslb.com/bfs/archive/7f2e72581b7c21a58cd8f24224716c930763b7d8.jpg)

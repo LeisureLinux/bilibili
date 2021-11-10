@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Markmap</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.1.6/dist/style.min.css">
+</head>
+<body>
+<svg id="mindmap"></svg>
+<script src="https://cdn.jsdelivr.net/npm/d3@6.6.0"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.2.6"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.1.6/dist/index.umd.min.js"></script><script>(r => {
+          setTimeout(r);
+        })(() => {
+  const {
+    markmap,
+    mm
+  } = window;
+  const toolbar = new markmap.Toolbar();
+  toolbar.attach(mm);
+  const el = toolbar.render();
+  el.setAttribute('style', 'position:absolute;bottom:20px;right:20px');
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, data) => {
+        const {
+          Markmap
+        } = getMarkmap();
+        window.mm = Markmap.create('svg#mindmap', getOptions == null ? void 0 : getOptions(), data);
+      })(() => window.markmap,null,{"t":"list_item","d":2,"p":{"lines":[0,1]},"v":"AWS (<a href=\"../\">返回上层</a>)","c":[{"t":"list_item","d":4,"p":{"lines":[1,2]},"v":"<a href=\"https://www.bilibili.com/video/BV15u411Z7dg\">AWS EC2 &amp; Lightsail 介绍（VPS）</a>","c":[{"t":"list_item","d":6,"p":{"lines":[2,3]},"v":"去主标签查看笔记/注释：<a href=\"../tags/Linux.md\">Linux</a>"},{"t":"list_item","d":6,"p":{"lines":[3,4]},"v":"时长：572 秒"},{"t":"list_item","d":6,"p":{"lines":[4,5]},"v":"日期：<a href=\"../month/202110.md\">2021-10-07</a>"},{"t":"list_item","d":6,"p":{"lines":[5,6]},"v":"标签：Linux,打卡挑战,Shell,命令行工具,操作系统,AWS,VPS,Lightsail,Cloud,阿里云"},{"t":"list_item","d":6,"p":{"lines":[6,7]},"v":"<a href=\"http://i0.hdslb.com/bfs/archive/2bfd9ae18dadfe06fa7e48773896cf39614a80c2.jpg\">封面</a>"}]},{"t":"list_item","d":4,"p":{"lines":[7,8]},"v":"<a href=\"https://www.bilibili.com/video/BV1nQ4y167L4\">Linux入门到精通-终极脚本示例</a>","c":[{"t":"list_item","d":6,"p":{"lines":[8,9]},"v":"去主标签查看笔记/注释：<a href=\"../tags/Linux.md\">Linux</a>"},{"t":"list_item","d":6,"p":{"lines":[9,10]},"v":"时长：1457 秒"},{"t":"list_item","d":6,"p":{"lines":[10,11]},"v":"日期：<a href=\"../month/202110.md\">2021-10-03</a>"},{"t":"list_item","d":6,"p":{"lines":[11,12]},"v":"标签：Linux,教程,操作系统,打卡挑战,Shell,Bash,CURL,JQ,GoDaddy,AWS"},{"t":"list_item","d":6,"p":{"lines":[12,13]},"v":"<a href=\"http://i2.hdslb.com/bfs/archive/2fed8af0be085f5f56b4dfa5c1c18d13f8de9d37.jpg\">封面</a>"},{"t":"list_item","d":6,"p":{"lines":[13,14]},"v":"简介：","c":[{"t":"paragraph","d":8,"p":{"lines":[14,18]},"v":"&quot;jq/curl<br>\ngodaddy<br>\naws-cli<br>\n各种组合在一起命令行控制亚马逊服务器，分配新的 IP 地址，并重新注册 DNS。&quot;"}]}]}]})</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Markmap</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.1.6/dist/style.min.css">
+</head>
+<body>
+<svg id="mindmap"></svg>
+<script src="https://cdn.jsdelivr.net/npm/d3@6.6.0"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.2.6"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.1.6/dist/index.umd.min.js"></script><script>(r => {
+          setTimeout(r);
+        })(() => {
+  const {
+    markmap,
+    mm
+  } = window;
+  const toolbar = new markmap.Toolbar();
+  toolbar.attach(mm);
+  const el = toolbar.render();
+  el.setAttribute('style', 'position:absolute;bottom:20px;right:20px');
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, data) => {
+        const {
+          Markmap
+        } = getMarkmap();
+        window.mm = Markmap.create('svg#mindmap', getOptions == null ? void 0 : getOptions(), data);
+      })(() => window.markmap,null,{"t":"list_item","d":2,"p":{"lines":[0,1]},"v":"职场 (<a href=\"../\">返回上层</a>)","c":[{"t":"list_item","d":4,"p":{"lines":[1,2]},"v":"<a href=\"https://www.bilibili.com/video/BV1nb4y1h7Ce\">推荐一本书《时间力》，掌控自己的美好人生</a>","c":[{"t":"list_item","d":6,"p":{"lines":[2,3]},"v":"去主标签查看笔记/注释：<a href=\"../tags/创业.md\">创业</a>"},{"t":"list_item","d":6,"p":{"lines":[3,4]},"v":"时长：214 秒"},{"t":"list_item","d":6,"p":{"lines":[4,5]},"v":"日期：<a href=\"../month/202110.md\">2021-10-21</a>"},{"t":"list_item","d":6,"p":{"lines":[5,6]},"v":"标签：创业,时间管理,励志,职场,读书分享,Linux"},{"t":"list_item","d":6,"p":{"lines":[6,7]},"v":"<a href=\"http://i1.hdslb.com/bfs/archive/b01dc82edc3bc34148630976c58587427aab90fe.jpg\">封面</a>"},{"t":"list_item","d":6,"p":{"lines":[7,8]},"v":"简介：","c":[{"t":"paragraph","d":8,"p":{"lines":[8,9]},"v":"&quot;掌控时间管理的秘密&quot;"}]}]},{"t":"list_item","d":4,"p":{"lines":[10,11]},"v":"<a href=\"https://www.bilibili.com/video/BV1RT4y1o7LA\">时间管理和二八定律以及为自己快乐工作</a>","c":[{"t":"list_item","d":6,"p":{"lines":[11,12]},"v":"去主标签查看笔记/注释：<a href=\"../tags/打卡挑战.md\">打卡挑战</a>"},{"t":"list_item","d":6,"p":{"lines":[12,13]},"v":"时长：274 秒"},{"t":"list_item","d":6,"p":{"lines":[13,14]},"v":"日期：<a href=\"../month/202110.md\">2021-10-19</a>"},{"t":"list_item","d":6,"p":{"lines":[14,15]},"v":"标签：打卡挑战,职业,时间管理,励志,职场,Linux"},{"t":"list_item","d":6,"p":{"lines":[15,16]},"v":"<a href=\"http://i0.hdslb.com/bfs/archive/f31abaaaf51ce0770912323d8efecba61a71861e.jpg\">封面</a>"},{"t":"list_item","d":6,"p":{"lines":[16,17]},"v":"简介：","c":[{"t":"paragraph","d":8,"p":{"lines":[17,18]},"v":"&quot;-&quot;"}]}]}]})</script>
+</body>
+</html>

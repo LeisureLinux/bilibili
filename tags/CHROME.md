@@ -1,0 +1,7 @@
+- CHROME ([返回上层](../))
+    - [维基百科阅读器，浏览器插件 Wikiwand](https://www.bilibili.com/video/BV1if4y177RX)
+        - 去主标签查看笔记/注释：[Linux](../tags/Linux.md)
+        - 时长：486 秒
+        - 日期：[2021-10-11](../month/202110.md)
+        - 标签：Linux,打卡挑战,维基百科,插件,学习,CHROME,浏览器
+        - [封面](http://i1.hdslb.com/bfs/archive/8a8dd6fab1b64d885748b995feaf14d8c0aef8d7.jpg)

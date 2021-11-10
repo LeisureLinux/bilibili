@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Markmap</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.1.6/dist/style.min.css">
+</head>
+<body>
+<svg id="mindmap"></svg>
+<script src="https://cdn.jsdelivr.net/npm/d3@6.6.0"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.2.6"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.1.6/dist/index.umd.min.js"></script><script>(r => {
+          setTimeout(r);
+        })(() => {
+  const {
+    markmap,
+    mm
+  } = window;
+  const toolbar = new markmap.Toolbar();
+  toolbar.attach(mm);
+  const el = toolbar.render();
+  el.setAttribute('style', 'position:absolute;bottom:20px;right:20px');
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, data) => {
+        const {
+          Markmap
+        } = getMarkmap();
+        window.mm = Markmap.create('svg#mindmap', getOptions == null ? void 0 : getOptions(), data);
+      })(() => window.markmap,null,{"t":"list_item","d":2,"p":{"lines":[0,1]},"v":"Linux桌面 (<a href=\"../\">返回上层</a>)","c":[{"t":"list_item","d":4,"p":{"lines":[1,2]},"v":"<a href=\"https://www.bilibili.com/video/BV1bQ4y1D7Yu\">深入理解byobu，修改 shell</a>","c":[{"t":"list_item","d":6,"p":{"lines":[2,3]},"v":"去主标签查看笔记/注释：<a href=\"../tags/Linux.md\">Linux</a>"},{"t":"list_item","d":6,"p":{"lines":[3,4]},"v":"时长：898 秒"},{"t":"list_item","d":6,"p":{"lines":[4,5]},"v":"日期：<a href=\"../month/202110.md\">2021-10-11</a>"},{"t":"list_item","d":6,"p":{"lines":[5,6]},"v":"标签：Linux,计算机技术,Linux桌面,Shell,命令行,开发工具"},{"t":"list_item","d":6,"p":{"lines":[6,7]},"v":"<a href=\"http://i1.hdslb.com/bfs/archive/822311a1d64f5e0a6e36aaa6132f8aa0fae059d9.jpg\">封面</a>"},{"t":"list_item","d":6,"p":{"lines":[7,8]},"v":"简介：","c":[{"t":"paragraph","d":8,"p":{"lines":[8,9]},"v":"&quot;byobu 终端工具应该算是大杀器，学习深入了解这个大杀器还是很有帮助的。&quot;"}]}]},{"t":"list_item","d":4,"p":{"lines":[10,11]},"v":"<a href=\"https://www.bilibili.com/video/BV17T4y1o7Mx\">finger-chfn-gpasswd用户信息和组信息的修改</a>","c":[{"t":"list_item","d":6,"p":{"lines":[11,12]},"v":"去主标签查看笔记/注释：<a href=\"../tags/Linux.md\">Linux</a>"},{"t":"list_item","d":6,"p":{"lines":[12,13]},"v":"时长：924 秒"},{"t":"list_item","d":6,"p":{"lines":[13,14]},"v":"日期：<a href=\"../month/202110.md\">2021-10-10</a>"},{"t":"list_item","d":6,"p":{"lines":[14,15]},"v":"标签：Linux,打卡挑战,计算机技术,Linux桌面,Shell,命令行"},{"t":"list_item","d":6,"p":{"lines":[15,16]},"v":"<a href=\"http://i2.hdslb.com/bfs/archive/5bd971185e172bd42eb8125e02b71c7be739b496.jpg\">封面</a>"}]},{"t":"list_item","d":4,"p":{"lines":[16,17]},"v":"<a href=\"https://www.bilibili.com/video/BV1Wf4y1g7Ww\">屏幕直播利器-screenkey &amp; gromit-mpx</a>","c":[{"t":"list_item","d":6,"p":{"lines":[17,18]},"v":"去主标签查看笔记/注释：<a href=\"../tags/Linux.md\">Linux</a>"},{"t":"list_item","d":6,"p":{"lines":[18,19]},"v":"时长：625 秒"},{"t":"list_item","d":6,"p":{"lines":[19,20]},"v":"日期：<a href=\"../month/202110.md\">2021-10-10</a>"},{"t":"list_item","d":6,"p":{"lines":[20,21]},"v":"标签：Linux,打卡挑战,计算机技术,Linux桌面,录屏,教程,直播录屏,数码"},{"t":"list_item","d":6,"p":{"lines":[21,22]},"v":"<a href=\"http://i0.hdslb.com/bfs/archive/c778de1bd597dd8dcaf1dc54b5c088e508f17429.jpg\">封面</a>"},{"t":"list_item","d":6,"p":{"lines":[22,23]},"v":"简介：","c":[{"t":"paragraph","d":8,"p":{"lines":[23,26]},"v":"&quot;直播录屏，高大上的武器！<br>\n只有 Linux 桌面才可以拥有！<br>\n免费！&quot;"}]}]},{"t":"list_item","d":4,"p":{"lines":[27,28]},"v":"<a href=\"https://www.bilibili.com/video/BV11L411s7oQ\">介绍网站 FOSSMINT 以及本地搜索工具 catfish</a>","c":[{"t":"list_item","d":6,"p":{"lines":[28,29]},"v":"去主标签查看笔记/注释：<a href=\"../tags/Linux.md\">Linux</a>"},{"t":"list_item","d":6,"p":{"lines":[29,30]},"v":"时长：1118 秒"},{"t":"list_item","d":6,"p":{"lines":[30,31]},"v":"日期：<a href=\"../month/202110.md\">2021-10-10</a>"},{"t":"list_item","d":6,"p":{"lines":[31,32]},"v":"标签：Linux,打卡挑战,操作系统,计算机技术,Ubuntu,Linux桌面"},{"t":"list_item","d":6,"p":{"lines":[32,33]},"v":"<a href=\"http://i1.hdslb.com/bfs/archive/e6db286be99982333dd41dd124907b04253d85e7.jpg\">封面</a>"}]},{"t":"list_item","d":4,"p":{"lines":[33,34]},"v":"<a href=\"https://www.bilibili.com/video/BV1pU4y1w73e\">Ubuntu 的键盘快捷键以及定制&amp;Chrome插件</a>","c":[{"t":"list_item","d":6,"p":{"lines":[34,35]},"v":"去主标签查看笔记/注释：<a href=\"../tags/让学习变得更简单.md\">让学习变得更简单</a>"},{"t":"list_item","d":6,"p":{"lines":[35,36]},"v":"时长：1049 秒"},{"t":"list_item","d":6,"p":{"lines":[36,37]},"v":"日期：<a href=\"../month/202110.md\">2021-10-09</a>"},{"t":"list_item","d":6,"p":{"lines":[37,38]},"v":"标签：让学习变得更简单,编程开发,Linux,打卡挑战,操作系统,计算机技术,Ubuntu,Linux桌面"},{"t":"list_item","d":6,"p":{"lines":[38,39]},"v":"<a href=\"http://i0.hdslb.com/bfs/archive/c2c8d6d626115e9b7a7dbfffa07f5e059f372f59.jpg\">封面</a>"}]}]})</script>
+</body>
+</html>

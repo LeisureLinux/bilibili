@@ -1,0 +1,7 @@
+- Chrome ([返回上层](../))
+    - [把 PHP 程序打包为桌面应用-PHPDesktop 的 Linux 版本介绍](https://www.bilibili.com/video/BV11R4y1J7c3)
+        - 去主标签查看笔记/注释：[编程开发](../tags/编程开发.md)
+        - 时长：687 秒
+        - 日期：[2021-10-26](../month/202110.md)
+        - 标签：编程开发,计算机,Linux,Web开发,Chrome,PHP
+        - [封面](http://i0.hdslb.com/bfs/archive/d41d28b8f687914b5ab7b376a5c9c0ea67aa926a.jpg)

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Markmap</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.1.6/dist/style.min.css">
+</head>
+<body>
+<svg id="mindmap"></svg>
+<script src="https://cdn.jsdelivr.net/npm/d3@6.6.0"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.2.6"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.1.6/dist/index.umd.min.js"></script><script>(r => {
+          setTimeout(r);
+        })(() => {
+  const {
+    markmap,
+    mm
+  } = window;
+  const toolbar = new markmap.Toolbar();
+  toolbar.attach(mm);
+  const el = toolbar.render();
+  el.setAttribute('style', 'position:absolute;bottom:20px;right:20px');
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, data) => {
+        const {
+          Markmap
+        } = getMarkmap();
+        window.mm = Markmap.create('svg#mindmap', getOptions == null ? void 0 : getOptions(), data);
+      })(() => window.markmap,null,{"t":"list_item","d":2,"p":{"lines":[0,1]},"v":"教育 (<a href=\"../\">返回上层</a>)","c":[{"t":"list_item","d":4,"p":{"lines":[1,2]},"v":"<a href=\"https://www.bilibili.com/video/BV1yU4y157HY\">免费的 Chrome 浏览器录屏插件 Screenity 介绍</a>","c":[{"t":"list_item","d":6,"p":{"lines":[2,3]},"v":"去主标签查看笔记/注释：<a href=\"../tags/玩转后期.md\">玩转后期</a>"},{"t":"list_item","d":6,"p":{"lines":[3,4]},"v":"时长：63 秒"},{"t":"list_item","d":6,"p":{"lines":[4,5]},"v":"日期：<a href=\"../month/202106.md\">2021-06-14</a>"},{"t":"list_item","d":6,"p":{"lines":[5,6]},"v":"标签：玩转后期,电脑,软件,教程,学习,自制,设计,教育,视频教程"},{"t":"list_item","d":6,"p":{"lines":[6,7]},"v":"<a href=\"http://i1.hdslb.com/bfs/archive/e3e6b256bf71143adad29217ae425327fd43f0c4.jpg\">封面</a>"}]}]})</script>
+</body>
+</html>

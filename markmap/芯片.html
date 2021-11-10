@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Markmap</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.1.6/dist/style.min.css">
+</head>
+<body>
+<svg id="mindmap"></svg>
+<script src="https://cdn.jsdelivr.net/npm/d3@6.6.0"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.2.6"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.1.6/dist/index.umd.min.js"></script><script>(r => {
+          setTimeout(r);
+        })(() => {
+  const {
+    markmap,
+    mm
+  } = window;
+  const toolbar = new markmap.Toolbar();
+  toolbar.attach(mm);
+  const el = toolbar.render();
+  el.setAttribute('style', 'position:absolute;bottom:20px;right:20px');
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, data) => {
+        const {
+          Markmap
+        } = getMarkmap();
+        window.mm = Markmap.create('svg#mindmap', getOptions == null ? void 0 : getOptions(), data);
+      })(() => window.markmap,null,{"t":"list_item","d":2,"p":{"lines":[0,1]},"v":"芯片 (<a href=\"../\">返回上层</a>)","c":[{"t":"list_item","d":4,"p":{"lines":[1,2]},"v":"<a href=\"https://www.bilibili.com/video/BV1gv411g7Lw\">Windows11的发布以及在中国的前途展望</a>","c":[{"t":"list_item","d":6,"p":{"lines":[2,3]},"v":"去主标签查看笔记/注释：<a href=\"../tags/Linux.md\">Linux</a>"},{"t":"list_item","d":6,"p":{"lines":[3,4]},"v":"时长：1366 秒"},{"t":"list_item","d":6,"p":{"lines":[4,5]},"v":"日期：<a href=\"../month/202110.md\">2021-10-06</a>"},{"t":"list_item","d":6,"p":{"lines":[5,6]},"v":"标签：Linux,打卡挑战,WINDOWS,微软,TPM,TCM,国产化,芯片"},{"t":"list_item","d":6,"p":{"lines":[6,7]},"v":"<a href=\"http://i2.hdslb.com/bfs/archive/687f964788f05fd84fb21cf95fbd3e493ea5b00c.jpg\">封面</a>"},{"t":"list_item","d":6,"p":{"lines":[7,8]},"v":"简介：","c":[{"t":"paragraph","d":8,"p":{"lines":[8,9]},"v":"&quot;Windows 11 强制要求 TPM 芯片会丢失中国的市场，国人现在开始应该加强 Linux 桌面的宣传和学习&quot;"}]}]}]})</script>
+</body>
+</html>

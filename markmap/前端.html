@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Markmap</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.1.6/dist/style.min.css">
+</head>
+<body>
+<svg id="mindmap"></svg>
+<script src="https://cdn.jsdelivr.net/npm/d3@6.6.0"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.2.6"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.1.6/dist/index.umd.min.js"></script><script>(r => {
+          setTimeout(r);
+        })(() => {
+  const {
+    markmap,
+    mm
+  } = window;
+  const toolbar = new markmap.Toolbar();
+  toolbar.attach(mm);
+  const el = toolbar.render();
+  el.setAttribute('style', 'position:absolute;bottom:20px;right:20px');
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, data) => {
+        const {
+          Markmap
+        } = getMarkmap();
+        window.mm = Markmap.create('svg#mindmap', getOptions == null ? void 0 : getOptions(), data);
+      })(() => window.markmap,null,{"t":"list_item","d":2,"p":{"lines":[0,1]},"v":"前端 (<a href=\"../\">返回上层</a>)","c":[{"t":"list_item","d":4,"p":{"lines":[1,2]},"v":"<a href=\"https://www.bilibili.com/video/BV1CQ4y167HG\">前端，后端，全栈，求职，城市</a>","c":[{"t":"list_item","d":6,"p":{"lines":[2,3]},"v":"去主标签查看笔记/注释：<a href=\"../tags/Linux.md\">Linux</a>"},{"t":"list_item","d":6,"p":{"lines":[3,4]},"v":"时长：1179 秒"},{"t":"list_item","d":6,"p":{"lines":[4,5]},"v":"日期：<a href=\"../month/202110.md\">2021-10-07</a>"},{"t":"list_item","d":6,"p":{"lines":[5,6]},"v":"标签：Linux,打卡挑战,操作系统,职业生涯,求职,计算机技术,前端,后端,开发,全栈"},{"t":"list_item","d":6,"p":{"lines":[6,7]},"v":"<a href=\"http://i0.hdslb.com/bfs/archive/993e272db0d1ffc5e9cc1dda7e3968b4ee19c49a.jpg\">封面</a>"},{"t":"list_item","d":6,"p":{"lines":[7,8]},"v":"简介：","c":[{"t":"paragraph","d":8,"p":{"lines":[8,11]},"v":"&quot;前端和后端都是干嘛的？<br>\n怎么做全栈？<br>\n计算机专业求职去哪个城市比较好？&quot;"}]}]}]})</script>
+</body>
+</html>
