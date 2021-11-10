@@ -1,7 +1,7 @@
 - JDK ([返回上层](../))
     - [Linux 下的 Java SDK环境设置](https://www.bilibili.com/video/BV1UP4y1b7To)
-        - 去主标签查看笔记/注释：[Linux](../tags/Linux.md)
+        - 去主标签查看笔记/注释：[Linux](../markmap/Linux.html)
         - 时长：335 秒
-        - 日期：[2021-10-03](../month/202110.md)
+        - 日期：[2021-10-03](../markmap/202110.html)
         - 标签：Linux,教程,操作系统,打卡挑战,Java,JDK
         - [封面](http://i0.hdslb.com/bfs/archive/231ba56ecfb4353d201d0fc94338bdd167539313.jpg)

@@ -47,29 +47,32 @@ for row in $(cat "bilibili.json" | jq -r '.|@base64'); do
 	MONDASH=$(echo $PTIME | cut -d '-' -f1,2)
 	MON=$(echo $PTIME | cut -d '-' --output-delimiter='' -f1,2 2>/dev/null)
 	MD_MON="month/${MON}.md"
+	HTML_MON="markmap/${MON}.html"
 	[ ! -s "$MD_MON" ] && echo "- $MONDASH" >$MD_MON
 	TAGS=$(_jq '.tag')
 	FIRST_TAG=$(echo $TAGS | cut -d',' -f1)
 	MD_FIRST="tags/${FIRST_TAG}.md"
+	HTML_FIRST="markmap/${FIRST_TAG}.html"
 	[ ! -s "$MD_FIRST" ] && echo "- $FIRST_TAG" >$MD_FIRST
 	# ####
 	# Process Other Tags
 	OTHER_TAGS=""
 	for t in $(echo $TAGS | sed 's#,#\n#g'); do
 		MD_TAG="tags/${t}.md"
+		HTML_TAG="markmap/${t}.html"
 		[ ! -s "$MD_TAG" ] && echo "- $t ([返回上层](../))" >$MD_TAG
 		if [ "$t" == "$FIRST_TAG" ]; then
 			continue
 		fi
-		OTHER_TAGS="$OTHER_TAGS[$t](../$MD_TAG),"
+		OTHER_TAGS="$OTHER_TAGS[$t](../$HTML_TAG),"
 		# if this video already in the tag md file then skip
 		if [ -n "$(grep $BVID $MD_TAG 2>/dev/null)" ]; then
 			continue
 		fi
 		echo "    - [$TITLE]($PREFIX$BVID)
-        - 去主标签查看笔记/注释：[$FIRST_TAG](../$MD_FIRST)
+        - 去主标签查看笔记/注释：[$FIRST_TAG](../$HTML_FIRST)
         - 时长：$DURATION 秒
-        - 日期：[$PTIME](../$MD_MON)
+        - 日期：[$PTIME](../$HTML_MON)
         - 标签：$TAGS
         - [封面]($COVER)" >>$MD_TAG
 		addDesc $MD_TAG
@@ -78,14 +81,14 @@ for row in $(cat "bilibili.json" | jq -r '.|@base64'); do
 	echo "
     - **[$TITLE]($PREFIX$BVID)**
         - 时长：$DURATION 秒
-        - 日期：[$PTIME](../$MD_MON)
+        - 日期：[$PTIME](../$HTML_MON)
         - 其他标签：$OTHER_TAGS
         - [封面]($COVER)" >>$MD_FIRST
 	addDesc $MD_FIRST
 	# Process Month Markdown File
 	echo "
     - [$TITLE]($PREFIX$BVID)
-        - 去主标签查看笔记/注释：[$FIRST_TAG](../$MD_FIRST)
+        - 去主标签查看笔记/注释：[$FIRST_TAG](../$HTML_FIRST)
         - 时长：$DURATION 秒
         - 日期：$PTIME
         - 副标签：$TAGS

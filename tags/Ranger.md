@@ -1,7 +1,7 @@
 - Ranger ([返回上层](../))
     - [类 Vim 界面文件浏览器-Ranger](https://www.bilibili.com/video/BV1p44y1e7BF)
-        - 去主标签查看笔记/注释：[编程开发](../tags/编程开发.md)
+        - 去主标签查看笔记/注释：[编程开发](../markmap/编程开发.html)
         - 时长：608 秒
-        - 日期：[2021-11-06](../month/202111.md)
+        - 日期：[2021-11-06](../markmap/202111.html)
         - 标签：编程开发,计算机,Linux,Shell,Vim,Nvim,Ranger,快捷键
         - [封面](http://i1.hdslb.com/bfs/archive/9445672d388f7424a88ab72d859e7a2ea3389255.jpg)

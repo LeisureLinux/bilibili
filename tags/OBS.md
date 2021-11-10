@@ -1,7 +1,7 @@
 - OBS ([返回上层](../))
     - [如何在 OBS 设置背景音乐](https://www.bilibili.com/video/BV1WR4y1n7Ts)
-        - 去主标签查看笔记/注释：[Linux](../tags/Linux.md)
+        - 去主标签查看笔记/注释：[Linux](../markmap/Linux.html)
         - 时长：110 秒
-        - 日期：[2021-10-01](../month/202110.md)
+        - 日期：[2021-10-01](../markmap/202110.html)
         - 标签：Linux,录屏,音乐,直播,OBS,教程,BGM,学习,录播
         - [封面](http://i1.hdslb.com/bfs/archive/922ef00a948d262470abed576614daa707c3ba34.jpg)

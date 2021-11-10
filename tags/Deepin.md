@@ -1,7 +1,7 @@
 - Deepin ([返回上层](../))
     - [Deepin-深度操作系统简介](https://www.bilibili.com/video/BV1TU4y1c74j)
-        - 去主标签查看笔记/注释：[计算机](../tags/计算机.md)
+        - 去主标签查看笔记/注释：[计算机](../markmap/计算机.html)
         - 时长：446 秒
-        - 日期：[2021-10-26](../month/202110.md)
+        - 日期：[2021-10-26](../markmap/202110.html)
         - 标签：计算机,Linux,Deepin
         - [封面](http://i1.hdslb.com/bfs/archive/ed226495e82af4adb95adf3b1650418f0f56e1fd.jpg)

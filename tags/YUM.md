@@ -1,8 +1,8 @@
 - YUM ([返回上层](../))
     - [Ubuntu 的版本信息，neofetch, FHS，apt&yum 包管理](https://www.bilibili.com/video/BV1ev411g7zP)
-        - 去主标签查看笔记/注释：[Linux](../tags/Linux.md)
+        - 去主标签查看笔记/注释：[Linux](../markmap/Linux.html)
         - 时长：1516 秒
-        - 日期：[2021-10-08](../month/202110.md)
+        - 日期：[2021-10-08](../markmap/202110.html)
         - 标签：Linux,打卡挑战,操作系统,计算机技术,Ubuntu,APT,YUM,软件包管理,阿里云
         - [封面](http://i0.hdslb.com/bfs/archive/99e1e3dd8c28fc9e0590ca75ba5c788cfeb1e7fa.jpg)
         - 简介：

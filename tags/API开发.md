@@ -1,8 +1,8 @@
 - API开发 ([返回上层](../))
     - [Linux 下的下载器 wget-curl-axel](https://www.bilibili.com/video/BV19f4y1E7qJ)
-        - 去主标签查看笔记/注释：[Linux](../tags/Linux.md)
+        - 去主标签查看笔记/注释：[Linux](../markmap/Linux.html)
         - 时长：1524 秒
-        - 日期：[2021-10-01](../month/202110.md)
+        - 日期：[2021-10-01](../markmap/202110.html)
         - 标签：Linux,教程,经验分享,操作系统,命令行工具,Shell,API开发
         - [封面](http://i0.hdslb.com/bfs/archive/fc52148b0fc1a4f724d2ab8998d32853f37b379e.jpg)
         - 简介：

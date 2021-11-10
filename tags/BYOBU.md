@@ -1,7 +1,7 @@
 - BYOBU ([返回上层](../))
     - [终端多路分屏-屏风-Byobu-tmux-screen](https://www.bilibili.com/video/BV15R4y1H76g)
-        - 去主标签查看笔记/注释：[Linux](../tags/Linux.md)
+        - 去主标签查看笔记/注释：[Linux](../markmap/Linux.html)
         - 时长：1116 秒
-        - 日期：[2021-10-04](../month/202110.md)
+        - 日期：[2021-10-04](../markmap/202110.html)
         - 标签：Linux,教程,操作系统,打卡挑战,命令行工具,BYOBU
         - [封面](http://i1.hdslb.com/bfs/archive/6fbc9b6ad44115942dbdf8221198a9c5f6230986.jpg)
