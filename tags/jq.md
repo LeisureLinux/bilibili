@@ -1,7 +1,0 @@
-- jq ([返回上层](../))
-    - [Linux入门到精通-终极脚本示例](https://www.bilibili.com/video/BV1nQ4y167L4)
-        - 去主标签查看笔记/注释：[linux](../markmap/linux.html)
-        - 时长：1457 秒
-        - 日期：[2021-10-03](../markmap/202110.html)
-        - 标签：linux,教程,操作系统,打卡挑战,shell,bash,curl,jq,godaddy,aws
-        - [封面](http://i2.hdslb.com/bfs/archive/2fed8af0be085f5f56b4dfa5c1c18d13f8de9d37.jpg)
