@@ -4,8 +4,10 @@
 # For each video we will generate markdown lines into N TAGS.md files and one YYYYmm.md file
 
 PREFIX="https://www.bilibili.com/video/"
+markmap="node $HOME/node_modules/markmap-cli/bin/cli.js --no-open"
 
 addDesc() {
+	# Add Description Field
 	TAG_FILE=$1
 	if [ -n "$DESC" ]; then
 		# Put 8 space and add a new line
@@ -15,6 +17,21 @@ addDesc() {
 	fi
 }
 
+genMarkmap() {
+	#Generate Markmap HTML
+	echo "Info: 生成 Markmap HTML 文件 ..."
+	MD_INDEX="README.md"
+	echo "## [LeisureLinux B站视频笔记](https://space.bilibili.com/517298151)
+-" >$MD_INDEX
+	for f in tags/*.md; do
+		b=$(basename $f .md)
+		$markmap $f -o markmap/$b.html
+		echo "- [$b](markmap/$b.html)" >>$MD_INDEX
+	done
+	$markmap $MD_INDEX -o index.html
+}
+
+# Main Prog.
 for row in $(cat "bilibili.json" | jq -r '.|@base64'); do
 	_jq() {
 		echo ${row} | base64 --decode | jq -r ${1}
@@ -75,3 +92,8 @@ for row in $(cat "bilibili.json" | jq -r '.|@base64'); do
         - [封面]($COVER)" >>$MD_MON
 	addDesc $MD_MON
 done
+#
+genMarkmap
+
+git commit -a -m "$(date +\"%Y-%m-%d\")"
+git push
