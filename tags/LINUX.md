@@ -91,3 +91,13 @@
             > "lolcat 是一个 cat 但是是一个彩色的 cat 还能加 -a 参数演示动画。
 亲爱的小伙伴，你知道第一个命令里 jq命令的厉害吗？"
 
+
+    - **[Ubuntu 桌面环境下 lolcat 动画演示](https://www.bilibili.com/video/BV1qV41147yb)**
+        - 时长：46 秒
+        - 日期：[2021-06-11](../markmap/202106.html)
+        - 其他标签：[经验分享](../markmap/经验分享.html),[Ubuntu](../markmap/Ubuntu.html),
+        - [封面](http://i2.hdslb.com/bfs/archive/805e9558b9b0292d9c360bb3f616617dcac4b15a.jpg)
+        - 简介：
+            > "lolcat 是一个 cat 但是是一个彩色的 cat 还能加 -a 参数演示动画。
+亲爱的小伙伴，你知道第一个命令里 jq命令的厉害吗？"
+

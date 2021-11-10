@@ -154,3 +154,12 @@
             > "卡内基梅隆两位教授的《计算机系统》这本书蛮好的，强烈推荐。
 另外，  GNU/Linux 命令行工具简介，也简明扼要，值得初学者翻看。"
 
+
+    - **[qmake install & github 发布版本](https://www.bilibili.com/video/BV1jP4y1L7U3)**
+        - 时长：631 秒
+        - 日期：[2021-10-29](../markmap/202110.html)
+        - 其他标签：[python](../markmap/python.html),[计算机](../markmap/计算机.html),[Linux](../markmap/Linux.html),[Qt](../markmap/Qt.html),[git](../markmap/git.html),
+        - [封面](http://i2.hdslb.com/bfs/archive/538baaec64aeb7fd97f16187777c010b0be0b411.jpg)
+        - 简介：
+            > "qmake 文件 增加 make install 功能，github 添加软件库，发行版本，熟练使用 github"
+

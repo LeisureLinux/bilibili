@@ -975,3 +975,395 @@ umask 的作用是什么？
         - 简介：
             > "awk命令的求和以及求平均"
 
+
+    - **[LAMP介绍 php-fpm vs mod-php](https://www.bilibili.com/video/BV1Yb4y1Y75H)**
+        - 时长：1206 秒
+        - 日期：[2021-10-14](../markmap/202110.html)
+        - 其他标签：[打卡挑战](../markmap/打卡挑战.html),[云计算](../markmap/云计算.html),[PHP](../markmap/PHP.html),[视频教程](../markmap/视频教程.html),[WEB](../markmap/WEB.html),[MYSQL](../markmap/MYSQL.html),
+        - [封面](http://i0.hdslb.com/bfs/archive/cb570a15b3266e9a658f34cfaeb3d0e8900250c1.jpg)
+        - 简介：
+            > "LAMP 的 Apache 和 PHP 整合的两种方式： modphp 以及 php-fpm；php-fpm 的两种 listen 方式： socket 和 tcp"
+
+
+    - **[PHP 的 PECL，PEAR 和 Composer 三种仓库](https://www.bilibili.com/video/BV15f4y1g7t7)**
+        - 时长：1760 秒
+        - 日期：[2021-10-14](../markmap/202110.html)
+        - 其他标签：[打卡挑战](../markmap/打卡挑战.html),[云计算](../markmap/云计算.html),[PHP](../markmap/PHP.html),[编程](../markmap/编程.html),[教程](../markmap/教程.html),[视频教程](../markmap/视频教程.html),
+        - [封面](http://i1.hdslb.com/bfs/archive/5e71bed7a952ff5db6658d71c68854e3cb3f56f1.jpg)
+        - 简介：
+            > "PECL, PEAR, Composer 是 PHP 的三大仓库，每一位 PHP 开发人员必知必会。"
+
+
+    - **[php 扩展源码编译安装和软件包安装以及 libvirt-php 扩展介绍](https://www.bilibili.com/video/BV1eQ4y1B7Y4)**
+        - 时长：2056 秒
+        - 日期：[2021-10-14](../markmap/202110.html)
+        - 其他标签：[打卡挑战](../markmap/打卡挑战.html),[虚拟化](../markmap/虚拟化.html),[云计算](../markmap/云计算.html),[虚拟机](../markmap/虚拟机.html),[运维](../markmap/运维.html),[PHP](../markmap/PHP.html),[编程](../markmap/编程.html),[教程](../markmap/教程.html),[视频教程](../markmap/视频教程.html),
+        - [封面](http://i1.hdslb.com/bfs/archive/a86430ebc159c855302b0943f12649b46913fef0.jpg)
+        - 简介：
+            > "本视频首先介绍了查看 php 扩展 extension_dir 的三种方式： php -i , php-config; php -r;
+然后介绍了如何编译和配置 libvirt-php 
+同时又简单介绍了操作系统自带的扩展包的安装，
+最后简单演示了用这个 php 语言扩展来控制虚拟机。"
+
+
+    - **[虚拟化技术的胶水-libvirt-virsh 远程管理虚拟机](https://www.bilibili.com/video/BV1LU4y1F7uQ)**
+        - 时长：2060 秒
+        - 日期：[2021-10-13](../markmap/202110.html)
+        - 其他标签：[打卡挑战](../markmap/打卡挑战.html),[虚拟化](../markmap/虚拟化.html),[科技](../markmap/科技.html),[云计算](../markmap/云计算.html),[虚拟机](../markmap/虚拟机.html),[运维](../markmap/运维.html),
+        - [封面](http://i0.hdslb.com/bfs/archive/cd73a302c36a20f845d1294a22116e95cf33f800.jpg)
+        - 简介：
+            > "本视频介绍了如何设置 libvirtd 相关配置文件，实现客户端远程连接到 libvirtd 管理 Hypervisor 上的虚拟机
+核心命令是 virsh -c qemu+tcp://hostname/system 以及 virsh -c qemu+ssh://user@hostname/system"
+
+
+    - **[维基百科阅读器，浏览器插件 Wikiwand](https://www.bilibili.com/video/BV1if4y177RX)**
+        - 时长：486 秒
+        - 日期：[2021-10-11](../markmap/202110.html)
+        - 其他标签：[打卡挑战](../markmap/打卡挑战.html),[维基百科](../markmap/维基百科.html),[插件](../markmap/插件.html),[学习](../markmap/学习.html),[CHROME](../markmap/CHROME.html),[浏览器](../markmap/浏览器.html),
+        - [封面](http://i1.hdslb.com/bfs/archive/8a8dd6fab1b64d885748b995feaf14d8c0aef8d7.jpg)
+
+    - **[在终端内阅读维基百科：wikipedia2text](https://www.bilibili.com/video/BV1L3411C7Ft)**
+        - 时长：568 秒
+        - 日期：[2021-10-11](../markmap/202110.html)
+        - 其他标签：[FOSS](../markmap/FOSS.html),[打卡挑战](../markmap/打卡挑战.html),[维基百科](../markmap/维基百科.html),
+        - [封面](http://i0.hdslb.com/bfs/archive/8f9d08dcdd5adacf4b2ca23f3ef89d651db2ef76.jpg)
+
+    - **[Unix 哲学](https://www.bilibili.com/video/BV1MU4y1F76r)**
+        - 时长：669 秒
+        - 日期：[2021-10-11](../markmap/202110.html)
+        - 其他标签：[哲学](../markmap/哲学.html),[黑客](../markmap/黑客.html),[Unix](../markmap/Unix.html),[开源运动](../markmap/开源运动.html),[FOSS](../markmap/FOSS.html),
+        - [封面](http://i2.hdslb.com/bfs/archive/546dd95e725de72c9f3a106eecdf4eb1b3bd6ae8.jpg)
+
+    - **[GNU coreutils 包全量解析](https://www.bilibili.com/video/BV1nP4y1t7MZ)**
+        - 时长：660 秒
+        - 日期：[2021-10-11](../markmap/202110.html)
+        - 其他标签：[Shell](../markmap/Shell.html),[命令行](../markmap/命令行.html),
+        - [封面](http://i2.hdslb.com/bfs/archive/214c201090dd6500d4dd1b6b63289b96994616cc.jpg)
+        - 简介：
+            > "其实学习 Linux 的核心命令，这个软件包就已经告诉我们什么叫 核心： core!!!"
+
+
+    - **[awk 的 FS, OFS 以及其他内置变量](https://www.bilibili.com/video/BV1g3411C7s1)**
+        - 时长：223 秒
+        - 日期：[2021-10-11](../markmap/202110.html)
+        - 其他标签：[Shell](../markmap/Shell.html),[命令行](../markmap/命令行.html),[打卡挑战](../markmap/打卡挑战.html),
+        - [封面](http://i1.hdslb.com/bfs/archive/ef0baf50321330dbe197caf5b151a1e586ef9929.jpg)
+
+    - **[不要学习古老的 rcp 技术了](https://www.bilibili.com/video/BV1bU4y1w7x8)**
+        - 时长：484 秒
+        - 日期：[2021-10-11](../markmap/202110.html)
+        - 其他标签：[Shell](../markmap/Shell.html),[命令行](../markmap/命令行.html),[打卡挑战](../markmap/打卡挑战.html),
+        - [封面](http://i0.hdslb.com/bfs/archive/956a2c926d92b6cda5088533b7bab55ee3019180.jpg)
+        - 简介：
+            > "inetd 几乎是属于上古时代的技术了，但是也算留给我一点回忆。
+重新操练一把。"
+
+
+    - **[深入理解byobu，修改 shell](https://www.bilibili.com/video/BV1bQ4y1D7Yu)**
+        - 时长：898 秒
+        - 日期：[2021-10-11](../markmap/202110.html)
+        - 其他标签：[计算机技术](../markmap/计算机技术.html),[Linux桌面](../markmap/Linux桌面.html),[Shell](../markmap/Shell.html),[命令行](../markmap/命令行.html),[开发工具](../markmap/开发工具.html),
+        - [封面](http://i1.hdslb.com/bfs/archive/822311a1d64f5e0a6e36aaa6132f8aa0fae059d9.jpg)
+        - 简介：
+            > "byobu 终端工具应该算是大杀器，学习深入了解这个大杀器还是很有帮助的。"
+
+
+    - **[finger-chfn-gpasswd用户信息和组信息的修改](https://www.bilibili.com/video/BV17T4y1o7Mx)**
+        - 时长：924 秒
+        - 日期：[2021-10-10](../markmap/202110.html)
+        - 其他标签：[打卡挑战](../markmap/打卡挑战.html),[计算机技术](../markmap/计算机技术.html),[Linux桌面](../markmap/Linux桌面.html),[Shell](../markmap/Shell.html),[命令行](../markmap/命令行.html),
+        - [封面](http://i2.hdslb.com/bfs/archive/5bd971185e172bd42eb8125e02b71c7be739b496.jpg)
+
+    - **[屏幕直播利器-screenkey & gromit-mpx](https://www.bilibili.com/video/BV1Wf4y1g7Ww)**
+        - 时长：625 秒
+        - 日期：[2021-10-10](../markmap/202110.html)
+        - 其他标签：[打卡挑战](../markmap/打卡挑战.html),[计算机技术](../markmap/计算机技术.html),[Linux桌面](../markmap/Linux桌面.html),[录屏](../markmap/录屏.html),[教程](../markmap/教程.html),[直播录屏](../markmap/直播录屏.html),[数码](../markmap/数码.html),
+        - [封面](http://i0.hdslb.com/bfs/archive/c778de1bd597dd8dcaf1dc54b5c088e508f17429.jpg)
+        - 简介：
+            > "直播录屏，高大上的武器！
+只有 Linux 桌面才可以拥有！
+免费！"
+
+
+    - **[介绍网站 FOSSMINT 以及本地搜索工具 catfish](https://www.bilibili.com/video/BV11L411s7oQ)**
+        - 时长：1118 秒
+        - 日期：[2021-10-10](../markmap/202110.html)
+        - 其他标签：[打卡挑战](../markmap/打卡挑战.html),[操作系统](../markmap/操作系统.html),[计算机技术](../markmap/计算机技术.html),[Ubuntu](../markmap/Ubuntu.html),[Linux桌面](../markmap/Linux桌面.html),
+        - [封面](http://i1.hdslb.com/bfs/archive/e6db286be99982333dd41dd124907b04253d85e7.jpg)
+
+    - **[Ubuntu 的版本信息，neofetch, FHS，apt&yum 包管理](https://www.bilibili.com/video/BV1ev411g7zP)**
+        - 时长：1516 秒
+        - 日期：[2021-10-08](../markmap/202110.html)
+        - 其他标签：[打卡挑战](../markmap/打卡挑战.html),[操作系统](../markmap/操作系统.html),[计算机技术](../markmap/计算机技术.html),[Ubuntu](../markmap/Ubuntu.html),[APT](../markmap/APT.html),[YUM](../markmap/YUM.html),[软件包管理](../markmap/软件包管理.html),[阿里云](../markmap/阿里云.html),
+        - [封面](http://i0.hdslb.com/bfs/archive/99e1e3dd8c28fc9e0590ca75ba5c788cfeb1e7fa.jpg)
+        - 简介：
+            > "这个视频包含蛮多信息的，初学者如果能了解软件包管理，等于进入了门槛。
+Linux 有很多好玩的东西，了解了这些基础，就可以正式登堂入室了。"
+
+
+    - **[前端，后端，全栈，求职，城市](https://www.bilibili.com/video/BV1CQ4y167HG)**
+        - 时长：1179 秒
+        - 日期：[2021-10-07](../markmap/202110.html)
+        - 其他标签：[打卡挑战](../markmap/打卡挑战.html),[操作系统](../markmap/操作系统.html),[职业生涯](../markmap/职业生涯.html),[求职](../markmap/求职.html),[计算机技术](../markmap/计算机技术.html),[前端](../markmap/前端.html),[后端](../markmap/后端.html),[开发](../markmap/开发.html),[全栈](../markmap/全栈.html),
+        - [封面](http://i0.hdslb.com/bfs/archive/993e272db0d1ffc5e9cc1dda7e3968b4ee19c49a.jpg)
+        - 简介：
+            > "前端和后端都是干嘛的？
+怎么做全栈？
+计算机专业求职去哪个城市比较好？"
+
+
+    - **[AWS EC2 & Lightsail 介绍（VPS）](https://www.bilibili.com/video/BV15u411Z7dg)**
+        - 时长：572 秒
+        - 日期：[2021-10-07](../markmap/202110.html)
+        - 其他标签：[打卡挑战](../markmap/打卡挑战.html),[Shell](../markmap/Shell.html),[命令行工具](../markmap/命令行工具.html),[操作系统](../markmap/操作系统.html),[AWS](../markmap/AWS.html),[VPS](../markmap/VPS.html),[Lightsail](../markmap/Lightsail.html),[Cloud](../markmap/Cloud.html),[阿里云](../markmap/阿里云.html),
+        - [封面](http://i0.hdslb.com/bfs/archive/2bfd9ae18dadfe06fa7e48773896cf39614a80c2.jpg)
+
+    - **[Bash 启动文件的顺序-曾经的你](https://www.bilibili.com/video/BV1rq4y1R7Qv)**
+        - 时长：1269 秒
+        - 日期：[2021-10-07](../markmap/202110.html)
+        - 其他标签：[打卡挑战](../markmap/打卡挑战.html),[Shell](../markmap/Shell.html),[命令行工具](../markmap/命令行工具.html),[操作系统](../markmap/操作系统.html),[BASH](../markmap/BASH.html),
+        - [封面](http://i1.hdslb.com/bfs/archive/a249f5975400ae282af2310a851dbba38af7933b.jpg)
+
+    - **[Linux 的任务管理后台处理-nohup-disown](https://www.bilibili.com/video/BV1ur4y127mp)**
+        - 时长：452 秒
+        - 日期：[2021-10-06](../markmap/202110.html)
+        - 其他标签：[打卡挑战](../markmap/打卡挑战.html),[Shell](../markmap/Shell.html),[任务管理](../markmap/任务管理.html),[命令行工具](../markmap/命令行工具.html),[操作系统](../markmap/操作系统.html),
+        - [封面](http://i2.hdslb.com/bfs/archive/46bcbb44f0f1fc0a2acd82441e3049a000a4e8f1.jpg)
+
+    - **[Windows11的发布以及在中国的前途展望](https://www.bilibili.com/video/BV1gv411g7Lw)**
+        - 时长：1366 秒
+        - 日期：[2021-10-06](../markmap/202110.html)
+        - 其他标签：[打卡挑战](../markmap/打卡挑战.html),[WINDOWS](../markmap/WINDOWS.html),[微软](../markmap/微软.html),[TPM](../markmap/TPM.html),[TCM](../markmap/TCM.html),[国产化](../markmap/国产化.html),[芯片](../markmap/芯片.html),
+        - [封面](http://i2.hdslb.com/bfs/archive/687f964788f05fd84fb21cf95fbd3e493ea5b00c.jpg)
+        - 简介：
+            > "Windows 11 强制要求 TPM 芯片会丢失中国的市场，国人现在开始应该加强 Linux 桌面的宣传和学习"
+
+
+    - **[了解 Facebook 如何从互联网上消失(2021.10.4 BGP/DNS宕机事件）](https://www.bilibili.com/video/BV1aQ4y1X7iv)**
+        - 时长：1163 秒
+        - 日期：[2021-10-06](../markmap/202110.html)
+        - 其他标签：[打卡挑战](../markmap/打卡挑战.html),[Facebook](../markmap/Facebook.html),[运维](../markmap/运维.html),[DNS](../markmap/DNS.html),[BGP](../markmap/BGP.html),
+        - [封面](http://i1.hdslb.com/bfs/archive/153b65c690439067030a4c59bf71140d0559f5ac.jpg)
+        - 简介：
+            > "Facebook 于星期一，10月4日美国东部时间中午到下午6点，宕机6小时，初步分析是 BGP 路由协议变更失败导致整个网络信息从互联网上消失， DNS 服务器因此也无法被 TLD DNS 服务找到，导致所有基于 FB DNS服务器权威解析的域名失效。相关的 CDN 缓冲也同样失效，很多依赖 FB 的相关的网站，都会或多或少受到影响。"
+
+
+    - **[Linux BASH 内置命令从入门到精通](https://www.bilibili.com/video/BV1m34y1U7rd)**
+        - 时长：1771 秒
+        - 日期：[2021-10-05](../markmap/202110.html)
+        - 其他标签：[教程](../markmap/教程.html),[操作系统](../markmap/操作系统.html),[打卡挑战](../markmap/打卡挑战.html),[命令行工具](../markmap/命令行工具.html),[BASH](../markmap/BASH.html),[Shell](../markmap/Shell.html),
+        - [封面](http://i1.hdslb.com/bfs/archive/082991c8c5c2ad90751e83647fb48139ab7d96d5.jpg)
+        - 简介：
+            > "bash-builtins
+alias/unalias
+fg/bg
+set/unset
+umask
+ulimit
+source/. command"
+
+
+    - **[终端多路分屏-屏风-Byobu-tmux-screen](https://www.bilibili.com/video/BV15R4y1H76g)**
+        - 时长：1116 秒
+        - 日期：[2021-10-04](../markmap/202110.html)
+        - 其他标签：[教程](../markmap/教程.html),[操作系统](../markmap/操作系统.html),[打卡挑战](../markmap/打卡挑战.html),[命令行工具](../markmap/命令行工具.html),[BYOBU](../markmap/BYOBU.html),
+        - [封面](http://i1.hdslb.com/bfs/archive/6fbc9b6ad44115942dbdf8221198a9c5f6230986.jpg)
+
+    - **[一边听莫扎特一边学习 Byobu (屏风）（官网原版）](https://www.bilibili.com/video/BV14h411J7hB)**
+        - 时长：646 秒
+        - 日期：[2021-10-04](../markmap/202110.html)
+        - 其他标签：[教程](../markmap/教程.html),[操作系统](../markmap/操作系统.html),[打卡挑战](../markmap/打卡挑战.html),
+        - [封面](http://i1.hdslb.com/bfs/archive/e8633df23647a5d7bae7e648028622ce033c2191.jpg)
+        - 简介：
+            > "https://www.byobu.org
+byobu.org 官网上的介绍材料"
+
+
+    - **[Linux Bash 实战示例，如何阅读一本书以及 xmllint 解析B站首页](https://www.bilibili.com/video/BV1uR4y1H76P)**
+        - 时长：1804 秒
+        - 日期：[2021-10-04](../markmap/202110.html)
+        - 其他标签：[教程](../markmap/教程.html),[操作系统](../markmap/操作系统.html),[打卡挑战](../markmap/打卡挑战.html),[XMLLINT](../markmap/XMLLINT.html),[HTML解析](../markmap/HTML解析.html),[BASH](../markmap/BASH.html),
+        - [封面](http://i2.hdslb.com/bfs/archive/54e3f759dc8905e53dbb06086e1af9b17ad41fda.jpg)
+        - 简介：
+            > "xmllint 
+html 解析
+如何阅读一本书
+Linux BASH"
+
+
+    - **[Linux 下的 Java SDK环境设置](https://www.bilibili.com/video/BV1UP4y1b7To)**
+        - 时长：335 秒
+        - 日期：[2021-10-03](../markmap/202110.html)
+        - 其他标签：[教程](../markmap/教程.html),[操作系统](../markmap/操作系统.html),[打卡挑战](../markmap/打卡挑战.html),[Java](../markmap/Java.html),[JDK](../markmap/JDK.html),
+        - [封面](http://i0.hdslb.com/bfs/archive/231ba56ecfb4353d201d0fc94338bdd167539313.jpg)
+
+    - **[Linux入门到精通-终极脚本示例](https://www.bilibili.com/video/BV1nQ4y167L4)**
+        - 时长：1457 秒
+        - 日期：[2021-10-03](../markmap/202110.html)
+        - 其他标签：[教程](../markmap/教程.html),[操作系统](../markmap/操作系统.html),[打卡挑战](../markmap/打卡挑战.html),[Shell](../markmap/Shell.html),[Bash](../markmap/Bash.html),[CURL](../markmap/CURL.html),[JQ](../markmap/JQ.html),[GoDaddy](../markmap/GoDaddy.html),[AWS](../markmap/AWS.html),
+        - [封面](http://i2.hdslb.com/bfs/archive/2fed8af0be085f5f56b4dfa5c1c18d13f8de9d37.jpg)
+        - 简介：
+            > "jq/curl
+godaddy
+aws-cli
+各种组合在一起命令行控制亚马逊服务器，分配新的 IP 地址，并重新注册 DNS。"
+
+
+    - **[Linux 的打印服务-CUPS](https://www.bilibili.com/video/BV1Fg411F7rk)**
+        - 时长：1147 秒
+        - 日期：[2021-10-03](../markmap/202110.html)
+        - 其他标签：[教程](../markmap/教程.html),[操作系统](../markmap/操作系统.html),[打卡挑战](../markmap/打卡挑战.html),[CUPS](../markmap/CUPS.html),[打印机](../markmap/打印机.html),
+        - [封面](http://i0.hdslb.com/bfs/archive/6f39383a048c88868e70da013a697ed1ebea1b4b.jpg)
+        - 简介：
+            > "Linux 的打印服务 CUPS"
+
+
+    - **[Linux定时任务 crontab 详解](https://www.bilibili.com/video/BV1Tv411G7dn)**
+        - 时长：997 秒
+        - 日期：[2021-10-02](../markmap/202110.html)
+        - 其他标签：[操作系统](../markmap/操作系统.html),[打卡挑战](../markmap/打卡挑战.html),[计算机](../markmap/计算机.html),[运维](../markmap/运维.html),[crontab](../markmap/crontab.html),
+        - [封面](http://i2.hdslb.com/bfs/archive/dd3dfa285f0d5f1035fc18d835793e60a305eeff.jpg)
+        - 简介：
+            > "演示翻车的原因是 输出重定向了两次，后面那次定向到了 null"
+
+
+    - **[Linux 必学之编辑器 -Vim](https://www.bilibili.com/video/BV17L4y1z7XJ)**
+        - 时长：1195 秒
+        - 日期：[2021-10-02](../markmap/202110.html)
+        - 其他标签：[操作系统](../markmap/操作系统.html),[打卡挑战](../markmap/打卡挑战.html),[计算机](../markmap/计算机.html),[运维](../markmap/运维.html),[Vim](../markmap/Vim.html),[浏览器插件](../markmap/浏览器插件.html),
+        - [封面](http://i0.hdslb.com/bfs/archive/040aa9ca1f984c7a4d586ccb751a2448550e1b98.jpg)
+
+    - **[Linux进程管理以及系统调优高级命令](https://www.bilibili.com/video/BV1h64y187dJ)**
+        - 时长：1571 秒
+        - 日期：[2021-10-02](../markmap/202110.html)
+        - 其他标签：[操作系统](../markmap/操作系统.html),[打卡挑战](../markmap/打卡挑战.html),[计算机](../markmap/计算机.html),[进程管理](../markmap/进程管理.html),[运维](../markmap/运维.html),[学习](../markmap/学习.html),
+        - [封面](http://i2.hdslb.com/bfs/archive/babdda27c2d0cde72c43012a6ec169b15c4ab8b2.jpg)
+        - 简介：
+            > "Linux 的进程管理 高级命令，进阶篇。 
+包含系统性能优化指令"
+
+
+    - **[Linux的超级进程 ps 1](https://www.bilibili.com/video/BV1o44y147Bw)**
+        - 时长：281 秒
+        - 日期：[2021-10-02](../markmap/202110.html)
+        - 其他标签：[操作系统](../markmap/操作系统.html),[打卡挑战](../markmap/打卡挑战.html),[计算机](../markmap/计算机.html),[进程管理](../markmap/进程管理.html),
+        - [封面](http://i0.hdslb.com/bfs/archive/e7c23a7a5af06735c488e183df2c7efbdf4704c3.jpg)
+        - 简介：
+            > "ps 1
+以及 /proc/cmdline"
+
+
+    - **[Linux进程管理基础命令](https://www.bilibili.com/video/BV1dQ4y1z7Vc)**
+        - 时长：1321 秒
+        - 日期：[2021-10-02](../markmap/202110.html)
+        - 其他标签：[操作系统](../markmap/操作系统.html),[打卡挑战](../markmap/打卡挑战.html),[计算机](../markmap/计算机.html),[运维](../markmap/运维.html),[进程管理](../markmap/进程管理.html),
+        - [封面](http://i0.hdslb.com/bfs/archive/a16ae73e980119d652f8c6373a70b1e7a3a26cea.jpg)
+        - 简介：
+            > "pstree
+pkill
+pgrep
+killall
+jobs
+bg/fg"
+
+
+    - **[Linux 学习者的春天来了-谈职业生涯](https://www.bilibili.com/video/BV17L4y1z7BX)**
+        - 时长：459 秒
+        - 日期：[2021-10-02](../markmap/202110.html)
+        - 其他标签：[操作系统](../markmap/操作系统.html),[打卡挑战](../markmap/打卡挑战.html),[职业生涯](../markmap/职业生涯.html),
+        - [封面](http://i2.hdslb.com/bfs/archive/4f5c6f80d0330501c9020f53d88e721d7b357215.jpg)
+        - 简介：
+            > "谈 Linux 学习者的职业生涯"
+
+
+    - **[Linux高级网络命令](https://www.bilibili.com/video/BV1yL4y1z7xg)**
+        - 时长：1615 秒
+        - 日期：[2021-10-01](../markmap/202110.html)
+        - 其他标签：[教程](../markmap/教程.html),[操作系统](../markmap/操作系统.html),[命令行工具](../markmap/命令行工具.html),[DNS](../markmap/DNS.html),[tcpdump](../markmap/tcpdump.html),[nmap](../markmap/nmap.html),
+        - [封面](http://i0.hdslb.com/bfs/archive/50bf253e3a36b89b9956615e5a0a0539be1f8df3.jpg)
+        - 简介：
+            > "nmap/lsof/nslookup/dig/host/traceroute/tcpdump/getent"
+
+
+    - **[Linux远程复制和文件同步(ssh/scp/rsync)](https://www.bilibili.com/video/BV1M341117Sv)**
+        - 时长：821 秒
+        - 日期：[2021-10-01](../markmap/202110.html)
+        - 其他标签：[教程](../markmap/教程.html),[操作系统](../markmap/操作系统.html),[命令行工具](../markmap/命令行工具.html),
+        - [封面](http://i2.hdslb.com/bfs/archive/d388b751a200cc9c801cdfda21fe5593761a6304.jpg)
+        - 简介：
+            > "比较基础的一个教程，适合初学者，学习如何登录，如何复制文件到远程的 Linux 服务器"
+
+
+    - **[Linux 下的下载器 wget-curl-axel](https://www.bilibili.com/video/BV19f4y1E7qJ)**
+        - 时长：1524 秒
+        - 日期：[2021-10-01](../markmap/202110.html)
+        - 其他标签：[教程](../markmap/教程.html),[经验分享](../markmap/经验分享.html),[操作系统](../markmap/操作系统.html),[命令行工具](../markmap/命令行工具.html),[Shell](../markmap/Shell.html),[API开发](../markmap/API开发.html),
+        - [封面](http://i0.hdslb.com/bfs/archive/fc52148b0fc1a4f724d2ab8998d32853f37b379e.jpg)
+        - 简介：
+            > "wget 每个人都知道
+curl 不是每个人都知道，而且能用深入的人不多
+axel 大街上几乎无人知道
+看我的视频就对了"
+
+
+    - **[如何在 OBS 设置背景音乐](https://www.bilibili.com/video/BV1WR4y1n7Ts)**
+        - 时长：110 秒
+        - 日期：[2021-10-01](../markmap/202110.html)
+        - 其他标签：[录屏](../markmap/录屏.html),[音乐](../markmap/音乐.html),[直播](../markmap/直播.html),[OBS](../markmap/OBS.html),[教程](../markmap/教程.html),[BGM](../markmap/BGM.html),[学习](../markmap/学习.html),[录播](../markmap/录播.html),
+        - [封面](http://i1.hdslb.com/bfs/archive/922ef00a948d262470abed576614daa707c3ba34.jpg)
+
+    - **[locale 命令介绍](https://www.bilibili.com/video/BV1j34y1D7JQ)**
+        - 时长：472 秒
+        - 日期：[2021-09-23](../markmap/202109.html)
+        - 其他标签：[命令行工具](../markmap/命令行工具.html),
+        - [封面](http://i1.hdslb.com/bfs/archive/9230d94aa204a7417c95b38677e408051f8b8e35.jpg)
+        - 简介：
+            > "locale 命令是重要的地域和语言相关的环境设置工具，对于操作系统的地区化至关重要。 Linux 初学者必须了解这些设置，特别是在处理脚本时，需要选择合适的 locale，一般选默认的 C ，以防止脚本的处理中，对各种数字，货币，命令结果的处理发生“意外”。"
+
+
+    - **[Linux的路径变量-PATH](https://www.bilibili.com/video/BV12v411378c)**
+        - 时长：266 秒
+        - 日期：[2021-09-23](../markmap/202109.html)
+        - 其他标签：[命令行工具](../markmap/命令行工具.html),
+        - [封面](http://i0.hdslb.com/bfs/archive/31440a46204ac89193b92d603149c02a7f308e06.jpg)
+        - 简介：
+            > "适合 Linux 初学者，必知必会的 PATH 变量的说明"
+
+
+    - **[bash 的全局-本地-隐藏变量](https://www.bilibili.com/video/BV1NQ4y1C71y)**
+        - 时长：647 秒
+        - 日期：[2021-09-23](../markmap/202109.html)
+        - 其他标签：[命令行工具](../markmap/命令行工具.html),[bash](../markmap/bash.html),
+        - [封面](http://i1.hdslb.com/bfs/archive/a1984965d6b60a7332b2d6114d5444abfd0b21c0.jpg)
+        - 简介：
+            > "真心的，并不是每个 Linux 高手都知道 printenv 和 set 的区别，还有那么多的隐藏的变量。"
+
+
+    - **[Linux 下的 find 命令，删除 rm 删不掉的文件](https://www.bilibili.com/video/BV1Sv41137Az)**
+        - 时长：522 秒
+        - 日期：[2021-09-23](../markmap/202109.html)
+        - 其他标签：[命令行工具](../markmap/命令行工具.html),
+        - [封面](http://i2.hdslb.com/bfs/archive/a05d81cfea48ef4699d0e160fe7c6c118450ac0b.jpg)
+        - 简介：
+            > "介绍一下 find 的用法，特别是 inum 找到特定 inode 的文件后，删除的办法。"
+
+
+    - **[Linux 下的 tldr 命令（2）](https://www.bilibili.com/video/BV1cL4y1h79c)**
+        - 时长：311 秒
+        - 日期：[2021-09-23](../markmap/202109.html)
+        - 其他标签：[命令行工具](../markmap/命令行工具.html),[手册](../markmap/手册.html),
+        - [封面](http://i0.hdslb.com/bfs/archive/c9e628aea99a3087a32b2fe93eaa25a6b6f079c7.jpg)
+        - 简介：
+            > "TLDR=Too Long, Don't read。
+我们知道很多 Linux 的手册就是 man 命令是很长的，  tldr 是一个网络用语，现在变成了一条命令。 
+本集是对第一集的再次解释。最后顺便还介绍了 tar 备份目录的方法。"
+
+
+    - **[用dwebp 转换 webp 图片为 png 格式，用 jp2a 把 png 转换成 ASCII 图形](https://www.bilibili.com/video/BV1MU4y1A7Uv)**
+        - 时长：159 秒
+        - 日期：[2021-09-21](../markmap/202109.html)
+        - 其他标签：[图形处理](../markmap/图形处理.html),[命令行工具](../markmap/命令行工具.html),
+        - [封面](http://i1.hdslb.com/bfs/archive/acf6f8a8b5fbe3520232a450a4dd9be26635c45e.jpg)
+        - 简介：
+            > "用dwebp 转换 webp 图片为 png 格式，用 jp2a 把 png 转换成 ASCII 图形"
+
