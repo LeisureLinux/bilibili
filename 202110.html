@@ -16,11 +16,20 @@
   height: 100vh;
 }
 </style>
-
+<link rel="stylesheet" href="../../node_modules/markmap-view/node_modules/markmap-toolbar/dist/style.min.css">
 </head>
 <body>
 <svg id="mindmap"></svg>
-<script src="../../node_modules/d3/dist/d3.js"></script><script src="../../node_modules/markmap-view/dist/index.js"></script><script>((getMarkmap, getOptions, data) => {
+<script src="../../node_modules/d3/dist/d3.js"></script><script src="../../node_modules/markmap-view/dist/index.js"></script><script src="../../node_modules/markmap-view/node_modules/markmap-toolbar/dist/index.umd.min.js"></script><script>((r) => {
+            setTimeout(r);
+          })(() => {
+  const { markmap, mm } = window;
+  const toolbar = new markmap.Toolbar();
+  toolbar.attach(mm);
+  const el = toolbar.render();
+  el.setAttribute("style", "position:absolute;bottom:20px;right:20px");
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, data) => {
         const {
           Markmap
         } = getMarkmap();
