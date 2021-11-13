@@ -1,0 +1,25 @@
+- Curl 手册
+    - 基本
+        - 发送 GET 请求 (不加任何参数)
+        - 发送 POST 请求 (-X POST 或者 --request)
+    - 参数
+        - 指定代理服务器 (-x protocol://host:port)
+        - 让 Curl 运行慢一些 (--limit-rate 8k (8KB/sec))
+        - 调试 Curl 信息 (-v 或者 --trace)
+        - 忽略 SSL 证书 (-k 或者 --insecure)
+        - 最长等待时间 (-m n秒 或者 --maxtime )
+    - 输入
+        - 添加新的 POST 字段 (-d var=val 或者 --data)
+        - 添加 HTTP 头 (-H 'Header: Value' 或者 --header)
+        - 修改用户代理信息 (-A 'User Agent' 或者 --user-agent)
+        - 设置 Cookies (-b name=value 或者 --cookie)
+        - 修改 Referrer (-e URL 或者 --referer)
+        - 跟随 3XX 重定向 (-L 或者 --location)
+        - 使用基本 HTTP 认证 (-u user:pass)
+        - 组建一条新的查询串 (-G  或者 --get)
+    - 输出
+        - 仅输出响应头 (-I 或者 --head)
+        - 输出内容并包含响应的 HTTP 头 (-i 或者 --include)
+        - 静默输出 (-s 或者 --silent)
+        - 静默输出时仍旧显示错误信息 (-S 或者 --show-error)
+        - 输出结果写到文件 (-o file 或者 --output)
