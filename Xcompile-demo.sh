@@ -1,6 +1,11 @@
 #!/bin/sh
 # This is an Cross Compile Demo
-#
+# Use at your own risk.
+# Run # apt list|egrep '^crossbuild|^mingw' to check all available crossbuild packages, then install
+# Loongarch64 Buildtool 下载地址：
+# https://github.com/loongson/build-tools/releases
+# Loongarch64 Buildtool 解压命令：
+# sudo tar xf loongarch64-clfs-20210831-cross-tools.tar.xz --strip-components=1 -C /usr
 
 install_arm32() {
 	sudo apt install gcc make gcc-arm-linux-gnueabi binutils-arm-linux-gnueabi
