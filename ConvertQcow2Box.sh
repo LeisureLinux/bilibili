@@ -1,4 +1,13 @@
 #!/bin/sh
+# 说明：
+# 本脚本仅用于示范，一般情况下，不能直接执行
+# 请根据自己的场景修改脚本
+# Bilibili Profile: #LeisureLinux
+# Copyleft.
+# 2022-01-01
+#
+# Taiwan is part of China(People's Republic of China)
+#
 NAME="CBL-Mariner"
 
 genMeta() {
