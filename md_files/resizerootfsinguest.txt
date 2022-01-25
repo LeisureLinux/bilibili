@@ -1,0 +1,149 @@
+#### Bilibili ID: LeisureLinux
+#### Screen Buffer Log to increace rootfs in a QCOW2 format virtual machine
+~/snap ᐅ multipass ls
+Name                    State             IPv4             Image
+primary                 Running           192.168.122.24   Ubuntu 20.04 LTS
+awake-pollock           Stopped           --               Ubuntu 22.04 LTS
+~/snap ᐅ virsh list --all
+ Id   Name                        State
+--------------------------------------------
+ 18   primary                     running
+ -    awake-pollock               shut off
+
+~/snap ᐅ virsh domblklist awake-pollock
+ Target   Source
+-----------------------------------------------------------------------------------
+---------------------------------
+ vda      /var/snap/multipass/common/data/multipassd/vault/instances/awake-pollock/jammy-server-cloudimg-amd64.img
+ vdb      /var/snap/multipass/common/data/multipassd/vault/instances/awake-pollock/cloud-init-config.iso
+
+~/snap ᐅ qemu-img info /var/snap/multipass/common/data/multipassd/vault/instances/awake-pollock/jammy-server-cloudimg-amd64.img
+image: /var/snap/multipass/common/data/multipassd/vault/instances/awake-pollock/jammy-server-cloudimg-amd64.img
+file format: qcow2
+virtual size: 5 GiB (5368709120 bytes)
+disk size: 2.49 GiB
+cluster_size: 65536
+Format specific information:
+    compat: 0.10
+    compression type: zlib
+    refcount bits: 16
+~/snap ᐅ
+~/snap ᐅ modprobe nbd
+~/snap ᐅ lsmod |grep nbd
+nbd                    53248  0
+~/snap ᐅ
+~/snap ᐅ multipass ls
+Name                    State             IPv4             Image
+primary                 Running           192.168.122.24   Ubuntu 20.04 LTS
+awake-pollock           Stopped           --               Ubuntu 22.04 LTS
+~ ᐅ
+~ ᐅ
+~ ᐅ sudo qemu-nbd -c /dev/nbd0 /var/snap/multipass/common/data/multipassd/vault/instances/awake-pollock/jammy-server-cloudimg-amd64.img
+~ ᐅ
+~ ᐅ sudo fuser /var/snap/multipass/common/data/multipassd/vault/instances/awake-pollock/jammy-server-cloudimg-amd64.img
+/var/snap/multipass/common/data/multipassd/vault/instances/awake-pollock/jammy-server-cloudimg-amd64.img: 2432499
+~ ᐅ ps 2432499
+    PID TTY      STAT   TIME COMMAND
+2432499 ?        Ssl    0:00 qemu-nbd -c /dev/nbd0 /var/snap/multipass/common/data/
+~ ᐅ kill 1436184
+~ ᐅ sudo fdisk -l /dev/nbd0
+
+Disk /dev/nbd0：5 GiB，5368709120 字节，10485760 个扇区
+单元：扇区 / 1 * 512 = 512 字节
+扇区大小(逻辑/物理)：512 字节 / 512 字节
+I/O 大小(最小/最佳)：512 字节 / 512 字节
+磁盘标签类型：gpt
+磁盘标识符：FEF9A064-09DE-45A8-BE0F-970520814D64
+
+设备           起点     末尾     扇区  大小 类型
+/dev/nbd0p1  227328 10485726 10258399  4.9G Linux 文件系统
+/dev/nbd0p14   2048    10239     8192    4M BIOS 启动
+/dev/nbd0p15  10240   227327   217088  106M EFI 系统
+
+分区表记录没有按磁盘顺序。
+
+~ ᐅ sudo qemu-nbd -d /dev/nbd0
+/dev/nbd0 disconnected
+~ ᐅ
+~ ᐅ sudo qemu-img resize /var/snap/multipass/common/data/multipassd/vault/instances/awake-pollock/jammy-server-cloudimg-amd64.img +5g
+Image resized.
+~ ᐅ sudo qemu-nbd -c /dev/nbd0 /var/snap/multipass/common/data/multipassd/vault/instances/awake-pollock/jammy-server-cloudimg-amd64.img
+~ ᐅ sudo fdisk -l /dev/nbd0
+GPT PMBR size mismatch (10485759 != 20971519) will be corrected by write.
+The backup GPT table is not on the end of the device.
+Disk /dev/nbd0：10 GiB，10737418240 字节，20971520 个扇区
+单元：扇区 / 1 * 512 = 512 字节
+扇区大小(逻辑/物理)：512 字节 / 512 字节
+I/O 大小(最小/最佳)：512 字节 / 512 字节
+磁盘标签类型：gpt
+磁盘标识符：FEF9A064-09DE-45A8-BE0F-970520814D64
+
+设备           起点     末尾     扇区  大小 类型
+/dev/nbd0p1  227328 10485726 10258399  4.9G Linux 文件系统
+/dev/nbd0p14   2048    10239     8192    4M BIOS 启动
+/dev/nbd0p15  10240   227327   217088  106M EFI 系统
+
+分区表记录没有按磁盘顺序。
+~ ᐅ sudo parted /dev/nbd0 resizepart 1 10g
+警告: 并非所有可用于 /dev/nbd0 的空间都被用到了，您可以修正 GPT 以使用所有的空间 (
+额外的 10485760 个区块)，还是说要继续使用目前的设置？
+
+修正/Fix/忽略/Ignore? Fix
+分区编号？ 1
+结束点？  [5369MB]? 10240MB
+信息: 你可能需要 /etc/fstab。
+
+~ ᐅ # LC_ALL=C sudo parted /dev/nbd0 resizepart 1 10G
+~ ᐅ
+~ ᐅ sudo fdisk -l /dev/nbd0
+Disk /dev/nbd0：10 GiB，10737418240 字节，20971520 个扇区
+单元：扇区 / 1 * 512 = 512 字节
+扇区大小(逻辑/物理)：512 字节 / 512 字节
+I/O 大小(最小/最佳)：512 字节 / 512 字节
+磁盘标签类型：gpt
+磁盘标识符：FEF9A064-09DE-45A8-BE0F-970520814D64
+
+设备           起点     末尾     扇区  大小 类型
+/dev/nbd0p1  227328 20000000 19772673  9.4G Linux 文件系统
+/dev/nbd0p14   2048    10239     8192    4M BIOS 启动
+/dev/nbd0p15  10240   227327   217088  106M EFI 系统
+
+分区表记录没有按磁盘顺序。
+~ ᐅ sudo e2fsck -f /dev/nbd0p1
+e2fsck 1.46.3 (27-Jul-2021)
+第 1 步：检查inode、块和大小
+第 2 步：检查目录结构
+第 3 步：检查目录连接性
+第 4 步：检查引用计数
+第 5 步：检查组概要信息
+cloudimg-rootfs：151753/645120 文件（0.2% 为非连续的）， 1261978/1282299 块
+~ ᐅ sudo resize2fs /dev/nbd0p1
+resize2fs 1.46.3 (27-Jul-2021)
+将 /dev/nbd0p1 上的文件系统调整为 2471584 个块（每块 4k）。
+/dev/nbd0p1 上的文件系统现在为 2471584 个块（每块 4k）。
+
+~ ᐅ multipass ls
+Name                    State             IPv4             Image
+primary                 Running           192.168.122.24   Ubuntu 20.04 LTS
+awake-pollock           Stopped           --               Ubuntu 22.04 LTS
+~ ᐅ sudo qemu-nbd -d /dev/nbd0
+/dev/nbd0 disconnected
+~ ᐅ multipass start awake-pollock
+~ ᐅ multipass shell awake-pollock
+Welcome to Ubuntu Jammy Jellyfish (development branch) (GNU/Linux 5.15.0-17-generic
+ x86_64)
+
+ubuntu@jellyfish:~$
+ubuntu@jellyfish:~$ df -h
+文件系统        容量  已用  可用 已用% 挂载点
+tmpfs            98M  976K   97M    1% /run
+/dev/vda1       9.6G  4.7G  4.9G   49% /
+tmpfs           486M     0  486M    0% /dev/shm
+tmpfs           5.0M     0  5.0M    0% /run/lock
+/dev/vda15      105M  5.3M  100M    5% /boot/efi
+tmpfs            98M  8.0K   98M    1% /run/user/1000
+ubuntu@jellyfish:~$
+ubuntu@jellyfish:~$ sudo dpkg -i mongodb-org-server_5.0.5_amd64.deb
+(正在读取数据库 ... 系统当前共安装有 126314 个文件和目录。)
+准备解压 mongodb-org-server_5.0.5_amd64.deb  ...
+正在解压 mongodb-org-server (5.0.5) ...
