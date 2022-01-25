@@ -1,5 +1,6 @@
 #### Bilibili ID: LeisureLinux
-#### Screen Buffer Log to increace rootfs in a QCOW2 format virtual machine
+# Video URL: https://www.bilibili.com/video/BV19S4y1o7vu/
+#### Screen Buffer Log to increase rootfs in a QCOW2 format virtual machine
 ~/snap ᐅ multipass ls
 Name                    State             IPv4             Image
 primary                 Running           192.168.122.24   Ubuntu 20.04 LTS
