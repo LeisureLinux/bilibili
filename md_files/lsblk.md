@@ -1,0 +1,26 @@
+#### lsblk,blkid,findmnt,findfs
+- findfs: 通过标签或者 UUID 查找文件系统
+  - 支持的方式包括： LABEL,UUID,PARTUUID,PARTLABEL 
+  - 举个栗子：$ findfs LABEL=rpool 
+  - 可以用以下命令查看分区或者文件系统信息
+    - lsblk --fs
+    - lsblk -o name,lable,uuid -e7
+    - partx --show <disk>
+    - blkid
+- findmnt:查找已经挂接，或者可以挂接的文件系统
+  - findmnt --types nosquashfs,notmpfs,nonsfs,noproc
+  - findmnt -s 查看 /etc/fstab 内的挂载点
+- blkid: 显示块设备属性，不推荐普通用户使用
+  - blkid --label XXXX | --uuid XXXX
+  - blkid [--output format] [device ...]
+  - blkid --probe [--match-types list] [--output format] device ...
+  - blkid --info [--match-types list] > device ...
+- lsblk:列出块设备，普通用户可以直接使用，输出控制格式更加灵活
+    - lsblk -o name,lable,uuid -e7
+    - cat /proc/devices 
+    - -d 仅显示磁盘，不显示分区
+    - -m 权限
+    - -b 字节数
+    - -O 显示全部
+    - lsblk -n -J -e7 -O|jq  
+
