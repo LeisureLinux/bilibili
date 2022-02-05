@@ -1,0 +1,44 @@
+#### Linux 内核版本 LTS 的支持时间
+- 2020年6月，宣告所有的 LTS 版本支持期限从原先的2年延长到6年
+- 4.4: 2016/01/10-2022/02
+- 4.9: 2016/12/11-2023/01
+- 4.14: 2017/11/12-2024/01
+- 4.19: 2018/10/22-2024/12
+- 5.4: 2019/11/24-2025/12
+- 5.10: 2020/12/13-2026/12
+- 5.15: 2021/10/31-2023/10 [更新](https://www.phoronix.com/scan.php?page=article&item=linux-515-features)
+  - 处理器：
+    - AMD PDTDMA 驱动程序在经过两年的开发后被合并，以使 AMD EPYC 服务器处理器受益
+    - 扩展了 RISC-V 的堆栈随机化以及为 RISC-V连接的其他功能
+    - TCC 驱动程序中的 Alder Lake 支持
+    - 一项重要的 AMD 笔记本电脑暂停/恢复修复，使各种型号受益
+    - KVM 现在默认使用新的 x86 TDP MMU 并添加 AMD SVM 5 级分页
+    - AMD Zen 3 APU 温度监测终于到位
+    - 黄鲤(Yellow Carp)APU温度监测支持
+    - AMD SB-RMI 驱动程序被合并以使服务器受益于基于 Linux 的 OpenBMC 软件堆栈等用例
+    - 优化了 AMD CPU 的 C3 入口处理，尽管姗姗来迟
+    - 一些 IRQ 内核代码改进使 Intel 486 时代的硬件受益
+    - 一个 AVX2 优化的 SM4 密码实现
+  - 图形：
+    - 许多新的 RDNA2 PCI ID指向可能的 RDNA2 显卡刷新
+    - AMD 青色 Skillfish 显卡支持
+    - 初始支持 Intel XeHP 和 DG2/Alchemist 独立显卡
+    - 删除 Intel Gen10/Cannon Lake 图形支持
+    - DRM/KMS 驱动程序中的许多其他图形改进
+  - 存储/文件系统：
+    - 合并了新的 NTFS 驱动程序，比现有的 NTFS 驱动程序有了很大的改进。这个新驱动程序是 Paragon Software 创建的“NTFS3”驱动程序
+    - 三星的 KSMBD 被合并为内核 SMB3 文件服务器
+    - OverlayFS 具有更好的性能和复制更多的属性
+    - FUSE 现在允许安装有源设备
+    - F2FS 的性能优化
+    - 使用 NFS 客户端代码跨多个 NIC 共享连接
+    - EXT4 的新优化
+    - XFS 的许多改进
+    - 对 Btrfs和性能改进的降级 RAID 模式支持
+    - Btrfs 支持 IDMAPPED 挂载和Btrfs FS-VERITY 支持
+    - Linux 5.15 I/O 可以实现高达 ~3.5M IOPS per-core
+    - 支持systemd 开发人员要求的块设备/磁盘事件的全局计数器
+    - 删除 LightNVM 子系统
+    - 修复 Linux 的软盘驱动程序代码
+    - 其他块子系统更改
+- Refer: [Kernel Releases](https://www.kernel.org/category/releases.html)
