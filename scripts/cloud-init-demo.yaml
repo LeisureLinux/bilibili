@@ -1,6 +1,7 @@
 #cloud-config
 # vim: syntax=yaml
 # Bilibili ID: LeisureLinux
+# Video: https://www.bilibili.com/video/BV1fq4y1a7tb/
 # multipass launch mp_img_name -n domain_name -c 2 -m 4g -d 6g --cloud-init thisfile.yaml
 #
 
@@ -13,7 +14,7 @@ users:
     shell: /bin/bash
     lock_passwd: true
     ssh_authorized_keys:
-      - ssh-rsa AAAAB3Nza... demo-user@LeisureLinux
+      - ssh-rsa AAAAB3Nza...your_public_key_here demo-user@LeisureLinux
 
 # Set the timezone
 timezone: "Asia/Shanghai"
@@ -58,6 +59,7 @@ write_files:
     path: /etc/update-motd.d/10-help-text
 runcmd:
   - chmod -x /etc/update-motd.d/[5-9]*
+  - chmod +x /etc/update-motd.d/[0-1]*
   - systemctl --now disable multipathd
   - systemctl --now disable ModemManager
   - pip3 install apt-mirror-updater && /usr/local/bin/apt-mirror-updater -a
