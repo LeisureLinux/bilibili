@@ -1,0 +1,71 @@
+#cloud-config
+# vim: syntax=yaml
+# Bilibili ID: LeisureLinux
+# multipass launch mp_img_name -n domain_name -c 2 -m 4g -d 6g --cloud-init thisfile.yaml
+#
+
+users:
+  - default
+  - name: demo
+    gecos: Demo for Leisure Linux
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: users, admin
+    shell: /bin/bash
+    lock_passwd: true
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3Nza... demo-user@LeisureLinux
+
+# Set the timezone
+timezone: "Asia/Shanghai"
+ntp:
+  ntp_client: "systemd-timesyncd"
+  servers:
+    - ntp.aliyun.com
+  enabled: true
+#
+disable_root: true
+
+manage_etc_hosts: true
+locale: "zh_CN.UTF-8"
+byobu_by_default: enable-user
+# byobu_by_default: disable-system
+
+# rsyslog:
+#  remotes:
+#    log_serv: "*.* @_rsyslog_ip_port_"
+#
+package_update: true
+package_upgrade: true
+package_reboot_if_required: true
+packages:
+  - python3-pip
+  - avahi-daemon
+  - neofetch
+  - neovim
+  - language-pack-zh-hans-base
+  - language-pack-zh-hans
+write_files:
+  - content: |
+      # Welcome To LeisureLinux
+      alias update='sudo apt update && sudo apt upgrade && sudo apt dist-upgrade && sudo apt autoremove && sudo apt auto-clean'
+    path: /etc/skel/.bashrc
+    append: true
+  - content: |
+      printf "\n"
+      printf " * Github:  https://github.com/LeisureLinux\n"
+      printf " * Bilibili: https://space.bilibili.com/517298151\n"
+      printf "\n"
+    path: /etc/update-motd.d/10-help-text
+runcmd:
+  - chmod -x /etc/update-motd.d/[5-9]*
+  - systemctl --now disable multipathd
+  - systemctl --now disable ModemManager
+  - pip3 install apt-mirror-updater && /usr/local/bin/apt-mirror-updater -a
+
+final_message: "The system is finally up, after $UPTIME seconds"
+#power_state:
+#  delay: "now"
+#  mode: reboot
+#  message: Rebooting the System
+#  timeout: 30
+#  condition: True
