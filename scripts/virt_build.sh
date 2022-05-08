@@ -2,7 +2,7 @@
 # My own virt-build small script
 # Tested on OS=debian-11
 # Need to run "chmod +r /boot/vmlinuz" on host if not root user
-# Orig. Author: Bilibili ID: LeisureLinux
+# Video URL: https://www.bilibili.com/video/BV1k5411d7mm/
 # Modify/Run at your own needs/risk, but please leave above line in the scripts
 #
 
