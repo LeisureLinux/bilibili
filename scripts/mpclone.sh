@@ -33,7 +33,9 @@ new_img=$(sudo virsh -q domblklist ${new} | grep vda | awk '{print $NF}')
 sudo cp $orig_img $new_img
 # 3. 清理新建虚拟机内的"克隆"过来的信息
 echo "Info: 初始化新克隆的虚拟机 $new ..."
-sudo virt-sysprep -d $new --network --operations=net-hwaddr,machine-id,tmp-files,utmp,dhcp-client-state
+sudo virt-sysprep -d $new --enable customize --network \
+	--timezone Asia/Shanghai --update --keep-user-accounts ubuntu \
+	--operations=net-hwaddr,machine-id,tmp-files,utmp,dhcp-client-state
 # 4. 重启 multipassd 服务
 echo "Info: 重启 multipassd 服务 ..."
 sudo snap restart multipass.multipassd
