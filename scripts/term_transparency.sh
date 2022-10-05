@@ -3,6 +3,7 @@
 #
 # License: BSD
 # set -x
+# Original Author: https://gist.github.com/nirbheek/5589105
 
 AUTOMAGIC_MODE="true"
 OPACITY_100="0xffffffff"
