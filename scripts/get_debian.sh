@@ -2,9 +2,9 @@
 # set -x
 # Check and install Debian's latest package onto Ubuntu
 # Compare local version and remote version
-# Use axel to download package, use gdebi to install newer version if needed
+# Use gdebi(install gdebi-core first) to install newer version if needed
 # Author Bilibili ID: LeisureLinux
-# Ver: 1.2.20221007
+# Ver: 1.3.20221007
 PKG=$1
 # Debian mirror site: https://packages.debian.org/sid/
 SITE_URL="http://ftp.cn.debian.org/debian/"
@@ -13,7 +13,7 @@ ARCH=$(dpkg --print-architecture)
 PKG_IDX=${SITE_URL}"dists/${DEB_RELEASE}/main/binary-${ARCH}/Packages.xz"
 
 # Main Prog.
-L_VER_FULL=$(dpkg-query -W $PKG ${Version} | awk '{print $2}')
+L_VER_FULL=$(dpkg-query -W $PKG ${Version} 2>/dev/null | awk '{print $2}')
 L_VER=$(echo $L_VER_FULL | cut -d'-' -f 1)
 # Todo: Check Depends
 read -r R_VER_FULL URI <<<$(curl -sSL -o - $PKG_IDX | xzcat | sed -n "/^Package: ${PKG}$/,/^$/p" | grep -E "^Version:|^Filename:" | xargs | awk '{print $2,$4}')
