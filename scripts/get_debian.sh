@@ -6,6 +6,7 @@
 # Author Bilibili ID: LeisureLinux
 # Ver: 1.3.20221007
 PKG=$1
+[ -z "$PKG" ] && echo "Syntax: $0 pkg_name" && exit 2
 # Debian mirror site: https://packages.debian.org/sid/
 SITE_URL="http://ftp.cn.debian.org/debian/"
 DEB_RELEASE="sid"
