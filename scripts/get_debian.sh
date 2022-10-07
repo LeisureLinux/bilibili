@@ -1,10 +1,31 @@
 #!/bin/bash
 # set -x
 # Check and install Debian's latest package onto Ubuntu
+# The purpose is to check and auto-upgrade current installed Debian Pkgs
 # Compare local version and remote version
 # Use gdebi(install gdebi-core first) to install newer version if needed
 # Author Bilibili ID: LeisureLinux
-# Ver: 1.3.20221007
+# Ver: 2.0.20221007
+#######################################################################
+# How to instal Debian sid packages onto Ubuntu with update still available
+# * Below script still have some value for those don't like to touch /etc/apt/*
+# * The New way to install and update the Debian packages onto Ubuntu is use Pin Priority
+# * $ cat /etc/apt/sources.list.d/debian.list
+# deb http://ftp.cn.debian.org/debian sid main
+# * $ cat /etc/apt/preferences.d/debian
+# # Never prefer packages from debian
+# Package: *
+# Pin: origin *.debian.org
+# Pin-Priority: 1
+#
+# # Allow upgrading only chromium from debian
+# Package: chromium
+# Pin: origin *.debian.org
+# Pin-Priority: 500
+#
+# * Install keyring: $ sudo apt install debian-archive-keyring
+# * $ sudo apt update && sudo apt -t sid install chromium
+#######################################################################
 PKG=$1
 [ -z "$PKG" ] && echo "Syntax: $0 pkg_name" && exit 2
 # Debian mirror site: https://packages.debian.org/sid/
