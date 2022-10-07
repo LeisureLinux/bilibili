@@ -35,7 +35,7 @@ ARCH=$(dpkg --print-architecture)
 PKG_IDX=${SITE_URL}"dists/${DEB_RELEASE}/main/binary-${ARCH}/Packages.xz"
 
 # Main Prog.
-L_VER_FULL=$(dpkg-query -W $PKG ${Version} 2>/dev/null | awk '{print $2}')
+L_VER_FULL=$(dpkg-query -f='${Version}' -W $PKG 2>/dev/null)
 L_VER=$(echo $L_VER_FULL | cut -d'-' -f 1)
 # Todo: Check Depends
 read -r R_VER_FULL URI <<<$(curl -sSL -o - $PKG_IDX | xzcat | sed -n "/^Package: ${PKG}$/,/^$/p" | grep -E "^Version:|^Filename:" | xargs | awk '{print $2,$4}')
