@@ -7,6 +7,7 @@
 # $ qpdf --empty --pages input.pdf 1-10 -- output.pdf
 # OR
 # $ qpdf input.pdf --pages . 1-10 -- output.pdf
+# More other ways: https://askubuntu.com/questions/221962/how-can-i-extract-a-page-range-a-part-of-a-pdf
 # Ignore below useless code  :-(
 # #################################################################
 PDF=$1
