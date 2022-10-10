@@ -2,6 +2,13 @@
 # Use pdftk or poppler-utils to extract part of PDF to OUTPUT
 # pdftk is recommended which will produce a smaller size OUTPUT
 # Ver 1.4.20221010
+# #################################################################
+# Just use
+# $ qpdf --empty --pages input.pdf 1-10 -- output.pdf
+# OR
+# $ qpdf input.pdf --pages . 1-10 -- output.pdf
+# Ignore below useless code  :-(
+# #################################################################
 PDF=$1
 OUTPUT=$2
 START=$3
@@ -14,9 +21,10 @@ getPages() {
 	# Related Package
 	# exiftool: libimage-exiftool-perl, pdfinfo: poppler-utils
 	local p=$1
-	[ -n "$(type -P pdfinfo)" ] && pdfinfo $p | awk '/^Pages:/ {print $2}' && return
+	[ -n "$(type -P pdfinfo)" ] && pdfinfo $p | awk '/^Pages:/ {print $2}' && return $?
 	[ -z "$(type -P exiftool)" ] && echo "Error: Please install either libimage-exiftool-perl or poppler-utils first." && exit 2
 	exiftool -T -filename -PageCount -s3 -ext pdf $p | awk '{print $2}'
+	# There is one more way to get pagecount easily: $ qpdf --show-npages $filename
 }
 
 extract() {
@@ -39,7 +47,6 @@ pCount=$(getPages $PDF)
 [ $END -lt $START ] && echo "Error: end page number should big than or equal to start page number" && exit 8
 echo "Extracting pages $START-$END into $OUTPUT ..."
 COUNT=$((${END} - ${START} + 1))
-# echo "Count is [$COUNT]"
 extract
 # Verify
 [ "$COUNT" != "$(getPages $OUTPUT)" ] && echo "Error: $OUTPUT got wrong page count."
