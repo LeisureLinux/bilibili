@@ -1,9 +1,7 @@
 #### kitty+mdcat+lsd
 
 - kitty
-
 - mdcat
-
   - 安装： cargo install mdcat
   - Windows/Mac/Linux 有 Binary Release 直接下
   - 搭配的终端： iTerm2 或者 Kitty

@@ -1,0 +1,17 @@
+#### 如何建设一个网站
+ - 申请域名，年费 付给域名代理机构，一般就是云厂商
+ - 备案，免费
+ - DNS 解析 ( A 记录，MX 记录)，免费
+ - SSL 证书（Let's Encrypt，certbot） ，免费
+ - Linux 服务器操作系统，年费付给云厂商
+ - Web 服务器(Apache/Nginx)
+ - 前端框架（Vue.js/React/Angular）
+ - 后端语言（PHP/Java/NodeJS/Golang）
+ - 缓存 NoSQL (Redis/Memcached)
+ - 数据库 （MySQL(MariaDB)/PG(Postgresql)/MongoDB）
+ - 技术栈：
+    - LAMP(A=Apache, M=MySQL, P=PHP/Python/Perl)
+    - LNMP(N=Nginx)
+    - MEAN(M=Mongo, E=Express, A=Angular, N=NodeJS)
+    - MERN(R=React)
+    - JAM(JavaScript + APIs + Markup),不再指明后端的具体语言和数据库

@@ -1,0 +1,328 @@
+#### virsh 帮助
+##### libvirt [基本概念](https://libvirt.org/goals.html)：
+  - node: 节点是单个物理机器
+  - Hypervisor: 虚拟化管理程序，允许把一个节点虚拟成一组虚拟机
+  - Domain: 域是在Hypervisor 提供的虚拟机上运行的操作系统（或容器虚拟化情况下的子系统）的实例
+##### domain: domain 管理 (帮助关键字:'domain')
+  - attach-device/detach-device: 从 XML 文件添加/移除一个设备
+  - attach-disk/detach-disk: 添加/移除磁盘设备
+  - attach-interface/detach-interface: 添加/移除网络接口
+  - autostart: 自动启动
+  - blkdeviotune: 设置或者查询块设备 I/O 调优参数
+  - blkiotune: 读取或者设置 blkio 参数
+  - blockcommit: 开启块 commit 模式
+  - blockcopy: 开启块拷贝模式
+  - blockjob: 管理活动的块操作
+  - blockpull: 从基底镜像导出磁盘
+  - blockresize: 变更块设备尺寸
+  - change-media: 修改 CD/软驱的介质
+  - console: 连接到虚拟机的 console
+  - cpu-stats: 查看 domain 的 CPU 统计数据
+  - create: 从 XML 文件创建 domain
+  - define: 从 XML 定义 domain (不启动)
+  - desc: 显示或者设置 domain 的描述或者 title
+  - destroy <dom> --graceful ，强制停止 domain
+  - detach-device-alias: 从昵称里移除设备
+  - domdisplay: 显示运行中的 domain 的 GUI 链接 URI
+  - domfsfreeze: 冻结 domain 挂接的文件系统
+  - domfsthaw: Thaw domain 挂接的文件系统
+  - domfsinfo: 读取 domain 的文件系统信息
+  - domfstrim: 针对 domain 的文件系统运行 fstrim
+  - domhostname: 打印 domain 的主机名
+  - domid: 转换 domain 的名称或者 UUID 到 id
+  - domif-setlink: 设置虚拟网卡的连接状态
+  - domiftune: 获取/设置虚拟网卡的参数
+  - domjobabort: 退出活动的 domain 的任务
+  - domjobinfo: 显示 domain 的任务
+  - domname: 转换 domain id 或者 UUID 到名称
+  - domrename: 修改 domain 名称
+  - dompmsuspend: 使用电源管理功能挂起 domain
+  - dompmwakeup: 唤醒一个处于挂起状态的 domain
+  - domuuid: 转换 domain 名称或者 ID 为 UUID
+  - domxml-from-native: 把原生配置转换为domain XML 格式
+  - domxml-to-native: 把 domain XML 格式转化为原生配置文件格式
+  - dump: <dom> <file> --crash/--reset/--memory-only ，为 dom 产生 coredump 文件
+  - dumpxml: XML 格式显示 domain 信息
+  - edit: 编辑 domain 的 XML 格式配置文件
+  - event: domain 事件
+  - get-user-sshkeys: 通过代理列出指定用户的 authorized SSH keys
+  - inject-nmi: 为虚拟机注入 NMI
+  - iothreadinfo: 查看 domain IO IOThreads
+  - iothreadpin: 控制 domain IOThread 的亲和性
+  - iothreadadd: 为 domain 添加 IOThread
+  - iothreadset: 修改虚拟机内的 IOThread
+  - iothreaddel: 删除虚拟机上的 IOThread
+  - send-key: 向虚拟机发送键盘代码
+  - send-process-signal: 向进程发送 signals
+  - lxc-enter-namespace: LXC Guest 进入命名空间
+  - managedsave: 保存 domain 状态
+  - managedsave-remove: 删除保存的 domain 状态
+  - managedsave-edit: 编辑 domain 的保存状态 XML 文件
+  - managedsave-dumpxml: 导出 domain 保存状态信息到 XML 文件
+  - managedsave-define: 重新定义 domain 保存状态文件
+  - memtune: 获取或者设置内存参数
+  - perf: 获取或者设置性能事件
+  - metadata: 显示或者设置domain 的定制 XML 元数据
+  - migrate: 迁移 domain 到另外一台主机
+  - migrate-setmaxdowntime: 设置迁移最大允许down 机时长
+  - migrate-getmaxdowntime: 获取迁移最大允许 down 机时长
+  - migrate-compcache: 获取/设置压缩缓存大小
+  - migrate-setspeed: 设置迁移最大带宽
+  - migrate-getspeed: 获取迁移允许最大带宽
+  - migrate-postcopy: 转换活动中的迁移从 pre-copy 到 post-copy
+  - numatune: 获取或者设置 NUMA 参数
+  - qemu-attach: QEMU 附加
+  - qemu-monitor-command: QEMU 监控命令
+  - qemu-monitor-event: QEMU 监控事件
+  - qemu-agent-command: QEMU 客户机代理命令
+  - guest-agent-timeout: 设置客户机代理超时
+  - reboot: 重启 domain
+  - reset: 重置(reset) domain
+  - restore: 从保存的状态文件恢复domain
+  - resume: 重新恢复 domain (从 suspend 状态)
+  - save: 保存 domain 状态到文件
+  - save-image-define: 重新定义 domain 保存的状态文件
+  - save-image-dumpxml: 保存状态信息到 XML 文件
+  - save-image-edit: 修改保存的状态文件
+  - schedinfo: 显示/设置定时任务参数
+  - screenshot: 对 domain 的控制台截屏并保存到文件
+  - set-lifecycle-action: 修改生命周期活动
+  - set-user-sshkeys: 通过代理操作指定用户的授权ssh key
+  - set-user-password: 设置 domain 内的用户口令
+  - setmaxmem: 修改最大内存限值
+  - setmem: 修改内存分配
+  - setvcpus: 修改虚拟 CPU 数
+  - shutdown: 关闭 domain
+  - start: 启动非活动的 domain
+  - suspend: 挂起 domain
+  - ttyconsole: 进入 tty 控制台
+  - undefine: 取消定义 domain
+  - update-device: 从 XML 文件更新设备
+  - vcpucount: domain vcpu 统计
+  - vcpuinfo: 详细的 domain vcpu 信息
+  - vcpupin: 控制或者查询 domain vcpu 的亲和性
+  - emulatorpin: 控制或者查询 domain 仿真的亲和性
+  - vncdisplay: vnc 显示
+  - guestvcpus: 通过代理查询或者修改客户机的 vcpu 
+  - setvcpu: 附加/剥离 vcpu 或线程组
+  - domblkthreshold: 设置块设备事件阈值
+  - guestinfo --user/--os/--timezone/--hostname/--filesystem/--disk 通过 guest agent 查询 guest 信息
+  - domdirtyrate-calc: 计算虚拟机的脏内存比例
+##### monitor: Domain 监控 (帮助关键字:'monitor')
+  - domblkerror: 块设备错误信息
+  - domblkinfo: 块设备大小信息
+  - domblklist: 列出所有块设备
+  - domblkstat: 获取块设备状态
+  - domcontrol: domain 控制界面状态
+  - domif-getlink: 获取虚拟网卡的连接状态
+  - domifaddr: 获取 domain 的 IP 地址
+  - domiflist: 列出所有虚拟网卡
+  - domifstat: 获取网卡统计信息
+  - dominfo: 虚拟机信息
+  - dommemstat: 获取虚拟机内存统计信息
+  - domstate: 虚拟机状态
+  - domstats: 获取一台或者多台虚拟机的统计信息
+  - domtime: 虚拟机时间
+  - list: 列出虚拟机 (dom)
+##### host: 主机以及虚拟化层(帮助关键字：'host')
+  - capabilities: 显示能力
+  - cpu-baseline: 计算资源的 CPU 基线
+  - cpu-compare: 比较 host CPU 和 XML 文件描述的 CPU 
+  - cpu-models: CPU 型号
+  - domcapabilities: domain 能力
+  - freecell，显示 NUMA cell 的可用内存
+  - freepages，显示 NUMA 的可用内存页
+  - allocpages，为 NUMA 节点分配或者释放内存页
+  - hostname: 显示主机的 hostname
+  - hypervisor-cpu-baseline:计算特定 hypervisor 的 CPU 可使用基线
+  - hypervisor-cpu-compare: 比较 CPU 以及 hypervisor 创建的 CPU 
+  - maxvcpus: vcpu 的最大值
+  - node-memory-tune: 读取或者设置节点的内存参数
+  - nodecpumap: 节点的 CPU 映射
+  - nodecpustats: 节点的 CPU 统计信息
+  - nodeinfo: 节点信息
+  - nodememstats: 节点的内存统计信息
+  - nodesuspend: 在指定时间内挂起主机节点
+  - sysinfo: 打印主机的 sysinfo
+  - uri: 打印主机的昵称 URI
+  - version: 显示版本
+##### checkpoint: 检查点 (帮助关键字：'checkpoint')
+  - checkpoint-create: 通过 XML 创建检查点
+  - checkpoint-create-as: 通过命令参数创建检查点
+  - checkpoint-delete: 删除 domain 检查点
+  - checkpoint-dumpxml: 以 XML 格式导出检查点信息
+  - checkpoint-edit: 编辑检查点的 XML 格式配置文件
+  - checkpoint-info: 检查点信息
+  - checkpoint-list: 列出 domain 的所有检查点
+  - checkpoint-parent: 获取检查点父节点的名称
+##### interface: 网卡管理(帮助关键字：'interface')
+  - iface-begin: 创建一个当前接口设置的快照，之后可以提交(iface-commit)或者回滚(iface-rollback)
+  - iface-bridge: 创建一个桥接设备，并把一个存在的网络设备附加上去
+  - iface-commit: 提交自上次 iface-begin 以来的修改并释放恢复点
+  - iface-define: 通过 XML 文件定义物理接口信息或者修改现有的
+  - iface-destroy: 销毁物理机的界面(即等同于禁用/ "if-down")
+  - iface-dumpxml: XML 格式导出界面信息
+  - iface-edit: 编辑物理主机网卡
+  - iface-list: 列出物理主机网卡
+  - iface-mac: 根据网卡名称列出其  MAC 地址
+  - iface-name: 根据网卡 MAC 地址列出网卡名称
+  - iface-rollback: 回滚之前用 iface-begin 保存的接口配置信息
+  - iface-start: 启动物理网卡("if-up")
+  - iface-unbridge: 取消桥接定义
+  - iface-undefine: 取消之前定义的物理接口配置信息
+##### filter: 网络过滤器(帮助关键字：'filter')
+  - nwfilter-define: 从 XML 文件定义或者更新网络过滤器
+  - nwfilter-dumpxml: XML 格式的网络过滤器信息
+  - nwfilter-edit: 编辑网络过滤器
+  - nwfilter-list: 列出网络过滤器
+  - nwfilter-undefine: 取消定义
+  - nwfilter-binding-create: 创建网络过滤器绑定
+  - nwfilter-binding-delete: 删除网络过滤器绑定
+  - nwfilter-binding-dumpxml: 网络过滤器信息
+  - nwfilter-binding-list: 列出网络过滤器绑定
+##### network: 网络 (帮助关键字：'network')
+  - net-autostart: 自动启动
+  - net-create: 从 XML 创建网络
+  - net-define: 从 XML 定义一个非活动的虚拟网络或者修改现有的网络
+  - net-destroy: 强制停止一个网络
+  - net-dhcp-leases: 打印网络的 DHCP 租赁信息
+  - net-dumpxml: XML 格式导出网络信息
+  - net-edit: 编辑网络
+  - net-event: 网络事件
+  - net-info: 网络信息
+  - net-list: 列出网络
+  - net-name: 从网络 UUID 得到名称
+  - net-start: 启动一个已定义未激活的网络
+  - net-undefine: 取消对网络的定义
+  - net-update: 更新已有网络配置的部分信息
+  - net-uuid: 把网络名称转成 UUID
+  - net-port-list: 列出网络的端口
+  - net-port-create: 从 XML 文件创建网络端口
+  - net-port-dumpxml: XML 格式的网络端口信息
+  - net-port-delete: 删除网络端口
+##### nodedev: 主机设备 (帮助关键字：'nodedev')
+  - nodedev-create: 在节点上通过 XML 文件定义设备
+  - nodedev-destroy: 销毁（停止）节点上的设备
+  - nodedev-detach: 从设备驱动脱离设备
+  - nodedev-dumpxml: XML 格式的节点设备的详细信息
+  - nodedev-list: 枚举主机上的设备
+  - nodedev-reattach: 重新挂接节点设备到驱动器
+  - nodedev-reset: 重置节点设备
+  - nodedev-event: 节点设备事件
+  - nodedev-define: 通过 XML 文件定义节点设备
+  - nodedev-undefine: 取消对节点上非活动设备的定义
+  - nodedev-start: 启动非活动的节点设备
+##### secret: 密钥管理(帮助关键字：'secret')
+  - secret-define: 从 XML 文件定义或者修改密钥
+  - secret-dumpxml: XML 方式显示密钥属性
+  - secret-event: 密钥事件
+  - secret-get-value: 输出密钥的值
+  - secret-list: 列出所有密钥
+  - secret-set-value: 设置密钥的值
+  - secret-undefine: 删除密钥定义
+##### snapshot: 快照管理（帮助关键字：'snapshot')
+  - snapshot-create: 从 XML 创建快照
+  - snapshot-create-as: 从命令行参数创建快照
+  - snapshot-current: 读取或者设置最新的快照
+  - snapshot-delete: 删除 domain 的快照
+  - snapshot-dumpxml: XML 格式导出快照
+  - snapshot-edit: 编辑快照的 XML 配置
+  - snapshot-info: 快照信息
+  - snapshot-list: 列出快照
+  - snapshot-parent: 读取快照的父对象名称
+  - snapshot-revert: 回滚到指定的快照
+##### backup: 备份(帮助关键字：'backup')
+  - backup-begin: 启动活动domain 上的磁盘备份
+  - backup-dumpxml: 导出正在活动的块备份任务的 XML 信息
+##### pool: 存储池(帮助关键字：'pool')
+  - find-storage-pool-sources-as: 查找潜在的存储池源
+  - find-storage-pool-sources: 发现潜在的存储池源
+  - pool-autostart: 自动启动存储池
+  - pool-build: 构建一个存储池
+  - pool-create-as: 通过命令参数创建存储池
+  - pool-create: 从 XML 创建存储池
+  - pool-define-as: 通过命令参数定义存储池
+  - pool-define: 从 XML 定义非活动的存储池或修改现存的存储池
+  - pool-delete: 删除存储池
+  - pool-destroy: 强制停止一个存储池
+  - pool-dumpxml: 以XML 导出存储池信息
+  - pool-edit: 编辑 XML 格式的存储池配置
+  - pool-info: 存储池信息
+  - pool-list: 存储池列表
+  - pool-name: 转换存储池的 UUID 为名称
+  - pool-refresh: 存储池刷新
+  - pool-start: 启动一个非活动的存储池
+  - pool-undefine: 取消对一个非活动存储池的定义
+  - pool-uuid: 转换存储池名称为 UUID
+  - pool-event: 存储池事件
+  - pool-capabilities: 存储池能力
+##### volume: 存储卷管理(帮助关键字：'volume')
+  - vol-clone: 克隆卷
+  - vol-create-as: 通过传递的参数创建卷
+  - vol-create: 通过 XML 文件创建卷
+  - vol-create-from: 通过另外一个卷作为输入创建卷
+  - vol-delete: 删除卷
+  - vol-download: 下载卷上的文件到一个文件
+  - vol-dumpxml: 卷信息以 XML 格式导出
+  - vol-info: 卷信息
+  - vol-key: 根据 vol 名称或者路径返回 卷的 key
+  - vol-list: 列出所有的卷
+  - vol-name: 根据卷的 key 或者路径返回名称
+  - vol-path: 根据卷的名称或者 key 返回路径
+  - vol-pool: 根据卷的key 或者路径返回存储池
+  - vol-resize: 调整卷的尺寸
+  - vol-upload: 上传文件内容到一个卷上
+  - vol-wipe: 擦除一个卷
+##### virsh: Virsh 本身(帮助关键字：'virsh')
+  - cd: 改变当前目录
+  - echo: echo 传递的参数
+  - exit/quit: 退出当前交互终端
+  - help: 帮助
+  - pwd: 打印当前目录
+  - connect: 连接到 Hypervisor
+
+##### 其他 virt-* 命令：
+  - virt-admin: 修改 libvirt daemon
+  - virt-get-kernel: 提取虚拟机的内核和 initramfs
+  - virt-rescue: 让虚拟机跑到救援模式下
+  - virt-alignment-scan: 检查虚拟机的分区是否对齐
+  - virt-host-validate: 校验主机虚拟化设置
+  - virt-install: 制备新虚拟机
+  - virt-sysprep: 初始化，删除配置，定制虚拟机，以便 clone
+  - virt-clone: 克隆虚拟机镜像
+  - virt-resize: 更改虚拟机磁盘大小
+  - virt-builder: 快速构建虚拟机镜像
+  - virt-index-validate: 校验 virt-builder 的索引文件
+  - virt-builder-repository: 构建 virt-builder 的仓库
+  - virt-inspector: 显示虚拟机操作系统版本以及其他信息
+  - virt-sparsify: 精简化虚拟机磁盘
+  - virt-ssh-helper: libvirt socket 代理，内部使用
+  - virt-log: 查看虚拟机日志
+  - virt-tail: tail 虚拟机内的文件
+  - virt-cat: 显示虚拟机内的文件内容
+  - virt-edit: 编辑虚拟机内的文件
+  - virt-copy-in: 把文件复制到虚拟机镜像内
+  - virt-copy-out: 从虚拟机镜像内复制文件目录
+  - virt-tar-in: 把 tar 文件解开到虚拟机内或者虚拟机镜像内
+  - virt-tar-out: 把虚拟机内的文件复制打包到 tar 文件内
+  - virt-ls: 列出虚拟机内的文件
+  - virt-make-fs: 把一个文件或者一个 tar 包制作成文件系统供虚拟机挂接
+  - virt-customize: 定制虚拟机
+  - virt-manager: 管理 libvirt 虚拟机的图形界面
+  - virt-viewer: 连接虚拟机的图形控制台(VNC 或者 Spice)
+  - virt-top: 虚拟机的统计信息
+  - virt-df: 显示虚拟机文件系统的剩余空间
+  - virt-p2v-make-disk: 使用 virt-builder 构建 virt-p2v 启动磁盘
+  - virt-p2v-make-kiwi: 构建 virt-p2v Kiwi 配置(Suse 创建 LiveCD 的工具 )
+  - virt-p2v-make-kickstart: 构建 virt-p2v Kickstart
+  - virt-dib: 运行 diskimage-builder 的元素
+  - virt-what: 查看是否在虚拟机环境下
+  - virt-diff: 检查两个虚拟机之间不同的文件
+  - virt-win-reg: 从 Windows 虚拟机导出并合并注册表
+  - virt-xml: 编辑 libvirt XML
+  - virt-xml-validate: 校验 libvirt XML 文件
+  - virt-format: 格式化磁盘
+  - virt-filesystems: 列出虚拟机或者磁盘镜像内的文件系统，分区，块设备，lvm
+  - virt-pki-query-dn: 从 PEM 证书文件提取 DN(唯一名称)
+  - virt-pki-validate: 校验 libvirt PKI 文件
+  - virt-qemu-run: 运行一个独立的 qemu 客户
