@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>如何在 macOS 上使用 QEMU 创建 Linux 虚拟机（而不是 Virtualbox） &mdash; LeisureLinux 1.1.0beta 文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="如何高效阅读 Man 手册" href="man.html" />
+    <link rel="prev" title="Linux 内核版本 LTS 的支持时间" href="LTS_Kernel.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> LeisureLinux
+          </a>
+              <div class="version">
+                1.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="31linux_command.html">Ubuntu 初学者必知必会的31条命令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E9%9D%9E%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%93%E4%B8%9A-Linux%E5%85%A5%E9%97%A8.html">如何学习 Linux (Ver 0.2.20221015)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E7%90%86%E8%A7%A3%E4%B8%89%E7%A7%8Dsocket.html">三种 Socket (套接字)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apt.html">25 个 apt-get/apt-cache 包管理命令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="archlinux.html">Arch Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="backgrouds.html">Linux 桌面系统存放背景图片的目录</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bash-emacs.html">Bash 命令行编辑(emacs 模式)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bashTips.html">对初学者很有用的 Bash 小技巧</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cargoConfig.html">The Rustup Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="China-Root-Community.html">中国的开源根社区</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CinnamonDE.html">DE/DW/WM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EmailAnti-Spamming.html">建设自己的邮件系统 AS/AV</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GNU-Autotols.html">GNU Auto Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howto-rpm.html">三步创建 rpm 包</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LoongArch-Evolve.html">LoongArch 在 Linux 操作系统上的进展</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lsblk.html">lsblk,blkid,findmnt,findfs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LTS_Kernel.html">Linux 内核版本 LTS 的支持时间</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">如何在 macOS 上使用 QEMU 创建 Linux 虚拟机（而不是 Virtualbox）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="man.html">如何高效阅读 Man 手册</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mdcat.html">kitty+mdcat+lsd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OpenWrt.html">编译自己的 OpenWrt 镜像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SELinux.html">SELinux On Ubuntu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="snap.html">snap 介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="systemd.html">systemd 解释</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uuencode-base64.html">从 UUENCODE 说开来的那些事情</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Vim82-editing.html">Vim 8.2 手册</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zsh-vi-mode.html">zsh 命令行下的 line editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="website-basic.html">如何建设一个网站</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xdgBaseDir.html">XDG 基础目录</a></li>
+<li class="toctree-l1"><a class="reference internal" href="XdgIntro.html">XDG 介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UbuntuSupport.html">Ubuntu 支持介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="useVirt-rescue-to-installAnyOS.html">使用 virt-rescue 在不丢数据的情况下，改变成任意的操作系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qemu-system.html">QEMU emulator version 6.2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qemu-system.html#usage-qemu-system-x86-64-options-disk-image">usage: qemu-system-x86_64 [options] [disk_image]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multipassVM-Clone.html">如何实现对 Ubuntu multipass 虚拟机的“克隆”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="virsh-command.html">Virsh 262 条命令全表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="virsh-help.html">virsh 帮助</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">LeisureLinux</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">如何在 macOS 上使用 QEMU 创建 Linux 虚拟机（而不是 Virtualbox）</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/macOS-QEMU-Linux.md.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="macos-qemu-linux-virtualbox">
+<h1>如何在 macOS 上使用 QEMU 创建 Linux 虚拟机（而不是 Virtualbox）<a class="headerlink" href="#macos-qemu-linux-virtualbox" title="永久链接至标题"></a></h1>
+<ol class="simple">
+<li><p><a class="reference external" href="https://www.bilibili.com/video/BV1fq4y1h7e1/">B站讲解视频</a></p></li>
+<li><p>brew install qemu libvirt</p></li>
+<li><p>brew services start libvirt</p></li>
+<li><p>virsh define --file ubuntu-01.xml</p></li>
+<li><p>virsh start ubuntu-01</p></li>
+<li><p>注意事项：</p></li>
+</ol>
+<ul class="simple">
+<li><p>虚拟机的 Domain Name ubuntu-01 可以自行修改</p></li>
+<li><p>内存数量和CPU 数量根据自己的需要修改</p></li>
+<li><p>qcow2 的 source 修改成自己的 qcow2 文件路径</p></li>
+<li><p>VNC 的端口号 5999 和 ssh 端口 2222 可以根据自己的需要修改</p></li>
+<li><p>QEMU 网络故意修改成了 192.168.76.0/24，如果去掉 net= 和 dhcpstart 可以恢复为默认 10.0.2.0</p></li>
+<li><p>如果不能 ssh 进入，需要自己解决虚拟机的网络配置，NetManager 的话，可以用 nmtui 命令修改，如果是 NetPlan 的话，修改网络配置文件后，用 netplan apply 生效</p></li>
+</ul>
+<p>Appendix. $ cat ubuntu-01.xml
+<domain type='qemu' id='1' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'>
+<name>ubuntu-01</name>
+<memory unit='KiB'>1953792</memory>
+<currentMemory unit='KiB'>1953128</currentMemory>
+<vcpu placement='static'>2</vcpu>
+<os>
+<type arch='x86_64' machine='pc-q35-6.2'>hvm</type>
+<boot dev='hd'/>
+<bootmenu enable='yes'/>
+</os>
+<features>
+<acpi/>
+<apic/>
+</features>
+<cpu mode='custom' match='exact' check='full'>
+<model fallback='forbid'>Westmere</model>
+<feature policy='require' name='vme'/>
+<feature policy='require' name='pclmuldq'/>
+<feature policy='require' name='hypervisor'/>
+<feature policy='require' name='arat'/>
+</cpu>
+<clock offset='localtime'/>
+&lt;on_poweroff&gt;destroy&lt;/on_poweroff&gt;
+&lt;on_reboot&gt;restart&lt;/on_reboot&gt;
+&lt;on_crash&gt;destroy&lt;/on_crash&gt;
+<pm>
+<suspend-to-mem enabled='no'/>
+<suspend-to-disk enabled='no'/>
+</pm>
+<devices>
+<emulator>/usr/local/bin/qemu-system-x86_64</emulator>
+<disk type='file' device='disk'>
+<driver name='qemu' type='qcow2'/>
+<source file='qcow2-imagefile.qcow2' index='1'/>
+<backingStore/>
+<target dev='vda' bus='virtio'/>
+<alias name='virtio-disk0'/>
+<address type='pci' domain='0x0000' bus='0x03' slot='0x00' function='0x0'/>
+</disk>
+<controller type='usb' index='0' model='ehci'>
+<alias name='usb'/>
+<address type='pci' domain='0x0000' bus='0x02' slot='0x01' function='0x0'/>
+</controller>
+<controller type='sata' index='0'>
+<alias name='ide'/>
+<address type='pci' domain='0x0000' bus='0x00' slot='0x1f' function='0x2'/>
+</controller>
+<controller type='pci' index='0' model='pcie-root'>
+<alias name='pcie.0'/>
+</controller>
+<controller type='pci' index='1' model='pcie-root-port'>
+<model name='pcie-root-port'/>
+<target chassis='1' port='0x10'/>
+<alias name='pci.1'/>
+<address type='pci' domain='0x0000' bus='0x00' slot='0x02' function='0x0' multifunction='on'/>
+</controller>
+<controller type='pci' index='2' model='pcie-to-pci-bridge'>
+<model name='pcie-pci-bridge'/>
+<alias name='pci.2'/>
+<address type='pci' domain='0x0000' bus='0x01' slot='0x00' function='0x0'/>
+</controller>
+<controller type='pci' index='3' model='pcie-root-port'>
+<model name='pcie-root-port'/>
+<target chassis='3' port='0x11'/>
+<alias name='pci.3'/>
+<address type='pci' domain='0x0000' bus='0x00' slot='0x02' function='0x1'/>
+</controller>
+<controller type='pci' index='4' model='pcie-root-port'>
+<model name='pcie-root-port'/>
+<target chassis='4' port='0x12'/>
+<alias name='pci.4'/>
+<address type='pci' domain='0x0000' bus='0x00' slot='0x02' function='0x2'/>
+</controller>
+<controller type='pci' index='5' model='pcie-root-port'>
+<model name='pcie-root-port'/>
+<target chassis='5' port='0x13'/>
+<alias name='pci.5'/>
+<address type='pci' domain='0x0000' bus='0x00' slot='0x02' function='0x3'/>
+</controller>
+<serial type='pty'>
+<source path='/dev/ttys000'/>
+<target type='isa-serial' port='0'>
+<model name='isa-serial'/>
+</target>
+<alias name='serial0'/>
+</serial>
+<console type='pty' tty='/dev/ttys000'>
+<source path='/dev/ttys000'/>
+<target type='serial' port='0'/>
+<alias name='serial0'/>
+</console>
+<input type='tablet' bus='usb'>
+<alias name='input0'/>
+<address type='usb' bus='0' port='1'/>
+</input>
+<input type='keyboard' bus='usb'>
+<alias name='input1'/>
+<address type='usb' bus='0' port='2'/>
+</input>
+<input type='mouse' bus='ps2'>
+<alias name='input2'/>
+</input>
+<input type='keyboard' bus='ps2'>
+<alias name='input3'/>
+</input>
+<graphics type='vnc' port='5999' autoport='no' listen='127.0.0.1'>
+<listen type='address' address='127.0.0.1'/>
+</graphics>
+<audio id='1' type='none'/>
+<video>
+<model type='virtio' vram='16384' heads='1' primary='yes'/>
+<alias name='video0'/>
+<address type='pci' domain='0x0000' bus='0x00' slot='0x01' function='0x0'/>
+</video>
+<memballoon model='virtio'>
+<alias name='balloon0'/>
+<address type='pci' domain='0x0000' bus='0x04' slot='0x00' function='0x0'/>
+</memballoon>
+</devices>
+<seclabel type='none' model='none'/>
+<a class="reference external" href="qemu:commandline">qemu:commandline</a>
+&lt;qemu:arg value='-machine'/&gt;
+&lt;qemu:arg value='type=q35,accel=hvf'/&gt;
+&lt;qemu:arg value='-netdev'/&gt;
+&lt;qemu:arg value='user,id=n1,hostfwd=tcp::2222-:22,net=192.168.76.0/24,dhcpstart=192.168.76.99'/&gt;
+&lt;qemu:arg value='-device'/&gt;
+&lt;qemu:arg value='virtio-net-pci,netdev=n1,bus=pcie.0,addr=0x19'/&gt;
+&lt;/qemu:commandline&gt;
+</domain></p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="LTS_Kernel.html" class="btn btn-neutral float-left" title="Linux 内核版本 LTS 的支持时间" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="man.html" class="btn btn-neutral float-right" title="如何高效阅读 Man 手册" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2022, Albert Xu.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

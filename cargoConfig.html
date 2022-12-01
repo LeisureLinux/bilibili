@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Rustup Book &mdash; LeisureLinux 1.1.0beta 文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="中国的开源根社区" href="China-Root-Community.html" />
+    <link rel="prev" title="对初学者很有用的 Bash 小技巧" href="bashTips.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> LeisureLinux
+          </a>
+              <div class="version">
+                1.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="31linux_command.html">Ubuntu 初学者必知必会的31条命令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E9%9D%9E%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%93%E4%B8%9A-Linux%E5%85%A5%E9%97%A8.html">如何学习 Linux (Ver 0.2.20221015)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E7%90%86%E8%A7%A3%E4%B8%89%E7%A7%8Dsocket.html">三种 Socket (套接字)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apt.html">25 个 apt-get/apt-cache 包管理命令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="archlinux.html">Arch Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="backgrouds.html">Linux 桌面系统存放背景图片的目录</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bash-emacs.html">Bash 命令行编辑(emacs 模式)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bashTips.html">对初学者很有用的 Bash 小技巧</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">The Rustup Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="China-Root-Community.html">中国的开源根社区</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CinnamonDE.html">DE/DW/WM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EmailAnti-Spamming.html">建设自己的邮件系统 AS/AV</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GNU-Autotols.html">GNU Auto Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howto-rpm.html">三步创建 rpm 包</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LoongArch-Evolve.html">LoongArch 在 Linux 操作系统上的进展</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lsblk.html">lsblk,blkid,findmnt,findfs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LTS_Kernel.html">Linux 内核版本 LTS 的支持时间</a></li>
+<li class="toctree-l1"><a class="reference internal" href="macOS-QEMU-Linux.html">如何在 macOS 上使用 QEMU 创建 Linux 虚拟机（而不是 Virtualbox）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="man.html">如何高效阅读 Man 手册</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mdcat.html">kitty+mdcat+lsd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OpenWrt.html">编译自己的 OpenWrt 镜像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SELinux.html">SELinux On Ubuntu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="snap.html">snap 介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="systemd.html">systemd 解释</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uuencode-base64.html">从 UUENCODE 说开来的那些事情</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Vim82-editing.html">Vim 8.2 手册</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zsh-vi-mode.html">zsh 命令行下的 line editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="website-basic.html">如何建设一个网站</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xdgBaseDir.html">XDG 基础目录</a></li>
+<li class="toctree-l1"><a class="reference internal" href="XdgIntro.html">XDG 介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UbuntuSupport.html">Ubuntu 支持介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="useVirt-rescue-to-installAnyOS.html">使用 virt-rescue 在不丢数据的情况下，改变成任意的操作系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qemu-system.html">QEMU emulator version 6.2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qemu-system.html#usage-qemu-system-x86-64-options-disk-image">usage: qemu-system-x86_64 [options] [disk_image]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multipassVM-Clone.html">如何实现对 Ubuntu multipass 虚拟机的“克隆”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="virsh-command.html">Virsh 262 条命令全表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="virsh-help.html">virsh 帮助</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">LeisureLinux</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">The Rustup Book</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/cargoConfig.md.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="the-rustup-book">
+<h1><a class="reference external" href="https://rust-lang.github.io/rustup/index.html">The Rustup Book</a><a class="headerlink" href="#the-rustup-book" title="永久链接至标题"></a></h1>
+<ul>
+<li><p>概念/术语</p>
+<ul class="simple">
+<li><p>channel: 发行版本的三个不同渠道： stable/beta/nightly，stable 每六周发布一次</p>
+<ul>
+<li><p>可以安装指定的版本： $ rustup toolchain install nightly-2020-07-27</p></li>
+<li><p>安装完成后检查版本： $ rustup run nightly rustc --version</p></li>
+<li><p>设置默认的版本： $ rustup default nightly</p></li>
+<li><p>nightly channel 时，会缺少非默认的组件，可以用 --force 或者 --profile 来指定 rustup toolchain install 的模式</p></li>
+</ul>
+</li>
+<li><p>toolchains: Rust 的编译器，支持多种格式： channel[-&lt;date&gt;][-&lt;host&gt;], host 的方式为 target-triple</p></li>
+<li><p>target triple: &lt;arch&gt;&lt;sub&gt;-&lt;vendor&gt;-&lt;sys&gt;-&lt;abi&gt;</p>
+<ul>
+<li><p>arch = x86_64, i386, arm, thumb, mips ; 用 uname -m 来查看</p></li>
+<li><p>sub = ARM: v5,v6m,v7a,v7m</p></li>
+<li><p>vendor = pc,apple,nvidia,ibm ; Linux 系统一般都是 unknown， Windows 是 pc，MacOS 是 apple</p></li>
+<li><p>sys = none,linux,win32,darwin,cuda; 用 uname -s 查看</p></li>
+<li><p>abi = eabi, gnu, android, macho, el； 用 ldd --version 查看， Mac 和 BSD 没有多个 ABI，所以可以忽略</p></li>
+<li><p>全部列表： $ rustc --print target-list | pr -tw100 --columns 3</p></li>
+<li><p>host 的 triple 可以用 $ rustc -Vv 的 host 字段来查看</p></li>
+</ul>
+</li>
+<li><p>component 组件: 包含必需和选项, rustup component list 查看已经安装的组件</p>
+<ul>
+<li><p>组件可以在安装 toolchain 的时候添加： $ rustup toolchain install nightly --component rust-docs</p></li>
+<li><p>也可以在安装后，手工添加： $ rustup component add rust-docs</p></li>
+<li><p>各组件解释</p>
+<ul>
+<li><p>rustc - Rust 语言的编译器</p></li>
+<li><p>cargo - 包管理器以及 build 工具</p></li>
+<li><p>rustfmt - 代码格式化工具</p></li>
+<li><p>rust-std - Rust 的标准库, 每个 target 都有不一样的标准库</p></li>
+<li><p>rust-docs - 文档， 用 rustup doc 在浏览器打开文档</p></li>
+<li><p>rls - 语言服务器，支持 IDE</p></li>
+<li><p>clippy - lint 语法检查工具</p></li>
+<li><p>miri - Rust 解释器，用来检查未定义的行为</p></li>
+<li><p>rust-src - Rust 标准库的源代码，可以结合 rls，实现 IDE 的函数自动完成</p></li>
+<li><p>rust-analysis - 标准库的元数据，被 rls 使用</p></li>
+<li><p>rust-mingw - 构筑 x86_64-pc-windows-gnu 平台上需要的连接器以及平台库</p></li>
+<li><p>llvm-tools-preview - 还处在实验阶段的 llvm 的工具集</p></li>
+<li><p>rustc-dev - rust 自己的开发库，例如用于修改 clippy，一般都不需要</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>profile: 组件的逻辑分组:</p>
+<ul>
+<li><p>minimal: 最少必须组件， rustc, rust-std, cargo，Windows 上建议使用本 profile</p></li>
+<li><p>default: 在 minimal 之上增加了 rust-docs, rustfmt, clippy，rustup 默认使用该 profile</p></li>
+<li><p>complete: 不建议使用的 profile，包含所有组件，如果确实需要添加，建议采用 $ rustup component add 来添加</p></li>
+<li><p>设置 profile: $ rustup set profile minimal</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>安装</p>
+<ul class="simple">
+<li><p>官方推荐使用 <a class="reference external" href="https://github.com/rust-lang/rustup">rustup (工具链安装器)</a></p>
+<ul>
+<li><p>curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --default-toolchain stable -y</p></li>
+<li><p>安装到 ~/.cargo/bin 下，有 rustc, cargo, rustup</p></li>
+<li><p>也可以在运行 rustup-init.sh 之前，自定义 CARGO_HOME 和 RUSTUP_HOME</p>
+<ul>
+<li><p>CARGO_HOME 里面是 cargo 使用到的缓冲文件，$CARGO_HOME/bin 必须包含在 PATH 环境变量里</p></li>
+<li><p>RUSTUP_HOME 用来安装工具链和配置选项，是 rustup 的根</p></li>
+<li><p>bash 的 rustup 自动补全： $ rustup completions bash &gt; ~/.local/share/bash-completion/completions/rustup</p></li>
+<li><p>zsh 的 rustup 自动补全： $ rustup completions zsh &gt; ~/.zfunc/_rustup， 然后添加 fpath+=~/.zfunc 到 .zshrc</p></li>
+</ul>
+</li>
+<li><p>Windows 下有两个 ABI： MSVC 和 GNU， rustup 默认配置 Rust 使用 MSVC ABI</p>
+<ul>
+<li><p>有 32 位和 64 位：i686-pc-windows-msvc/x86_64-pc-windows-msvc</p></li>
+<li><p>强制使用 32 位： $ rustup set default-host i686-pc-windows-msvc</p></li>
+<li><p>使用 GNU ABI： $ rustup toolchain install stable-gnu</p>
+<ul>
+<li><p>一个 toolchain 就能支持 Windows 下的四种 target，无需为了不同的 target 切换 toolchain</p>
+<ul>
+<li><p>$ rustup target add x86_64-pc-windows-msvc</p></li>
+<li><p>$ rustup target add x86_64-pc-windows-gnu</p></li>
+<li><p>$ rustup target add i686-pc-windows-msvc</p></li>
+<li><p>$ rustup target add i686-pc-windows-gnu</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>其他安装方法是直接下载适合自己平台的 <a class="reference external" href="https://rust-lang.github.io/rustup/installation/other.html">rustup-init</a></p></li>
+<li><p>当然也可以自己去 <a class="reference external" href="https://github.com/rust-lang/rustup">Github</a> 下载源码，编译一个 rustup</p></li>
+<li><p>卸载，清空： $ rustup self uninstall</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>工具链的覆盖，查看当前的 toolchain: $rustup show，去掉覆盖： $ rustup override unset</p>
+<ul class="simple">
+<li><p>快捷方式覆盖： $ cargo +beta test，使用叫做 beta 的工具链来构建</p></li>
+<li><p>RUSTUP_TOOLCHAIN 环境变量覆盖</p></li>
+<li><p>目录方式覆盖 $ rustup override set 1.0.0</p></li>
+<li><p>rust-toolchain.toml 文件覆盖</p></li>
+<li><p>默认 toolchain，查看或者设置默认的 toolchain: $ rustup default [nightly-2020-07027]</p></li>
+</ul>
+</li>
+<li><p>环境变量</p>
+<ul class="simple">
+<li><p>RUSTUP_HOME: 默认 ~/.rustup</p></li>
+<li><p>RUSTUP_TOOLCHAIN: 默认 none</p></li>
+<li><p>RUSTUP_DIST_SERVER: 静态资源地址，默认 https://static.rust-lang.org， 可以设置为本地镜像</p></li>
+<li><p>RUSTUP_DIST_ROOT: 已废弃，使用 RUSTUP_DIST_SERVER</p></li>
+<li><p>RUSTUP_UPDATE_ROOT: 下载更新的 URL，默认： https://static.rust-lang.org/rustup</p></li>
+<li><p>RUSTUP_IO_THREADS</p></li>
+<li><p>RUSTUP_TRACE_DIR</p></li>
+<li><p>RUSTUP_UNPACK_RAM</p></li>
+<li><p>RUSTUP_NO_BACKTRACE</p></li>
+<li><p>RUSTUP_PERMIT_COPY_RENAME</p></li>
+</ul>
+</li>
+<li><p>rustup 配置文件: ${RUSTUP_HOME}/settings.toml，一般通过 rustup 命令行来查询和设置</p></li>
+<li><p>建议把 rustup 放 ~/.cargo/bin 下，并把 ~/.cargo/bin 放到 PATH 里</p>
+<ul class="simple">
+<li><p>$ 从头开始</p>
+<ul>
+<li><p>$ sudo apt install rust-all (也可以看所有 librust 开头的包)</p></li>
+</ul>
+</li>
+<li><p>$ 更新</p>
+<ul>
+<li><p>$ rustup update</p></li>
+<li><p>$ rustup self update</p></li>
+</ul>
+</li>
+<li><p>$ rustup show 查看当前所有的已经安装的 工具链，目标</p></li>
+</ul>
+</li>
+<li><p>通过操作系统自带的 rust 软件包来编译</p>
+<ul class="simple">
+<li><p>$ rustup toolchain link system /usr</p></li>
+<li><p>可以用类似：$ cargo +system build 的方法来 Build</p></li>
+<li><p>设置为默认的 toolchain ：$ rustup default system</p></li>
+</ul>
+</li>
+<li><p>针对 arm64 的编译命令</p>
+<ul class="simple">
+<li><p>$ CC=aarch64-linux-gnu-gcc cargo build --target aarch64-unknown-linux-musl --release</p></li>
+</ul>
+</li>
+<li><p>针对树莓派 3 的编译命令</p>
+<ul class="simple">
+<li><p>$ CC=arm-linux-gnueabihf-gcc cargo build --target arm-unknown-linux-musleabihf --release</p></li>
+</ul>
+</li>
+<li><p>针对 Windows 的编译命令</p>
+<ul class="simple">
+<li><p>$ rustup target add x86_64-pc-windows-gnu</p></li>
+<li><p>$ rustup toolchain install stable-x86_64-pc-windows-gnu</p></li>
+<li><p>$ cargo build --target x86_64-pc-windows-gnu --release --verbose</p></li>
+</ul>
+</li>
+<li><p>用 rustc 来做交叉编译</p>
+<blockquote>
+<div><p>$ rustc <br />--target=arm-unknown-linux-gnueabihf <br />-C linker=arm-linux-gnueabihf-gcc <br />hello.rs</p>
+</div></blockquote>
+</li>
+<li><p>用 cargo 直接创建 hello 做交叉编译</p>
+<ul class="simple">
+<li><p>cargo new --bin hello</p></li>
+<li><p>cd hello</p></li>
+<li><p>cargo build --target=... --release</p></li>
+</ul>
+</li>
+<li><p>以下内容写入 ~/.cargo/config.toml</p>
+<blockquote>
+<div><p>[target.arm-linux-androideabi]
+linker = &quot;arm-linux-androideabi-gcc&quot;<br />[target.armv7-unknown-linux-musleabihf]
+linker = &quot;arm-linux-gnueabihf-ld&quot;<br />[target.arm-unknown-linux-musleabihf]
+linker = &quot;arm-linux-gnueabihf-ld&quot;<br />[target.aarch64-unknown-linux-musl]
+linker = &quot;aarch64-linux-gnu-ld&quot;<br />[profile.release]
+opt-level = 'z'
+lto = true
+codegen-units = 1</p>
+</div></blockquote>
+</li>
+<li><p><a class="reference external" href="https://rustrepo.com/repo/japaric-rust-cross-rust-embedded">参考资料</a></p></li>
+<li><p>man rustc</p>
+<ul>
+<li><p>rustc --print</p>
+<blockquote>
+<div><p>crate-name|file-names|sysroot|cfg|target-list|target-cpus|target-features
+relocation-models|code-models|tls-models|target-spec-json|native-static-libs</p>
+</div></blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="bashTips.html" class="btn btn-neutral float-left" title="对初学者很有用的 Bash 小技巧" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="China-Root-Community.html" class="btn btn-neutral float-right" title="中国的开源根社区" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2022, Albert Xu.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

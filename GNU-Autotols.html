@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GNU Auto Tools &mdash; LeisureLinux 1.1.0beta 文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="三步创建 rpm 包" href="howto-rpm.html" />
+    <link rel="prev" title="建设自己的邮件系统 AS/AV" href="EmailAnti-Spamming.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> LeisureLinux
+          </a>
+              <div class="version">
+                1.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="31linux_command.html">Ubuntu 初学者必知必会的31条命令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E9%9D%9E%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%93%E4%B8%9A-Linux%E5%85%A5%E9%97%A8.html">如何学习 Linux (Ver 0.2.20221015)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E7%90%86%E8%A7%A3%E4%B8%89%E7%A7%8Dsocket.html">三种 Socket (套接字)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apt.html">25 个 apt-get/apt-cache 包管理命令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="archlinux.html">Arch Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="backgrouds.html">Linux 桌面系统存放背景图片的目录</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bash-emacs.html">Bash 命令行编辑(emacs 模式)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bashTips.html">对初学者很有用的 Bash 小技巧</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cargoConfig.html">The Rustup Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="China-Root-Community.html">中国的开源根社区</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CinnamonDE.html">DE/DW/WM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EmailAnti-Spamming.html">建设自己的邮件系统 AS/AV</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">GNU Auto Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howto-rpm.html">三步创建 rpm 包</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LoongArch-Evolve.html">LoongArch 在 Linux 操作系统上的进展</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lsblk.html">lsblk,blkid,findmnt,findfs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LTS_Kernel.html">Linux 内核版本 LTS 的支持时间</a></li>
+<li class="toctree-l1"><a class="reference internal" href="macOS-QEMU-Linux.html">如何在 macOS 上使用 QEMU 创建 Linux 虚拟机（而不是 Virtualbox）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="man.html">如何高效阅读 Man 手册</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mdcat.html">kitty+mdcat+lsd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OpenWrt.html">编译自己的 OpenWrt 镜像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SELinux.html">SELinux On Ubuntu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="snap.html">snap 介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="systemd.html">systemd 解释</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uuencode-base64.html">从 UUENCODE 说开来的那些事情</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Vim82-editing.html">Vim 8.2 手册</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zsh-vi-mode.html">zsh 命令行下的 line editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="website-basic.html">如何建设一个网站</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xdgBaseDir.html">XDG 基础目录</a></li>
+<li class="toctree-l1"><a class="reference internal" href="XdgIntro.html">XDG 介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UbuntuSupport.html">Ubuntu 支持介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="useVirt-rescue-to-installAnyOS.html">使用 virt-rescue 在不丢数据的情况下，改变成任意的操作系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qemu-system.html">QEMU emulator version 6.2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qemu-system.html#usage-qemu-system-x86-64-options-disk-image">usage: qemu-system-x86_64 [options] [disk_image]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multipassVM-Clone.html">如何实现对 Ubuntu multipass 虚拟机的“克隆”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="virsh-command.html">Virsh 262 条命令全表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="virsh-help.html">virsh 帮助</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">LeisureLinux</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">GNU Auto Tools</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/GNU-Autotols.md.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="gnu-auto-tools">
+<h1>GNU Auto Tools<a class="headerlink" href="#gnu-auto-tools" title="永久链接至标题"></a></h1>
+<ul class="simple">
+<li><p>History</p></li>
+<li><p>Books</p></li>
+<li><p>References</p>
+<ol class="simple">
+<li><p><a class="reference external" href="https://opensource.com/article/19/7/introduction-gnu-autotools">Introduction to GNU Autotools</a></p></li>
+<li><p><a class="reference external" href="https://www.shlomifish.org/lecture/Autotools/slides--all-in-one-html/">GNU Autoconf, Automake and Libtool Slides</a></p></li>
+<li><p><a class="reference external" href="https://www.shlomifish.org/open-source/anti/autohell/">Escape from GNU Autohell!</a></p></li>
+</ol>
+</li>
+<li><p>相比于 CMake ，Autotools 的缺点</p>
+<ol class="simple">
+<li><p>使用 m4 和 /bin/sh，很容易造成语法问题，CMake 则是用 C++ 写的</p></li>
+<li><p>很费时，特别是在 cygwin 上，运行 autoreconf 或者 ./autogen.sh</p></li>
+<li><p>用 CMake 很快，而 libtool 动辄上千行的 shell 脚本，很笨重</p></li>
+<li><p>autotool 打包后的文件比 CMake 大很多</p></li>
+<li><p>GNU Autohell 最大的问题是前后兼容性问题，需要持续维护，而 CMake 则在向后兼容性上做得非常好</p></li>
+<li><p>CMake 对 Win32 的支持非常好</p></li>
+<li><p>CMake 使用修改后的 BSD 许可，而无需遵循 Autotools 的严格的 GPL 协议</p></li>
+<li><p>CMake 容易上手</p></li>
+</ol>
+</li>
+<li><p>Autotools 的“三板斧”</p>
+<ol class="simple">
+<li><p>./configure ，扫描当前运行系统，用于发现默认设置，各种软件和库的位置</p></li>
+<li><p>make, 根据自动生成的 Makefile ，把源代码“翻译”为机器语言</p></li>
+<li><p>make install，把 make 结果生成的“二进制”文件以及其他相关文档，配置等，复制到指定的目录下</p></li>
+</ol>
+</li>
+<li><p>Autotools 的优点 (GCC = the GNU Compiler Collection)</p>
+<ol class="simple">
+<li><p>可移植性</p></li>
+<li><p>自动根据操作系统类型打包</p></li>
+</ol>
+</li>
+<li><p>如何使用</p>
+<ul>
+<li><p>核心组件</p>
+<ul>
+<li><p>automake 包： automake &amp; aclocal，aclocal 根据 configure.in 和 acinclude.m4 生成 aclocal.m4；automake 根据 Makefile.am 文件生成 Makefile.in 文件</p></li>
+<li><p>autoconf 包： autoconf, autoheader, autom4te, autoreconf, autoscan, autoupdate, ifnames； autoconf 根据 configure.in (2.5 版本后为 configure.ac)，生成 ./configure 脚本；autoheader 根据 acconfig.h 文件生成 config.h.in 模板。</p></li>
+<li><p>make 包： make</p></li>
+</ul>
+</li>
+<li><p>目录结构</p>
+<ul>
+<li><p>src: 源代码</p>
+<ul>
+<li><p>NEWS</p></li>
+<li><p>README</p></li>
+<li><p>AUTHORS</p></li>
+<li><p>ChangeLog</p></li>
+</ul>
+</li>
+<li><p>configure.ac ， autoconf 使用该文件生成 configure 脚本，必须至少包含如下前面两个 m4 宏</p>
+<ul>
+<li><p>AC_INIT ，格式：软件包名称，版本，Email 地址，项目 URL，源.tar 的名称</p></li>
+<li><p>AC_OUTPUT, 可以不带任何附加参数</p></li>
+<li><p>AM_INIT_AUTOMAKE, 用来生成 Makefile，不带任何参数</p></li>
+<li><p>AC_CONFIG_FILES, 参数：输出文件的文件名称</p></li>
+<li><p>指定编译器，如果是 C 则是 AC_PROG_CC，如果是 C++，则是 AC_PROG_CXX</p></li>
+<li><p>AM_PROG_LIBTOOL，这个宏用来指定编译 library，即 libtool 工具</p></li>
+</ul>
+</li>
+<li><p>Makefile.am</p>
+<ul>
+<li><p>_PROGRAMS 结尾的变量，需要编译的源代码</p></li>
+<li><p>_SCRIPTS 结尾的变量，需要包含的脚本</p></li>
+<li><p>_DATA 结尾的变量，需要包含的数据文件</p></li>
+<li><p>_LIBRARIES 结尾的变量，需要编译的库</p></li>
+<li><p>bin_PROGRAMS，用这个变量来指定最终生成的二进制文件的名称，后续的其他变量都可以用这个名称作为前缀</p></li>
+<li><p>bin_SCRIPTS，如果最终的目标不需要编译，则可以用这个变量来指定目标需要放置的路径，例如 bin/myscript</p></li>
+<li><p>AUTOMAKE_OPTIONS = foreign subdir-objects，automake 默认读取 src 目录下的文件，如果需要读取另外的目录用 foreign 变量</p></li>
+</ul>
+</li>
+<li><p>./configure 运行后，通过 Makfile.in 以及其他文件，生成 Makefile</p></li>
+<li><p>autoreconf --install 生成 configure 脚本，以及其他辅助脚本</p></li>
+<li><p>make dist: 生成 .tar.gz 的源代码文件包含 autotool 相关的文件，用户可以自己去编译</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="EmailAnti-Spamming.html" class="btn btn-neutral float-left" title="建设自己的邮件系统 AS/AV" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="howto-rpm.html" class="btn btn-neutral float-right" title="三步创建 rpm 包" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2022, Albert Xu.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

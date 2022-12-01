@@ -1,0 +1,20 @@
+# 四个问题：
+
+## A: .gitignore
+
+## B: shfmt
+
+    - Go 编译
+    - snap install
+    - Shell 的格式化
+
+## C: Remmina build
+
+- NLA
+- FreeRDP 插件
+  - [Remmina](https://github.com/LeisureLinux/Remmina)
+  - [FreeRDP](https://github.com/LeisureLinux/FreeRDP)
+
+## D: Markdown Preview 插件
+
+- [MarkdownPreview](https://vimawesome.com/plugin/markdown-preview-nvim)

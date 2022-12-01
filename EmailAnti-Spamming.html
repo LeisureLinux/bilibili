@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>建设自己的邮件系统 AS/AV &mdash; LeisureLinux 1.1.0beta 文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="GNU Auto Tools" href="GNU-Autotols.html" />
+    <link rel="prev" title="DE/DW/WM" href="CinnamonDE.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> LeisureLinux
+          </a>
+              <div class="version">
+                1.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="31linux_command.html">Ubuntu 初学者必知必会的31条命令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E9%9D%9E%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%93%E4%B8%9A-Linux%E5%85%A5%E9%97%A8.html">如何学习 Linux (Ver 0.2.20221015)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E7%90%86%E8%A7%A3%E4%B8%89%E7%A7%8Dsocket.html">三种 Socket (套接字)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apt.html">25 个 apt-get/apt-cache 包管理命令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="archlinux.html">Arch Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="backgrouds.html">Linux 桌面系统存放背景图片的目录</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bash-emacs.html">Bash 命令行编辑(emacs 模式)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bashTips.html">对初学者很有用的 Bash 小技巧</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cargoConfig.html">The Rustup Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="China-Root-Community.html">中国的开源根社区</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CinnamonDE.html">DE/DW/WM</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">建设自己的邮件系统 AS/AV</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GNU-Autotols.html">GNU Auto Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howto-rpm.html">三步创建 rpm 包</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LoongArch-Evolve.html">LoongArch 在 Linux 操作系统上的进展</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lsblk.html">lsblk,blkid,findmnt,findfs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LTS_Kernel.html">Linux 内核版本 LTS 的支持时间</a></li>
+<li class="toctree-l1"><a class="reference internal" href="macOS-QEMU-Linux.html">如何在 macOS 上使用 QEMU 创建 Linux 虚拟机（而不是 Virtualbox）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="man.html">如何高效阅读 Man 手册</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mdcat.html">kitty+mdcat+lsd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OpenWrt.html">编译自己的 OpenWrt 镜像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SELinux.html">SELinux On Ubuntu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="snap.html">snap 介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="systemd.html">systemd 解释</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uuencode-base64.html">从 UUENCODE 说开来的那些事情</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Vim82-editing.html">Vim 8.2 手册</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zsh-vi-mode.html">zsh 命令行下的 line editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="website-basic.html">如何建设一个网站</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xdgBaseDir.html">XDG 基础目录</a></li>
+<li class="toctree-l1"><a class="reference internal" href="XdgIntro.html">XDG 介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UbuntuSupport.html">Ubuntu 支持介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="useVirt-rescue-to-installAnyOS.html">使用 virt-rescue 在不丢数据的情况下，改变成任意的操作系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qemu-system.html">QEMU emulator version 6.2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qemu-system.html#usage-qemu-system-x86-64-options-disk-image">usage: qemu-system-x86_64 [options] [disk_image]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multipassVM-Clone.html">如何实现对 Ubuntu multipass 虚拟机的“克隆”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="virsh-command.html">Virsh 262 条命令全表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="virsh-help.html">virsh 帮助</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">LeisureLinux</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">建设自己的邮件系统 AS/AV</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/EmailAnti-Spamming.md.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="as-av">
+<h1><a class="reference external" href="https://tech.yj777.cn/%E7%94%A8-postfixdovecot-%E5%9C%A8-centos7-%E4%B8%8A%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%AE%89%E5%85%A8%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8/">建设自己的邮件系统 AS/AV</a><a class="headerlink" href="#as-av" title="永久链接至标题"></a></h1>
+<ul>
+<li><p>邮件系统的核心组件： apt/yum install postfix dovecot</p></li>
+<li><p>反垃圾邮件的组件</p>
+<ul>
+<li><p>服务： spamassassin + spamass-milter</p></li>
+<li><p>示例邮件头(部分)</p>
+<blockquote>
+<div><p>Subject: =?utf-8?B?55Sz6ZO25LiH5Zu9X+ihjOS4mueCueivhF/pmYjng6jov5xf?=
+=?utf-8?B?T21pY3JvbuWPmOW8guagquiiq+WIl+S4ulZPQ+S6i+S7tueCueivhF/v?=
+=?utf-8?B?vIrvvIrvvIpf?=
+Content-Type: multipart/mixed;
+boundary=--boundary_592_fb99ee02-2f7a-47dc-b19e-2467081e87ca
+X-Spam-Status: No, score=0.0 required=12.0 tests=RCVD_IN_SORBS_DUL,
+SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on mailhost-01
+X-Virus-Scanned: clamav-milter 0.103.4 at mailhost-01
+X-Virus-Status: Clean</p>
+</div></blockquote>
+</li>
+<li><p>/var/log/maillog 的日志示例（部分）</p>
+<blockquote>
+<div><p>Nov 28 18:47:06 mailhost-01 postfix/smtpd[29384]: connect from unknown[182.84.144.255]
+Nov 28 18:47:07 mailhost-01 postfix/smtpd[29384]: 1692760C5: client=unknown[182.84.144.255]
+Nov 28 18:47:07 mailhost-01 postfix/cleanup[29394]: 1692760C5: message-id=&lt;&gt;
+Nov 28 18:47:07 mailhost-01 spamd[25529]: spamd: got connection over /run/spamd.sock
+Nov 28 18:47:07 mailhost-01 spamd[25529]: spamd: setuid to postfix succeeded
+Nov 28 18:47:07 mailhost-01 spamd[25529]: spamd: creating default_prefs: /var/spool/postfix/.spamassassin/user_prefs
+Nov 28 18:47:07 mailhost-01 spamd[25529]: config: created user preferences file: /var/spool/postfix/.spamassassin/user_prefs
+Nov 28 18:47:07 mailhost-01 spamd[25529]: spamd: processing message (unknown) for postfix:89
+Nov 28 18:47:18 mailhost-01 spamd[25529]: spamd: identified spam (27.6/12.0) for postfix:89 in 10.2 seconds, 604 bytes.
+Nov 28 18:47:18 mailhost-01 spamd[25529]: spamd: result: Y 27 - DOS_OE_TO_MX,FORGED_MUA_OUTLOOK,
+FREEMAIL_FROM,FSL_HELO_FAKE,MISSING_MID,NO_RDNS_DOTCOM_HELO,PDS_HP_HELO_NORDNS,RCVD_IN_BL_SPAMCOP_NET,
+RCVD_IN_PBL,RCVD_IN_SBL_CSS,RCVD_IN_XBL,RDNS_NONE,SPOOFED_FREEMAIL,SPOOFED_FREEMAIL_NO_RDNS,
+TO_NO_BRKTS_MSFT,TVD_SPACE_ENCODED
+scantime=10.2,size=604,user=postfix,uid=89,
+required_score=12.0,
+rhost=localhost,raddr=127.0.0.1,rport=/run/spamd.sock,mid=(unknown),autolearn=no autolearn_force=no
+Nov 28 18:47:18 mailhost-01 postfix/cleanup[29394]: 1692760C5:
+milter-reject: END-OF-MESSAGE from unknown[182.84.144.255]:
+5.7.1 Dude, Don't Spam!;
+from=<a class="reference external" href="mailto:dfatjgvhb&#37;&#52;&#48;hotmail&#46;com">dfatjgvhb<span>&#64;</span>hotmail<span>&#46;</span>com</a> to=<a class="reference external" href="mailto:user&#37;&#52;&#48;mymailhost&#46;com">user<span>&#64;</span>mymailhost<span>&#46;</span>com</a> proto=ESMTP helo=&lt;hotmail.com&gt;
+Nov 28 18:47:18 mailhost-01 spamd[25525]: prefork: child states: II
+Nov 28 18:47:18 mailhost-01 postfix/smtpd[29384]: disconnect from unknown[182.84.144.255]
+Nov 28 18:50:38 mailhost-01 postfix/anvil[29391]: statistics: max connection rate 1/60s for (smtp:182.84.144.255) at Nov 28 18:47:06
+Nov 28 18:50:38 mailhost-01 postfix/anvil[29391]: statistics: max connection count 1 for (smtp:182.84.144.255) at Nov 28 18:47:06
+Nov 28 18:50:38 mailhost-01 postfix/anvil[29391]: statistics: max cache size 1 at Nov 28 18:47:06</p>
+</div></blockquote>
+</li>
+<li><p>实现方法 /etc/sysconfig/spamass-milter</p>
+<blockquote>
+<div><p>SOCKET=/run/spamass-milter/postfix.sock
+EXTRA_FLAGS=&quot;-a -g postfix -r 11 -I -i 127.0.0.1 -R &quot;Dude, Don't Spam!&quot;&quot;</p>
+</div></blockquote>
+</li>
+<li><p>Spam Score 的配置： /etc/mail/spamassassin/local.cf</p>
+<blockquote>
+<div><p>required<em>hits 12.00
+rewrite_header Subject ****SPAM(_SCORE</em>)****
+report*safe 0
+use_bayes 1
+bayes_auto_learn 1
+bayes_auto_learn_threshold_nonspam -1.7
+bayes_auto_learn_threshold_spam 5.00
+skip_rbl_checks 0
+use_razor2 1
+use_pyzor 1
+pyzor_options --homedir /etc/mail/spamassassin/.pyzor
+blacklist_from *&#64;sohu.com _&#64;mailfb.com
+whitelist_from 10000&#64;qq.com
+ok_locales zh en
+score HEADER_8BITS 0
+score HTML_COMMENT_8BITS 0
+score SUBJ_FULL_OF_8BITS 0
+score SPF_FAIL 10.000
+header **BY_BOSSEDM Received =~ /by edm01.bossedm.com/
+score **BY_BOSSEDM 10</p>
+</div></blockquote>
+</li>
+<li><p>需要注意的用户/权限问题 # grep postfix /etc/group</p>
+<blockquote>
+<div><p>mail:x:12:postfix
+postfix:x:89:sa-milt
+virusgroup:x:775:clamupdate,clamilt,clamscan,postfix
+sa-milt:x:773:postfix
+clamilt:x:772:postfix</p>
+</div></blockquote>
+</li>
+</ul>
+</li>
+<li><p>反病毒的组件</p>
+<ul class="simple">
+<li><p>clamav-milter</p></li>
+<li><p>clamd&#64;scan</p></li>
+</ul>
+</li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="CinnamonDE.html" class="btn btn-neutral float-left" title="DE/DW/WM" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="GNU-Autotols.html" class="btn btn-neutral float-right" title="GNU Auto Tools" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2022, Albert Xu.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

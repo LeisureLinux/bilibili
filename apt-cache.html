@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>APT-CACHE &mdash; LeisureLinux 1.1.0beta 文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> LeisureLinux
+          </a>
+              <div class="version">
+                1.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="31linux_command.html">Ubuntu 初学者必知必会的31条命令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E9%9D%9E%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%93%E4%B8%9A-Linux%E5%85%A5%E9%97%A8.html">如何学习 Linux (Ver 0.2.20221015)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E7%90%86%E8%A7%A3%E4%B8%89%E7%A7%8Dsocket.html">三种 Socket (套接字)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apt.html">25 个 apt-get/apt-cache 包管理命令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="archlinux.html">Arch Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="backgrouds.html">Linux 桌面系统存放背景图片的目录</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bash-emacs.html">Bash 命令行编辑(emacs 模式)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bashTips.html">对初学者很有用的 Bash 小技巧</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cargoConfig.html">The Rustup Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="China-Root-Community.html">中国的开源根社区</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CinnamonDE.html">DE/DW/WM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EmailAnti-Spamming.html">建设自己的邮件系统 AS/AV</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GNU-Autotols.html">GNU Auto Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howto-rpm.html">三步创建 rpm 包</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LoongArch-Evolve.html">LoongArch 在 Linux 操作系统上的进展</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lsblk.html">lsblk,blkid,findmnt,findfs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LTS_Kernel.html">Linux 内核版本 LTS 的支持时间</a></li>
+<li class="toctree-l1"><a class="reference internal" href="macOS-QEMU-Linux.html">如何在 macOS 上使用 QEMU 创建 Linux 虚拟机（而不是 Virtualbox）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="man.html">如何高效阅读 Man 手册</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mdcat.html">kitty+mdcat+lsd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OpenWrt.html">编译自己的 OpenWrt 镜像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SELinux.html">SELinux On Ubuntu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="snap.html">snap 介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="systemd.html">systemd 解释</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uuencode-base64.html">从 UUENCODE 说开来的那些事情</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Vim82-editing.html">Vim 8.2 手册</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zsh-vi-mode.html">zsh 命令行下的 line editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="website-basic.html">如何建设一个网站</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xdgBaseDir.html">XDG 基础目录</a></li>
+<li class="toctree-l1"><a class="reference internal" href="XdgIntro.html">XDG 介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UbuntuSupport.html">Ubuntu 支持介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="useVirt-rescue-to-installAnyOS.html">使用 virt-rescue 在不丢数据的情况下，改变成任意的操作系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qemu-system.html">QEMU emulator version 6.2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qemu-system.html#usage-qemu-system-x86-64-options-disk-image">usage: qemu-system-x86_64 [options] [disk_image]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multipassVM-Clone.html">如何实现对 Ubuntu multipass 虚拟机的“克隆”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="virsh-command.html">Virsh 262 条命令全表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="virsh-help.html">virsh 帮助</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">LeisureLinux</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">APT-CACHE</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/apt-cache.md.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="apt-cache">
+<h1>APT-CACHE<a class="headerlink" href="#apt-cache" title="永久链接至标题"></a></h1>
+<section id="apt-cache-query-the-apt-cache">
+<h2>目的：apt-cache - query the APT cache<a class="headerlink" href="#apt-cache-query-the-apt-cache" title="永久链接至标题"></a></h2>
+</section>
+<section id="id1">
+<h2>语法：<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="n">apt</span><span class="o">-</span><span class="n">cache</span> <span class="p">[</span><span class="o">-</span><span class="n">agipns</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">o</span><span class="o">=</span><span class="n">config_string</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">c</span><span class="o">=</span><span class="n">config_file</span><span class="p">]</span> <span class="p">{</span><span class="n">gencaches</span> <span class="o">|</span> <span class="n">showpkg</span> <span class="n">pkg</span><span class="o">...</span>  <span class="o">|</span> <span class="n">showsrc</span> <span class="n">pkg</span><span class="o">...</span>  <span class="o">|</span> <span class="n">stats</span> <span class="o">|</span> <span class="n">dump</span> <span class="o">|</span> <span class="n">dumpavail</span> <span class="o">|</span>
+             <span class="n">unmet</span> <span class="o">|</span> <span class="n">search</span> <span class="n">regex</span><span class="o">...</span>  <span class="o">|</span> <span class="n">show</span> <span class="n">pkg</span> <span class="p">[{</span><span class="o">=</span><span class="n">pkg_version_number</span> <span class="o">|</span> <span class="o">/</span><span class="n">target_release</span><span class="p">}]</span><span class="o">...</span>  <span class="o">|</span>
+             <span class="n">depends</span> <span class="n">pkg</span> <span class="p">[{</span><span class="o">=</span><span class="n">pkg_version_number</span> <span class="o">|</span> <span class="o">/</span><span class="n">target_release</span><span class="p">}]</span><span class="o">...</span>  <span class="o">|</span> <span class="n">rdepends</span> <span class="n">pkg</span> <span class="p">[{</span><span class="o">=</span><span class="n">pkg_version_number</span> <span class="o">|</span> <span class="o">/</span><span class="n">target_release</span><span class="p">}]</span><span class="o">...</span>  <span class="o">|</span>
+             <span class="n">pkgnames</span> <span class="p">[</span><span class="n">prefix</span><span class="p">]</span>  <span class="o">|</span> <span class="n">dotty</span> <span class="n">pkg</span> <span class="p">[{</span><span class="o">=</span><span class="n">pkg_version_number</span> <span class="o">|</span> <span class="o">/</span><span class="n">target_release</span><span class="p">}]</span><span class="o">...</span>  <span class="o">|</span>
+             <span class="n">xvcg</span> <span class="n">pkg</span> <span class="p">[{</span><span class="o">=</span><span class="n">pkg_version_number</span> <span class="o">|</span> <span class="o">/</span><span class="n">target_release</span><span class="p">}]</span><span class="o">...</span>  <span class="o">|</span> <span class="n">policy</span> <span class="p">[</span><span class="n">pkg</span><span class="o">...</span><span class="p">]</span>  <span class="o">|</span> <span class="n">madison</span> <span class="n">pkg</span><span class="o">...</span>  <span class="o">|</span> <span class="p">{</span><span class="o">-</span><span class="n">v</span> <span class="o">|</span> <span class="o">--</span><span class="n">version</span><span class="p">}</span> <span class="o">|</span>
+             <span class="p">{</span><span class="o">-</span><span class="n">h</span> <span class="o">|</span> <span class="o">--</span><span class="n">help</span><span class="p">}}</span>
+</pre></div>
+</div>
+<p>DESCRIPTION
+apt-cache performs a variety of operations on APT's package cache.  apt-cache does not manipulate the state of the system but does
+provide operations to search and generate interesting output from the package metadata. The metadata is acquired and updated via the
+'update' command of e.g.  apt-get, so that it can be outdated if the last update is too long ago, but in exchange apt-cache works
+independently of the availability of the configured sources (e.g. offline).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="n">Unless</span> <span class="n">the</span> <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="ow">or</span> <span class="o">--</span><span class="n">help</span> <span class="n">option</span> <span class="ow">is</span> <span class="n">given</span><span class="p">,</span> <span class="n">one</span> <span class="n">of</span> <span class="n">the</span> <span class="n">commands</span> <span class="n">below</span> <span class="n">must</span> <span class="n">be</span> <span class="n">present</span><span class="o">.</span>
+</pre></div>
+</div>
+<ul>
+<li><p>gencaches
+gencaches creates APT's package cache. This is done implicitly by all commands needing this cache if it is missing or outdated.</p></li>
+<li><p>showpkg pkg...
+showpkg displays information about the packages listed on the command line. Remaining arguments are package names. The available
+versions and reverse dependencies of each package listed are listed, as well as forward dependencies for each version. Forward
+(normal) dependencies are those packages upon which the package in question depends; reverse dependencies are those packages that
+depend upon the package in question. Thus, forward dependencies must be satisfied for a package, but reverse dependencies need
+not be. For instance, apt-cache showpkg libreadline2 would produce output similar to the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>       <span class="n">Package</span><span class="p">:</span> <span class="n">libreadline2</span>
+       <span class="n">Versions</span><span class="p">:</span> <span class="mf">2.1</span><span class="o">-</span><span class="mi">12</span><span class="p">(</span><span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">state</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">lists</span><span class="o">/</span><span class="n">foo_Packages</span><span class="p">),</span>
+       <span class="n">Reverse</span> <span class="n">Depends</span><span class="p">:</span>
+         <span class="n">libreadlineg2</span><span class="p">,</span><span class="n">libreadline2</span>
+         <span class="n">libreadline2</span><span class="o">-</span><span class="n">altdev</span><span class="p">,</span><span class="n">libreadline2</span>
+       <span class="n">Dependencies</span><span class="p">:</span>
+       <span class="mf">2.1</span><span class="o">-</span><span class="mi">12</span> <span class="o">-</span> <span class="n">libc5</span> <span class="p">(</span><span class="mi">2</span> <span class="mf">5.4.0</span><span class="o">-</span><span class="mi">0</span><span class="p">)</span> <span class="n">ncurses3</span><span class="mf">.0</span> <span class="p">(</span><span class="mi">0</span> <span class="p">(</span><span class="n">null</span><span class="p">))</span>
+       <span class="n">Provides</span><span class="p">:</span>
+       <span class="mf">2.1</span><span class="o">-</span><span class="mi">12</span> <span class="o">-</span>
+       <span class="n">Reverse</span> <span class="n">Provides</span><span class="p">:</span>
+   <span class="n">Thus</span> <span class="n">it</span> <span class="n">may</span> <span class="n">be</span> <span class="n">seen</span> <span class="n">that</span> <span class="n">libreadline2</span><span class="p">,</span> <span class="n">version</span> <span class="mf">2.1</span><span class="o">-</span><span class="mi">12</span><span class="p">,</span> <span class="n">depends</span> <span class="n">on</span> <span class="n">libc5</span> <span class="ow">and</span> <span class="n">ncurses3</span><span class="mf">.0</span> <span class="n">which</span> <span class="n">must</span> <span class="n">be</span> <span class="n">installed</span> <span class="k">for</span> <span class="n">libreadline2</span>
+   <span class="n">to</span> <span class="n">work</span><span class="o">.</span> <span class="n">In</span> <span class="n">turn</span><span class="p">,</span> <span class="n">libreadlineg2</span> <span class="ow">and</span> <span class="n">libreadline2</span><span class="o">-</span><span class="n">altdev</span> <span class="n">depend</span> <span class="n">on</span> <span class="n">libreadline2</span><span class="o">.</span> <span class="n">If</span> <span class="n">libreadline2</span> <span class="ow">is</span> <span class="n">installed</span><span class="p">,</span> <span class="n">libc5</span> <span class="ow">and</span>
+   <span class="n">ncurses3</span><span class="mf">.0</span> <span class="p">(</span><span class="ow">and</span> <span class="n">ldso</span><span class="p">)</span> <span class="n">must</span> <span class="n">also</span> <span class="n">be</span> <span class="n">installed</span><span class="p">;</span> <span class="n">libreadlineg2</span> <span class="ow">and</span> <span class="n">libreadline2</span><span class="o">-</span><span class="n">altdev</span> <span class="n">do</span> <span class="ow">not</span> <span class="n">have</span> <span class="n">to</span> <span class="n">be</span> <span class="n">installed</span><span class="o">.</span> <span class="n">For</span> <span class="n">the</span> <span class="n">specific</span>
+   <span class="n">meaning</span> <span class="n">of</span> <span class="n">the</span> <span class="n">remainder</span> <span class="n">of</span> <span class="n">the</span> <span class="n">output</span> <span class="n">it</span> <span class="ow">is</span> <span class="n">best</span> <span class="n">to</span> <span class="n">consult</span> <span class="n">the</span> <span class="n">apt</span> <span class="n">source</span> <span class="n">code</span><span class="o">.</span>
+</pre></div>
+</div>
+</li>
+<li><p>stats
+stats displays some statistics about the cache. No further arguments are expected. Statistics reported are:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="o">-</span> <span class="n">Total</span> <span class="n">package</span> <span class="n">names</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">number</span> <span class="n">of</span> <span class="n">package</span> <span class="n">names</span> <span class="n">found</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">cache</span><span class="o">.</span>
+   <span class="o">-</span> <span class="n">Normal</span> <span class="n">packages</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">number</span> <span class="n">of</span> <span class="n">regular</span><span class="p">,</span> <span class="n">ordinary</span> <span class="n">package</span> <span class="n">names</span><span class="p">;</span> <span class="n">these</span> <span class="n">are</span> <span class="n">packages</span> <span class="n">that</span> <span class="n">bear</span> <span class="n">a</span> <span class="n">one</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">one</span> <span class="n">correspondence</span>
+       <span class="n">between</span> <span class="n">their</span> <span class="n">names</span> <span class="ow">and</span> <span class="n">the</span> <span class="n">names</span> <span class="n">used</span> <span class="n">by</span> <span class="n">other</span> <span class="n">packages</span> <span class="k">for</span> <span class="n">them</span> <span class="ow">in</span> <span class="n">dependencies</span><span class="o">.</span> <span class="n">The</span> <span class="n">majority</span> <span class="n">of</span> <span class="n">packages</span> <span class="n">fall</span> <span class="n">into</span> <span class="n">this</span>
+       <span class="n">category</span><span class="o">.</span>
+
+   <span class="o">-</span> <span class="n">Pure</span> <span class="n">virtual</span> <span class="n">packages</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">number</span> <span class="n">of</span> <span class="n">packages</span> <span class="n">that</span> <span class="n">exist</span> <span class="n">only</span> <span class="k">as</span> <span class="n">a</span> <span class="n">virtual</span> <span class="n">package</span> <span class="n">name</span><span class="p">;</span> <span class="n">that</span> <span class="ow">is</span><span class="p">,</span> <span class="n">packages</span> <span class="n">only</span> <span class="s2">&quot;provide&quot;</span>
+       <span class="n">the</span> <span class="n">virtual</span> <span class="n">package</span> <span class="n">name</span><span class="p">,</span> <span class="ow">and</span> <span class="n">no</span> <span class="n">package</span> <span class="n">actually</span> <span class="n">uses</span> <span class="n">the</span> <span class="n">name</span><span class="o">.</span> <span class="n">For</span> <span class="n">instance</span><span class="p">,</span> <span class="s2">&quot;mail-transport-agent&quot;</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">Debian</span> <span class="n">system</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">pure</span> <span class="n">virtual</span> <span class="n">package</span><span class="p">;</span> <span class="n">several</span> <span class="n">packages</span> <span class="n">provide</span> <span class="s2">&quot;mail-transport-agent&quot;</span><span class="p">,</span> <span class="n">but</span> <span class="n">there</span> <span class="ow">is</span> <span class="n">no</span> <span class="n">package</span> <span class="n">named</span>
+       <span class="s2">&quot;mail-transport-agent&quot;</span><span class="o">.</span>
+
+   <span class="o">-</span> <span class="n">Single</span> <span class="n">virtual</span> <span class="n">packages</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">number</span> <span class="n">of</span> <span class="n">packages</span> <span class="k">with</span> <span class="n">only</span> <span class="n">one</span> <span class="n">package</span> <span class="n">providing</span> <span class="n">a</span> <span class="n">particular</span> <span class="n">virtual</span> <span class="n">package</span><span class="o">.</span> <span class="n">For</span> <span class="n">example</span><span class="p">,</span>
+       <span class="ow">in</span> <span class="n">the</span> <span class="n">Debian</span> <span class="n">system</span><span class="p">,</span> <span class="s2">&quot;X11-text-viewer&quot;</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">virtual</span> <span class="n">package</span><span class="p">,</span> <span class="n">but</span> <span class="n">only</span> <span class="n">one</span> <span class="n">package</span><span class="p">,</span> <span class="n">xless</span><span class="p">,</span> <span class="n">provides</span> <span class="s2">&quot;X11-text-viewer&quot;</span><span class="o">.</span>
+
+   <span class="o">-</span> <span class="n">Mixed</span> <span class="n">virtual</span> <span class="n">packages</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">number</span> <span class="n">of</span> <span class="n">packages</span> <span class="n">that</span> <span class="n">either</span> <span class="n">provide</span> <span class="n">a</span> <span class="n">particular</span> <span class="n">virtual</span> <span class="n">package</span> <span class="ow">or</span> <span class="n">have</span> <span class="n">the</span> <span class="n">virtual</span> <span class="n">package</span>
+       <span class="n">name</span> <span class="k">as</span> <span class="n">the</span> <span class="n">package</span> <span class="n">name</span><span class="o">.</span> <span class="n">For</span> <span class="n">instance</span><span class="p">,</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">Debian</span> <span class="n">system</span><span class="p">,</span> <span class="s2">&quot;debconf&quot;</span> <span class="ow">is</span> <span class="n">both</span> <span class="n">an</span> <span class="n">actual</span> <span class="n">package</span><span class="p">,</span> <span class="ow">and</span> <span class="n">provided</span> <span class="n">by</span> <span class="n">the</span>
+       <span class="n">debconf</span><span class="o">-</span><span class="n">tiny</span> <span class="n">package</span><span class="o">.</span>
+
+   <span class="o">-</span> <span class="n">Missing</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">number</span> <span class="n">of</span> <span class="n">package</span> <span class="n">names</span> <span class="n">that</span> <span class="n">were</span> <span class="n">referenced</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">dependency</span> <span class="n">but</span> <span class="n">were</span> <span class="ow">not</span> <span class="n">provided</span> <span class="n">by</span> <span class="nb">any</span> <span class="n">package</span><span class="o">.</span> <span class="n">Missing</span>
+       <span class="n">packages</span> <span class="n">may</span> <span class="n">be</span> <span class="n">an</span> <span class="n">evidence</span> <span class="k">if</span> <span class="n">a</span> <span class="n">full</span> <span class="n">distribution</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">accessed</span><span class="p">,</span> <span class="ow">or</span> <span class="k">if</span> <span class="n">a</span> <span class="n">package</span> <span class="p">(</span><span class="n">real</span> <span class="ow">or</span> <span class="n">virtual</span><span class="p">)</span> <span class="n">has</span> <span class="n">been</span> <span class="n">dropped</span> <span class="kn">from</span>
+       <span class="nn">the</span> <span class="n">distribution</span><span class="o">.</span> <span class="n">Usually</span> <span class="n">they</span> <span class="n">are</span> <span class="n">referenced</span> <span class="kn">from</span> <span class="nn">Conflicts</span> <span class="ow">or</span> <span class="n">Breaks</span> <span class="n">statements</span><span class="o">.</span>
+
+   <span class="o">-</span> <span class="n">Total</span> <span class="n">distinct</span> <span class="n">versions</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">number</span> <span class="n">of</span> <span class="n">package</span> <span class="n">versions</span> <span class="n">found</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">cache</span><span class="o">.</span> <span class="n">If</span> <span class="n">more</span> <span class="n">than</span> <span class="n">one</span> <span class="n">distribution</span> <span class="ow">is</span> <span class="n">being</span> <span class="n">accessed</span>
+       <span class="p">(</span><span class="k">for</span> <span class="n">instance</span><span class="p">,</span> <span class="s2">&quot;stable&quot;</span> <span class="ow">and</span> <span class="s2">&quot;unstable&quot;</span><span class="p">),</span> <span class="n">this</span> <span class="n">value</span> <span class="n">can</span> <span class="n">be</span> <span class="n">considerably</span> <span class="n">larger</span> <span class="n">than</span> <span class="n">the</span> <span class="n">number</span> <span class="n">of</span> <span class="n">total</span> <span class="n">package</span> <span class="n">names</span><span class="o">.</span>
+
+   <span class="o">-</span> <span class="n">Total</span> <span class="n">dependencies</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">number</span> <span class="n">of</span> <span class="n">dependency</span> <span class="n">relationships</span> <span class="n">claimed</span> <span class="n">by</span> <span class="nb">all</span> <span class="n">of</span> <span class="n">the</span> <span class="n">packages</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">cache</span><span class="o">.</span>
+</pre></div>
+</div>
+</li>
+<li><p>showsrc pkg...
+showsrc displays all the source package records that match the given package names. All versions are shown, as well as all
+records that declare the name to be a binary package. Use --only-source to display only source package names.</p></li>
+<li><p>dump
+dump shows a short listing of every package in the cache. It is primarily for debugging.</p></li>
+<li><p>dumpavail
+dumpavail prints out an available list to stdout. This is suitable for use with dpkg(1) and is used by the dselect(1) method.</p></li>
+<li><p>unmet
+unmet displays a summary of all unmet dependencies in the package cache.</p></li>
+<li><p>show pkg...
+show performs a function similar to dpkg --print-avail; it displays the package records for the named packages.</p></li>
+<li><p>search regex...
+search performs a full text search on all available package lists for the POSIX regex pattern given, see regex(7). It searches
+the package names and the descriptions for an occurrence of the regular expression and prints out the package name and the short
+description, including virtual package names. If --full is given then output identical to show is produced for each matched
+package, and if --names-only is given then the long description is not searched, only the package name and provided packages are.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="n">Separate</span> <span class="n">arguments</span> <span class="n">can</span> <span class="n">be</span> <span class="n">used</span> <span class="n">to</span> <span class="n">specify</span> <span class="n">multiple</span> <span class="n">search</span> <span class="n">patterns</span> <span class="n">that</span> <span class="n">are</span> <span class="ow">and</span><span class="s1">&#39;ed together.</span>
+</pre></div>
+</div>
+</li>
+<li><p>depends pkg...
+depends shows a listing of each dependency a package has and all the possible other packages that can fulfill that dependency.</p></li>
+<li><p>rdepends pkg...
+rdepends shows a listing of each reverse dependency a package has.</p></li>
+<li><p>pkgnames [prefix]
+This command prints the name of each package APT knows. The optional argument is a prefix match to filter the name list. The
+output is suitable for use in a shell tab complete function and the output is generated extremely quickly. This command is best
+used with the --generate option.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="n">Note</span> <span class="n">that</span> <span class="n">a</span> <span class="n">package</span> <span class="n">which</span> <span class="n">APT</span> <span class="n">knows</span> <span class="n">of</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">necessarily</span> <span class="n">available</span> <span class="n">to</span> <span class="n">download</span><span class="p">,</span> <span class="n">installable</span> <span class="ow">or</span> <span class="n">installed</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="n">virtual</span> <span class="n">packages</span>
+   <span class="n">are</span> <span class="n">also</span> <span class="n">listed</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">generated</span> <span class="nb">list</span><span class="o">.</span>
+</pre></div>
+</div>
+</li>
+<li><p>dotty pkg...
+dotty takes a list of packages on the command line and generates output suitable for use by dotty from the GraphViz[1] package.
+The result will be a set of nodes and edges representing the relationships between the packages. By default the given packages
+will trace out all dependent packages; this can produce a very large graph. To limit the output to only the packages listed on
+the command line, set the APT::Cache::GivenOnly option.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="n">The</span> <span class="n">resulting</span> <span class="n">nodes</span> <span class="n">will</span> <span class="n">have</span> <span class="n">several</span> <span class="n">shapes</span><span class="p">;</span> <span class="n">normal</span> <span class="n">packages</span> <span class="n">are</span> <span class="n">boxes</span><span class="p">,</span> <span class="n">pure</span> <span class="n">virtual</span> <span class="n">packages</span> <span class="n">are</span> <span class="n">triangles</span><span class="p">,</span> <span class="n">mixed</span> <span class="n">virtual</span>
+   <span class="n">packages</span> <span class="n">are</span> <span class="n">diamonds</span><span class="p">,</span> <span class="n">missing</span> <span class="n">packages</span> <span class="n">are</span> <span class="n">hexagons</span><span class="o">.</span> <span class="n">Orange</span> <span class="n">boxes</span> <span class="n">mean</span> <span class="n">recursion</span> <span class="n">was</span> <span class="n">stopped</span> <span class="p">(</span><span class="n">leaf</span> <span class="n">packages</span><span class="p">),</span> <span class="n">blue</span> <span class="n">lines</span> <span class="n">are</span>
+   <span class="n">pre</span><span class="o">-</span><span class="n">depends</span><span class="p">,</span> <span class="n">green</span> <span class="n">lines</span> <span class="n">are</span> <span class="n">conflicts</span><span class="o">.</span>
+
+   <span class="n">Caution</span><span class="p">,</span> <span class="n">dotty</span> <span class="n">cannot</span> <span class="n">graph</span> <span class="n">larger</span> <span class="n">sets</span> <span class="n">of</span> <span class="n">packages</span><span class="o">.</span>
+</pre></div>
+</div>
+</li>
+<li><p>xvcg pkg...
+The same as dotty, only for xvcg from the VCG tool[2].</p></li>
+<li><p>policy [pkg...]
+policy is meant to help debug issues relating to the preferences file. With no arguments it will print out the priorities of each
+source. Otherwise it prints out detailed information about the priority selection of the named package.</p></li>
+<li><p>madison pkg...
+apt-cache's madison command attempts to mimic the output format and a subset of the functionality of the Debian archive
+management tool, madison. It displays available versions of a package in a tabular format. Unlike the original madison, it can
+only display information for the architecture for which APT has retrieved package lists (APT::Architecture).</p></li>
+</ul>
+</section>
+</section>
+<section id="options">
+<h1>OPTIONS<a class="headerlink" href="#options" title="永久链接至标题"></a></h1>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="n">All</span> <span class="n">command</span> <span class="n">line</span> <span class="n">options</span> <span class="n">may</span> <span class="n">be</span> <span class="nb">set</span> <span class="n">using</span> <span class="n">the</span> <span class="n">configuration</span> <span class="n">file</span><span class="p">,</span> <span class="n">the</span> <span class="n">descriptions</span> <span class="n">indicate</span> <span class="n">the</span> <span class="n">configuration</span> <span class="n">option</span> <span class="n">to</span> <span class="nb">set</span><span class="o">.</span> <span class="n">For</span>
+   <span class="n">boolean</span> <span class="n">options</span> <span class="n">you</span> <span class="n">can</span> <span class="n">override</span> <span class="n">the</span> <span class="n">config</span> <span class="n">file</span> <span class="n">by</span> <span class="n">using</span> <span class="n">something</span> <span class="n">like</span> <span class="o">-</span><span class="n">f</span><span class="o">-</span><span class="p">,</span><span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">f</span><span class="p">,</span> <span class="o">-</span><span class="n">f</span><span class="o">=</span><span class="n">no</span> <span class="ow">or</span> <span class="n">several</span> <span class="n">other</span> <span class="n">variations</span><span class="o">.</span>
+</pre></div>
+</div>
+<ul>
+<li><p>-p, --pkg-cache
+Select the file to store the package cache. The package cache is the primary cache used by all operations. Configuration Item:
+Dir::Cache::pkgcache.</p></li>
+<li><p>-s, --src-cache
+Select the file to store the source cache. The source is used only by gencaches and it stores a parsed version of the package
+information from remote sources. When building the package cache the source cache is used to avoid reparsing all of the package
+files. Configuration Item: Dir::Cache::srcpkgcache.</p></li>
+<li><p>-q, --quiet
+Quiet; produces output suitable for logging, omitting progress indicators. More q's will produce more quietness up to a maximum
+of 2. You can also use -q=# to set the quietness level, overriding the configuration file. Configuration Item: quiet.</p></li>
+<li><p>-i, --important
+Print only important dependencies; for use with unmet and depends. Causes only Depends and Pre-Depends relations to be printed.
+Configuration Item: APT::Cache::Important.</p></li>
+<li><p>--no-pre-depends, --no-depends, --no-recommends, --no-suggests, --no-conflicts, --no-breaks, --no-replaces, --no-enhances
+Per default the depends and rdepends print all dependencies. This can be tweaked with these flags which will omit the specified
+dependency type. Configuration Item: APT::Cache::ShowDependencyType e.g.  APT::Cache::ShowRecommends.</p></li>
+<li><p>--implicit
+Per default depends and rdepends print only dependencies explicitly expressed in the metadata. With this flag it will also show
+dependencies implicitly added based on the encountered data. A Conflicts: foo e.g. expresses implicitly that this package also
+conflicts with the package foo from any other architecture. Configuration Item: APT::Cache::ShowImplicit.</p></li>
+<li><p>-f, --full
+Print full package records when searching. Configuration Item: APT::Cache::ShowFull.</p></li>
+<li><p>-a, --all-versions
+Print full records for all available versions. This is the default; to turn it off, use --no-all-versions. If --no-all-versions
+is specified, only the candidate version will be displayed (the one which would be selected for installation). This option is
+only applicable to the show command. Configuration Item: APT::Cache::AllVersions.</p></li>
+<li><p>-g, --generate
+Perform automatic package cache regeneration, rather than use the cache as it is. This is the default; to turn it off, use
+--no-generate. Configuration Item: APT::Cache::Generate.</p></li>
+<li><p>--names-only, -n
+Only search on the package and provided package names, not the long descriptions. Configuration Item: APT::Cache::NamesOnly.</p></li>
+<li><p>--all-names
+Make pkgnames print all names, including virtual packages and missing dependencies. Configuration Item: APT::Cache::AllNames.</p></li>
+<li><p>--recurse
+Make depends and rdepends recursive so that all packages mentioned are printed once. Configuration Item:
+APT::Cache::RecurseDepends.</p></li>
+<li><p>--installed
+Limit the output of depends and rdepends to packages which are currently installed. Configuration Item: APT::Cache::Installed.</p></li>
+<li><p>--with-source filename
+Adds the given file as a source for metadata. Can be repeated to add multiple files. Supported are currently *.deb, *.dsc,
+*.changes, Sources and Packages files as well as source package directories. Files are matched based on their name only, not
+their content!</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="n">Sources</span> <span class="ow">and</span> <span class="n">Packages</span> <span class="n">can</span> <span class="n">be</span> <span class="n">compressed</span> <span class="ow">in</span> <span class="nb">any</span> <span class="nb">format</span> <span class="n">apt</span> <span class="n">supports</span> <span class="k">as</span> <span class="n">long</span> <span class="k">as</span> <span class="n">they</span> <span class="n">have</span> <span class="n">the</span> <span class="n">correct</span> <span class="n">extension</span><span class="o">.</span> <span class="n">If</span> <span class="n">you</span> <span class="n">need</span> <span class="n">to</span>
+   <span class="n">store</span> <span class="n">multiple</span> <span class="n">of</span> <span class="n">these</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">one</span> <span class="n">directory</span> <span class="n">you</span> <span class="n">can</span> <span class="n">prefix</span> <span class="n">a</span> <span class="n">name</span> <span class="n">of</span> <span class="n">your</span> <span class="n">choice</span> <span class="k">with</span> <span class="n">the</span> <span class="n">last</span> <span class="n">character</span> <span class="n">being</span> <span class="n">an</span> <span class="n">underscore</span>
+   <span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)</span><span class="o">.</span> <span class="n">Example</span><span class="p">:</span> <span class="n">my</span><span class="o">.</span><span class="n">example_Packages</span><span class="o">.</span><span class="n">xz</span>
+
+   <span class="n">Note</span> <span class="n">that</span> <span class="n">these</span> <span class="n">sources</span> <span class="n">are</span> <span class="n">treated</span> <span class="k">as</span> <span class="n">trusted</span> <span class="p">(</span><span class="n">see</span> <span class="n">apt</span><span class="o">-</span><span class="n">secure</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span><span class="o">.</span> <span class="n">Configuration</span> <span class="n">Item</span><span class="p">:</span> <span class="n">APT</span><span class="p">::</span><span class="n">Sources</span><span class="p">::</span><span class="n">With</span><span class="o">.</span>
+</pre></div>
+</div>
+</li>
+<li><p>-h, --help
+Show a short usage summary.</p></li>
+<li><p>-v, --version
+Show the program version.</p></li>
+<li><p>-c, --config-file
+Configuration File; Specify a configuration file to use. The program will read the default configuration file and then this
+configuration file. If configuration settings need to be set before the default configuration files are parsed specify a file
+with the APT_CONFIG environment variable. See apt.conf(5) for syntax information.</p></li>
+<li><p>-o, --option
+Set a Configuration Option; This will set an arbitrary configuration option. The syntax is -o Foo::Bar=bar.  -o and --option can be used multiple times to set different options.</p></li>
+</ul>
+<section id="notes">
+<h2>NOTES<a class="headerlink" href="#notes" title="永久链接至标题"></a></h2>
+<ol class="simple">
+<li><p>GraphViz<a class="reference external" href="http://www.research.att.com/sw/tools/graphviz/">http://www.research.att.com/sw/tools/graphviz/</a></p></li>
+<li><p>VCG tool<a class="reference external" href="http://rw4.cs.uni-sb.de/users/sander/html/gsvcg1.html">http://rw4.cs.uni-sb.de/users/sander/html/gsvcg1.html</a></p></li>
+<li><p>APT bug page<a class="reference external" href="http://bugs.debian.org/src:apt">http://bugs.debian.org/src:apt</a></p></li>
+</ol>
+</section>
+<section id="apt-2-5-3">
+<h2>APT 2.5.3<a class="headerlink" href="#apt-2-5-3" title="永久链接至标题"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2022, Albert Xu.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

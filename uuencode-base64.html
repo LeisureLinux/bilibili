@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>从 UUENCODE 说开来的那些事情 &mdash; LeisureLinux 1.1.0beta 文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="Vim 8.2 手册" href="Vim82-editing.html" />
+    <link rel="prev" title="systemd 解释" href="systemd.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> LeisureLinux
+          </a>
+              <div class="version">
+                1.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="31linux_command.html">Ubuntu 初学者必知必会的31条命令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E9%9D%9E%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%93%E4%B8%9A-Linux%E5%85%A5%E9%97%A8.html">如何学习 Linux (Ver 0.2.20221015)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E7%90%86%E8%A7%A3%E4%B8%89%E7%A7%8Dsocket.html">三种 Socket (套接字)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apt.html">25 个 apt-get/apt-cache 包管理命令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="archlinux.html">Arch Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="backgrouds.html">Linux 桌面系统存放背景图片的目录</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bash-emacs.html">Bash 命令行编辑(emacs 模式)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bashTips.html">对初学者很有用的 Bash 小技巧</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cargoConfig.html">The Rustup Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="China-Root-Community.html">中国的开源根社区</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CinnamonDE.html">DE/DW/WM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EmailAnti-Spamming.html">建设自己的邮件系统 AS/AV</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GNU-Autotols.html">GNU Auto Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howto-rpm.html">三步创建 rpm 包</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LoongArch-Evolve.html">LoongArch 在 Linux 操作系统上的进展</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lsblk.html">lsblk,blkid,findmnt,findfs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LTS_Kernel.html">Linux 内核版本 LTS 的支持时间</a></li>
+<li class="toctree-l1"><a class="reference internal" href="macOS-QEMU-Linux.html">如何在 macOS 上使用 QEMU 创建 Linux 虚拟机（而不是 Virtualbox）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="man.html">如何高效阅读 Man 手册</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mdcat.html">kitty+mdcat+lsd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OpenWrt.html">编译自己的 OpenWrt 镜像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SELinux.html">SELinux On Ubuntu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="snap.html">snap 介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="systemd.html">systemd 解释</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">从 UUENCODE 说开来的那些事情</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Vim82-editing.html">Vim 8.2 手册</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zsh-vi-mode.html">zsh 命令行下的 line editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="website-basic.html">如何建设一个网站</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xdgBaseDir.html">XDG 基础目录</a></li>
+<li class="toctree-l1"><a class="reference internal" href="XdgIntro.html">XDG 介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UbuntuSupport.html">Ubuntu 支持介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="useVirt-rescue-to-installAnyOS.html">使用 virt-rescue 在不丢数据的情况下，改变成任意的操作系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qemu-system.html">QEMU emulator version 6.2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qemu-system.html#usage-qemu-system-x86-64-options-disk-image">usage: qemu-system-x86_64 [options] [disk_image]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multipassVM-Clone.html">如何实现对 Ubuntu multipass 虚拟机的“克隆”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="virsh-command.html">Virsh 262 条命令全表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="virsh-help.html">virsh 帮助</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">LeisureLinux</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">从 UUENCODE 说开来的那些事情</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/uuencode-base64.md.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="uuencode">
+<h1>从 UUENCODE 说开来的那些事情<a class="headerlink" href="#uuencode" title="永久链接至标题"></a></h1>
+<ul>
+<li><p>uuencode</p>
+<ul class="simple">
+<li><p>来历： Unix-to-Unix Encoding</p></li>
+<li><p>被 MIME 和 yEnc 取代</p></li>
+<li><p>MIME 内如果需要编码，则采用 Base64</p></li>
+<li><p>编码规则</p>
+<ul>
+<li><p>头：begin <nnn> <file> ，nnn 代表文件权限属性，例如 644。</p></li>
+<li><p>每一行的开头用 32（空格的 ASCII 十进制）+ 行长度，用对应的 ASCII 字母代表，因为除了最后一行都是 45 个字节，所以是 77 的 ASCII 码是字母 M。</p></li>
+<li><p>结尾：分为两行，一个重音符号`，再加一个 end</p></li>
+<li><p>算法：每 3 个字节(24 位)分组，分割成 4 个 6 位的组，每组的十进制加 32 后转换成对应的 ASCII 字母。</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>base64，把 3 个字节，转成 4 个 ASCII 字符</p>
+<ul class="simple">
+<li><p>头修改成： begin-base64 <nnn> <file></p></li>
+<li><p>结尾修改成： ====</p></li>
+<li><p>中间编码后的数据只允许 [a-zA-Z0-9] 然后是 +/</p></li>
+<li><p>码表是按照 A-Z，a-z，0-9 排序的一张表，最后是 +/ ，总计 64 个字符。不满的用 = 填充</p></li>
+<li><p>算法举例：Man 的 16 进制为 0x4d, 0x61,0x6e，每 3 个一组的 8 进制变成：23 26 05 56，对应的十进制是 19 22 5 46，然后查 Base64 码表(0 为大写的 A),得到 TWFu。</p></li>
+<li><p>OpenPGP：RFC4880，允许添加可选的 24 位 CRC 校验。在编码前计算，并用同样的 Base64 算法用 = 符号作为前缀分割，添加到原始的 Base64 编码输出</p></li>
+<li><p>最早采纳为标准的，现在称为 MIME Base64 的是 PEM 协议， Privacy-enhanced Electronic Mail，1987 年的 RFC989</p></li>
+</ul>
+</li>
+<li><p>Percant-encoding (URL encoding)</p>
+<ul>
+<li><p>用于 URI 内的字符编码（例如中文需要转码为 ASCII 表内字符集），后来推广到 URL/URN</p></li>
+<li><p>在 Media Type 中， application/x-www-form-urlencoded，用于 HTML 表单和 HTTP 请求</p></li>
+<li><p>RFC3986 2.2 节，保留字符：</p>
+<blockquote>
+<div><p>!#$&amp;'()*+,/:;=?&#64;[] (请注意 MD 原文内星号被转义)</p>
+</div></blockquote>
+</li>
+<li><p>保留字转义后的代码</p>
+<blockquote>
+<div><p>! %21
+# %23
+$ %24
+% %25
+&amp; %26
+' %27
+( %28
+) %29
+- %2A * %2B
+, %2C
+/ %2F
+: %3A
+; %3B
+= %3D
+? %3F
+&#64; %40
+[ %5B
+] %5D</p>
+</div></blockquote>
+</li>
+<li><p>RFC3986 2.3 节，非保留字符：[A-Za-z0-9], 然后是 hyphen, underscore, dot, tilde</p></li>
+</ul>
+</li>
+<li><p>其他的编码方式：</p>
+<ul class="simple">
+<li><p>Ascii85：5 个 ASCII 编 4 个，使用在 PostScript 和 PDF，以及 git 的二进制文件补丁</p>
+<ul>
+<li><p>RFC1924 版本，建议最终的 ASCII 字符包含[a-zA-Z0-9]以外，只包含 23 个，排除了 单双引号，逗号，句号，冒号，两个斜杠和中括号对，非常适合 JSON 串</p></li>
+<li><p>ZMODEM 版本，4 组 8 进制组合成 5 个可打印字符</p></li>
+<li><p>Adobe 版本</p></li>
+<li><p>btoa 版本</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Python 代码示例</p>
+<blockquote>
+<div><p>python3 -c &quot;from codecs import encode;print(encode(b'Cat', 'uu'))&quot;</p>
+</div></blockquote>
+</li>
+<li><p>sharutils 软件包， shell archive</p>
+<ul class="simple">
+<li><p>uuencode filename filename-in-encoded-file</p></li>
+<li><p>sharar -C xz filenames &gt; outputfilename</p></li>
+</ul>
+</li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="systemd.html" class="btn btn-neutral float-left" title="systemd 解释" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="Vim82-editing.html" class="btn btn-neutral float-right" title="Vim 8.2 手册" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2022, Albert Xu.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

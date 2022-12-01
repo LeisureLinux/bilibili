@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vim 8.2 手册 &mdash; LeisureLinux 1.1.0beta 文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="zsh 命令行下的 line editor" href="zsh-vi-mode.html" />
+    <link rel="prev" title="从 UUENCODE 说开来的那些事情" href="uuencode-base64.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> LeisureLinux
+          </a>
+              <div class="version">
+                1.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="31linux_command.html">Ubuntu 初学者必知必会的31条命令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E9%9D%9E%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%93%E4%B8%9A-Linux%E5%85%A5%E9%97%A8.html">如何学习 Linux (Ver 0.2.20221015)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E7%90%86%E8%A7%A3%E4%B8%89%E7%A7%8Dsocket.html">三种 Socket (套接字)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apt.html">25 个 apt-get/apt-cache 包管理命令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="archlinux.html">Arch Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="backgrouds.html">Linux 桌面系统存放背景图片的目录</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bash-emacs.html">Bash 命令行编辑(emacs 模式)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bashTips.html">对初学者很有用的 Bash 小技巧</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cargoConfig.html">The Rustup Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="China-Root-Community.html">中国的开源根社区</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CinnamonDE.html">DE/DW/WM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EmailAnti-Spamming.html">建设自己的邮件系统 AS/AV</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GNU-Autotols.html">GNU Auto Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howto-rpm.html">三步创建 rpm 包</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LoongArch-Evolve.html">LoongArch 在 Linux 操作系统上的进展</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lsblk.html">lsblk,blkid,findmnt,findfs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LTS_Kernel.html">Linux 内核版本 LTS 的支持时间</a></li>
+<li class="toctree-l1"><a class="reference internal" href="macOS-QEMU-Linux.html">如何在 macOS 上使用 QEMU 创建 Linux 虚拟机（而不是 Virtualbox）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="man.html">如何高效阅读 Man 手册</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mdcat.html">kitty+mdcat+lsd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OpenWrt.html">编译自己的 OpenWrt 镜像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SELinux.html">SELinux On Ubuntu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="snap.html">snap 介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="systemd.html">systemd 解释</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uuencode-base64.html">从 UUENCODE 说开来的那些事情</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Vim 8.2 手册</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zsh-vi-mode.html">zsh 命令行下的 line editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="website-basic.html">如何建设一个网站</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xdgBaseDir.html">XDG 基础目录</a></li>
+<li class="toctree-l1"><a class="reference internal" href="XdgIntro.html">XDG 介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UbuntuSupport.html">Ubuntu 支持介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="useVirt-rescue-to-installAnyOS.html">使用 virt-rescue 在不丢数据的情况下，改变成任意的操作系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qemu-system.html">QEMU emulator version 6.2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qemu-system.html#usage-qemu-system-x86-64-options-disk-image">usage: qemu-system-x86_64 [options] [disk_image]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multipassVM-Clone.html">如何实现对 Ubuntu multipass 虚拟机的“克隆”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="virsh-command.html">Virsh 262 条命令全表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="virsh-help.html">virsh 帮助</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">LeisureLinux</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Vim 8.2 手册</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Vim82-editing.md.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="vim-8-2">
+<h1>Vim 8.2 手册<a class="headerlink" href="#vim-8-2" title="永久链接至标题"></a></h1>
+<ol class="simple">
+<li><p><a class="reference external" href="https://vimhelp.org/editing.txt.html">editing.txt 要点提炼</a></p></li>
+<li><p>介绍
+- 在 Vim 内编辑文件，意味着3件事情：</p>
+<ul class="simple">
+<li><p>把文件读入缓冲区</p></li>
+<li><p>修改缓冲区内容</p></li>
+<li><p>把缓冲区内容写入磁盘
+- 只要不写入文件，原始文件是不会被修改的
+- &quot;current file name&quot;，就是当前缓冲区，用 &quot;%&quot; 来代表
+- 其他文件(Alternative)，如果已经有当前文件名，可以用 &quot;#&quot; 来指代，用 Ctr-^ 切换
+- 多个缓冲区切换，也可以输入文件名后再按 Ctr-^ 直接切换
+- Ctr-G :file[!]，显示当前编辑的文件名，带感叹号时，显示的文件名不会截断，不管 shortmess 是否设置
+- {count}Ctr-G：显示文件的完整路径，如果 count &gt; 1，则同时显示当前缓冲区的号码
+- gCtr-G: 显示当前位置的行/列/字/单词/字节
+- {Visual}gCtr-G: 显示可视模式时，选中的内容信息
+- :f[!]{name} : 设置当前文件名为 name
+- :0f[!] : 删除当前缓冲区的名称
+- :buffers 或者 :files 或者 :ls 显示所有缓冲区
+- 自动保存，使用 &quot;autowriteall&quot; 选项</p></li>
+</ul>
+</li>
+<li><p>编辑
+- :edit 编辑
+- :edit[!] 丢弃缓冲区的修改，重新编辑
+- :edit {file} 如果当前缓冲区有修改则编辑失败
+- :edit! {file} 强行编辑 file，丢弃当前缓冲区修改
+- :edit#[count] 相当于 [count]Ctl-^，编辑 count 号缓冲区
+- :enew[!] 编辑新文件，! 则丢弃当前缓冲区
+- :find[!] {file} 找到 path 下的文件并编辑
+- :{count}find[!] {file} 找到 path 下匹配到第 count 个文件并编辑
+- :ex / :vi ， 两种模式切换
+- :view file， 只读查看文件
+- [count]gf 跳到光标下的文件
+- :e ++ff=unix 切换为Unix 格式，(dos),  ff 为 optionname，可以是</p>
+<ul class="simple">
+<li><p>ff=file format</p></li>
+<li><p>enc=encoding or file encoding</p></li>
+<li><p>bin=binary</p></li>
+<li><p>nobin= nobinary</p></li>
+<li><p>bad= 特殊字符的特殊处理方式</p></li>
+<li><p>edit= :read only
+- +cmd[cmd] 可以定位光标， + 表示最后一行， +{num} 表示第 num 行, +{/pat} 第一行包含 pat 的行
+- +{command} 执行 command 命令， command 是任何的 :Ex 命令</p></li>
+</ul>
+</li>
+<li><p>参数
+- :args 显示参数
+- :[count]argadd {name} 添加 name 到参数列表
+- :argd {pattern} 从参数列表删除 pattenr 类型的参数
+- :n 编辑下一个文件
+- :[count]N 编辑第N个前面的文件
+- :rew 编辑 arg list 里的第一个文件
+- :first 或者 :last 编辑 arg list 里的第一个或者最后一个文件
+- :wn 写入当前，编辑下一个</p></li>
+<li><p>存盘
+- :w
+- :save
+- :wall 保存所有</p></li>
+<li><p>保存退出
+- :q
+- :conf q</p></li>
+<li><p>对话
+- :conf {command} 对命令 command 做确认
+- :browse {command} 对命令 command 提示文件选择对话框</p></li>
+<li><p>当前目录
+- :cd
+- :lcd
+-</p></li>
+<li><p>编辑二进制文件
+- 启动时，用 &quot;-b&quot;</p></li>
+<li><p>加密
+- :X 提示输入加密密码
+- :set key= 可以用于设置密钥
+- :setlocal cm=zip/blowfish/blowfish2 设置加密方式
+- set cm=blowfish2 在 .vimrc 文件里</p></li>
+<li><p>时间戳
+- :checktime 检查文件时间戳</p></li>
+<li><p>文件搜索</p></li>
+</ol>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="uuencode-base64.html" class="btn btn-neutral float-left" title="从 UUENCODE 说开来的那些事情" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="zsh-vi-mode.html" class="btn btn-neutral float-right" title="zsh 命令行下的 line editor" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2022, Albert Xu.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

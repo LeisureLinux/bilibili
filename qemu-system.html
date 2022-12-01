@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QEMU emulator version 6.2.0 &mdash; LeisureLinux 1.1.0beta 文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="如何实现对 Ubuntu multipass 虚拟机的“克隆”" href="multipassVM-Clone.html" />
+    <link rel="prev" title="使用 virt-rescue 在不丢数据的情况下，改变成任意的操作系统" href="useVirt-rescue-to-installAnyOS.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> LeisureLinux
+          </a>
+              <div class="version">
+                1.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="31linux_command.html">Ubuntu 初学者必知必会的31条命令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E9%9D%9E%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%93%E4%B8%9A-Linux%E5%85%A5%E9%97%A8.html">如何学习 Linux (Ver 0.2.20221015)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E7%90%86%E8%A7%A3%E4%B8%89%E7%A7%8Dsocket.html">三种 Socket (套接字)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apt.html">25 个 apt-get/apt-cache 包管理命令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="archlinux.html">Arch Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="backgrouds.html">Linux 桌面系统存放背景图片的目录</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bash-emacs.html">Bash 命令行编辑(emacs 模式)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bashTips.html">对初学者很有用的 Bash 小技巧</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cargoConfig.html">The Rustup Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="China-Root-Community.html">中国的开源根社区</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CinnamonDE.html">DE/DW/WM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EmailAnti-Spamming.html">建设自己的邮件系统 AS/AV</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GNU-Autotols.html">GNU Auto Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howto-rpm.html">三步创建 rpm 包</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LoongArch-Evolve.html">LoongArch 在 Linux 操作系统上的进展</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lsblk.html">lsblk,blkid,findmnt,findfs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LTS_Kernel.html">Linux 内核版本 LTS 的支持时间</a></li>
+<li class="toctree-l1"><a class="reference internal" href="macOS-QEMU-Linux.html">如何在 macOS 上使用 QEMU 创建 Linux 虚拟机（而不是 Virtualbox）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="man.html">如何高效阅读 Man 手册</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mdcat.html">kitty+mdcat+lsd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OpenWrt.html">编译自己的 OpenWrt 镜像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SELinux.html">SELinux On Ubuntu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="snap.html">snap 介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="systemd.html">systemd 解释</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uuencode-base64.html">从 UUENCODE 说开来的那些事情</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Vim82-editing.html">Vim 8.2 手册</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zsh-vi-mode.html">zsh 命令行下的 line editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="website-basic.html">如何建设一个网站</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xdgBaseDir.html">XDG 基础目录</a></li>
+<li class="toctree-l1"><a class="reference internal" href="XdgIntro.html">XDG 介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UbuntuSupport.html">Ubuntu 支持介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="useVirt-rescue-to-installAnyOS.html">使用 virt-rescue 在不丢数据的情况下，改变成任意的操作系统</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">QEMU emulator version 6.2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#usage-qemu-system-x86-64-options-disk-image">usage: qemu-system-x86_64 [options] [disk_image]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multipassVM-Clone.html">如何实现对 Ubuntu multipass 虚拟机的“克隆”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="virsh-command.html">Virsh 262 条命令全表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="virsh-help.html">virsh 帮助</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">LeisureLinux</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">QEMU emulator version 6.2.0</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/qemu-system.md.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="qemu-emulator-version-6-2-0">
+<h1>QEMU emulator version 6.2.0<a class="headerlink" href="#qemu-emulator-version-6-2-0" title="永久链接至标题"></a></h1>
+</section>
+<section id="usage-qemu-system-x86-64-options-disk-image">
+<h1>usage: qemu-system-x86_64 [options] [disk_image]<a class="headerlink" href="#usage-qemu-system-x86-64-options-disk-image" title="永久链接至标题"></a></h1>
+<ul>
+<li><p>'disk_image' is a raw hard disk image for IDE hard disk 0</p></li>
+<li><p>Standard options:</p></li>
+<li><p>-h or -help     display this help and exit</p></li>
+<li><p>-version        display version information and exit</p></li>
+<li><p>-machine [type=]name[,prop[=value][,...]]
+selects emulated machine ('-machine help' for list)
+property accel=accel1[:accel2[:...]] selects accelerator
+supported accelerators are kvm, xen, hax, hvf, nvmm, whpx or tcg (default: tcg)
+vmport=on|off|auto controls emulation of vmport (default: auto)
+dump-guest-core=on|off include guest memory in a core dump (default=on)
+mem-merge=on|off controls memory merge support (default: on)
+aes-key-wrap=on|off controls support for AES key wrapping (default=on)
+dea-key-wrap=on|off controls support for DEA key wrapping (default=on)
+suppress-vmdesc=on|off disables self-describing migration (default=off)
+nvdimm=on|off controls NVDIMM support (default=off)
+memory-encryption=&#64;var{} memory encryption object to use (default=none)
+hmat=on|off controls ACPI HMAT support (default=off)
+memory-backend='backend-id' specifies explicitly provided backend for main RAM (default=none)
+sgx-epc.0.memdev=memid</p></li>
+<li><p>-cpu cpu        select CPU ('-cpu help' for list)</p></li>
+<li><p>-accel [accel=]accelerator[,prop[=value][,...]]
+select accelerator (kvm, xen, hax, hvf, nvmm, whpx or tcg; use 'help' for a list)
+igd-passthru=on|off (enable Xen integrated Intel graphics passthrough, default=off)
+kernel-irqchip=on|off|split controls accelerated irqchip support (default=on)
+kvm-shadow-mem=size of KVM shadow MMU in bytes
+split-wx=on|off (enable TCG split w^x mapping)
+tb-size=n (TCG translation block cache size)
+dirty-ring-size=n (KVM dirty ring GFN count, default 0)
+thread=single|multi (enable multi-threaded TCG)</p></li>
+<li><p>-smp [[cpus=]n][,maxcpus=maxcpus][,sockets=sockets][,dies=dies][,cores=cores][,threads=threads]
+set the number of CPUs to 'n' [default=1]
+maxcpus= maximum number of total CPUs, including
+offline CPUs for hotplug, etc
+sockets= number of discrete sockets in the system
+dies= number of CPU dies on one socket (for PC only)
+cores= number of CPU cores on one socket (for PC, it's on one die)
+threads= number of threads on one CPU core</p></li>
+<li><p>-numa node[,mem=size][,cpus=firstcpu[-lastcpu]][,nodeid=node][,initiator=node]</p></li>
+<li><p>-numa node[,memdev=id][,cpus=firstcpu[-lastcpu]][,nodeid=node][,initiator=node]</p></li>
+<li><p>-numa dist,src=source,dst=destination,val=distance</p></li>
+<li><p>-numa cpu,node-id=node[,socket-id=x][,core-id=y][,thread-id=z]</p></li>
+<li><p>-numa hmat-lb,initiator=node,target=node,hierarchy=memory|first-level|second-level|third-level,data-type=access-latency|read-latency|write-latency[,latency=lat][,bandwidth=bw]</p></li>
+<li><p>-numa hmat-cache,node-id=node,size=size,level=level[,associativity=none|direct|complex][,policy=none|write-back|write-through][,line=size]</p></li>
+<li><p>-add-fd fd=fd,set=set[,opaque=opaque]
+Add 'fd' to fd 'set'</p></li>
+<li><p>-set group.id.arg=value
+set <arg> parameter for item <id> of type <group>
+i.e. -set drive.$id.file=/path/to/image</p></li>
+<li><p>-global driver.property=value</p></li>
+<li><p>-global driver=driver,property=property,value=value
+set a global default for a driver property</p></li>
+<li><p>-boot [order=drives][,once=drives][,menu=on|off]
+[,splash=sp_name][,splash-time=sp_time][,reboot-timeout=rb_time][,strict=on|off]
+'drives': floppy (a), hard disk (c), CD-ROM (d), network (n)
+'sp_name': the file's name that would be passed to bios as logo picture, if menu=on
+'sp_time': the period that splash picture last if menu=on, unit is ms
+'rb_timeout': the timeout before guest reboot when boot failed, unit is ms</p></li>
+<li><p>-m [size=]megs[,slots=n,maxmem=size]
+configure guest RAM
+size: initial amount of guest memory
+slots: number of hotplug slots (default: none)
+maxmem: maximum amount of guest memory (default: none)</p></li>
+<li><p>-k language     use keyboard layout (for example 'fr' for French)</p></li>
+<li><p>-audio-help     show -audiodev equivalent of the currently specified audio settings</p></li>
+<li><p>-audiodev [driver=]driver,id=id[,prop[=value][,...]]
+specifies the audio backend to use
+id= identifier of the backend
+timer-period= timer period in microseconds
+in|out.mixing-engine= use mixing engine to mix streams inside QEMU
+in|out.fixed-settings= use fixed settings for host audio
+in|out.frequency= frequency to use with fixed settings
+in|out.channels= number of channels to use with fixed settings
+in|out.format= sample format to use with fixed settings
+valid values: s8, s16, s32, u8, u16, u32, f32
+in|out.voices= number of voices to use
+in|out.buffer-length= length of buffer in microseconds</p></li>
+<li><p>-audiodev none,id=id,[,prop[=value][,...]]
+dummy driver that discards all output</p></li>
+<li><p>-audiodev alsa,id=id[,prop[=value][,...]]
+in|out.dev= name of the audio device to use
+in|out.period-length= length of period in microseconds
+in|out.try-poll= attempt to use poll mode
+threshold= threshold (in microseconds) when playback starts</p></li>
+<li><p>-audiodev oss,id=id[,prop[=value][,...]]
+in|out.dev= path of the audio device to use
+in|out.buffer-count= number of buffers
+in|out.try-poll= attempt to use poll mode
+try-mmap= try using memory mapped access
+exclusive= open device in exclusive mode
+dsp-policy= set timing policy (0..10), -1 to use fragment mode</p></li>
+<li><p>-audiodev pa,id=id[,prop[=value][,...]]
+server= PulseAudio server address
+in|out.name= source/sink device name
+in|out.latency= desired latency in microseconds</p></li>
+<li><p>-audiodev sdl,id=id[,prop[=value][,...]]
+in|out.buffer-count= number of buffers</p></li>
+<li><p>-audiodev spice,id=id[,prop[=value][,...]]</p></li>
+<li><p>-audiodev wav,id=id[,prop[=value][,...]]
+path= path of wav file to record</p></li>
+<li><p>-soundhw c1,... enable audio support
+and only specified sound cards (comma separated list)
+use '-soundhw help' to get the list of supported cards
+use '-soundhw all' to enable all of them</p></li>
+<li><p>-device driver[,prop[=value][,...]]
+add device (based on driver)
+prop=value,... sets driver properties
+use '-device help' to print all possible drivers
+use '-device driver,help' to print all possible properties</p></li>
+<li><p>-name string1[,process=string2][,debug-threads=on|off]
+set the name of the guest
+string1 sets the window title and string2 the process name
+When debug-threads is enabled, individual threads are given a separate name
+NOTE: The thread names are for debugging and not a stable API.</p></li>
+<li><p>-uuid %08x-%04x-%04x-%04x-%012x
+specify machine UUID</p></li>
+<li><p>Block device options:</p>
+<ul>
+<li><p>-fda/-fdb file  use 'file' as floppy disk 0/1 image</p></li>
+<li><p>-hda/-hdb file  use 'file' as IDE hard disk 0/1 image</p></li>
+<li><p>-hdc/-hdd file  use 'file' as IDE hard disk 2/3 image</p></li>
+<li><p>-cdrom file     use 'file' as IDE cdrom image (cdrom is ide1 master)</p></li>
+<li><p>-blockdev [driver=]driver[,node-name=N][,discard=ignore|unmap]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>      <span class="p">[,</span><span class="n">cache</span><span class="o">.</span><span class="n">direct</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">][,</span><span class="n">cache</span><span class="o">.</span><span class="n">no</span><span class="o">-</span><span class="n">flush</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>      <span class="p">[,</span><span class="n">read</span><span class="o">-</span><span class="n">only</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">][,</span><span class="n">auto</span><span class="o">-</span><span class="n">read</span><span class="o">-</span><span class="n">only</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>      <span class="p">[,</span><span class="n">force</span><span class="o">-</span><span class="n">share</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">][,</span><span class="n">detect</span><span class="o">-</span><span class="n">zeroes</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="o">|</span><span class="n">unmap</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>      <span class="p">[,</span><span class="n">driver</span> <span class="n">specific</span> <span class="n">parameters</span><span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">configure</span> <span class="n">a</span> <span class="n">block</span> <span class="n">backend</span>
+</pre></div>
+</div>
+</li>
+<li><p>-drive [file=file][,if=type][,bus=n][,unit=m][,media=d][,index=i]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="p">[,</span><span class="n">cache</span><span class="o">=</span><span class="n">writethrough</span><span class="o">|</span><span class="n">writeback</span><span class="o">|</span><span class="n">none</span><span class="o">|</span><span class="n">directsync</span><span class="o">|</span><span class="n">unsafe</span><span class="p">][,</span><span class="nb">format</span><span class="o">=</span><span class="n">f</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="p">[,</span><span class="n">snapshot</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">][,</span><span class="n">rerror</span><span class="o">=</span><span class="n">ignore</span><span class="o">|</span><span class="n">stop</span><span class="o">|</span><span class="n">report</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="p">[,</span><span class="n">werror</span><span class="o">=</span><span class="n">ignore</span><span class="o">|</span><span class="n">stop</span><span class="o">|</span><span class="n">report</span><span class="o">|</span><span class="n">enospc</span><span class="p">][,</span><span class="nb">id</span><span class="o">=</span><span class="n">name</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="p">[,</span><span class="n">aio</span><span class="o">=</span><span class="n">threads</span><span class="o">|</span><span class="n">native</span><span class="o">|</span><span class="n">io_uring</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="p">[,</span><span class="n">readonly</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">][,</span><span class="n">copy</span><span class="o">-</span><span class="n">on</span><span class="o">-</span><span class="n">read</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="p">[,</span><span class="n">discard</span><span class="o">=</span><span class="n">ignore</span><span class="o">|</span><span class="n">unmap</span><span class="p">][,</span><span class="n">detect</span><span class="o">-</span><span class="n">zeroes</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="o">|</span><span class="n">unmap</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="p">[[,</span><span class="n">bps</span><span class="o">=</span><span class="n">b</span><span class="p">]</span><span class="o">|</span><span class="p">[[,</span><span class="n">bps_rd</span><span class="o">=</span><span class="n">r</span><span class="p">][,</span><span class="n">bps_wr</span><span class="o">=</span><span class="n">w</span><span class="p">]]]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="p">[[,</span><span class="n">iops</span><span class="o">=</span><span class="n">i</span><span class="p">]</span><span class="o">|</span><span class="p">[[,</span><span class="n">iops_rd</span><span class="o">=</span><span class="n">r</span><span class="p">][,</span><span class="n">iops_wr</span><span class="o">=</span><span class="n">w</span><span class="p">]]]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="p">[[,</span><span class="n">bps_max</span><span class="o">=</span><span class="n">bm</span><span class="p">]</span><span class="o">|</span><span class="p">[[,</span><span class="n">bps_rd_max</span><span class="o">=</span><span class="n">rm</span><span class="p">][,</span><span class="n">bps_wr_max</span><span class="o">=</span><span class="n">wm</span><span class="p">]]]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="p">[[,</span><span class="n">iops_max</span><span class="o">=</span><span class="n">im</span><span class="p">]</span><span class="o">|</span><span class="p">[[,</span><span class="n">iops_rd_max</span><span class="o">=</span><span class="n">irm</span><span class="p">][,</span><span class="n">iops_wr_max</span><span class="o">=</span><span class="n">iwm</span><span class="p">]]]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="p">[[,</span><span class="n">iops_size</span><span class="o">=</span><span class="ow">is</span><span class="p">]]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="p">[[,</span><span class="n">group</span><span class="o">=</span><span class="n">g</span><span class="p">]]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">use</span> <span class="s1">&#39;file&#39;</span> <span class="k">as</span> <span class="n">a</span> <span class="n">drive</span> <span class="n">image</span>
+</pre></div>
+</div>
+</li>
+<li><p>-mtdblock file  use 'file' as on-board Flash memory image</p></li>
+<li><p>-sd file        use 'file' as SecureDigital card image</p></li>
+<li><p>-pflash file    use 'file' as a parallel flash image</p></li>
+<li><p>-snapshot       write to temporary files instead of disk image files</p></li>
+<li><p>-fsdev local,id=id,path=path,security_model=mapped-xattr|mapped-file|passthrough|none</p></li>
+<li><p>[,writeout=immediate][,readonly=on][,fmode=fmode][,dmode=dmode]</p></li>
+<li><p>[[,throttling.bps-total=b]|[[,throttling.bps-read=r][,throttling.bps-write=w]]]</p></li>
+<li><p>[[,throttling.iops-total=i]|[[,throttling.iops-read=r][,throttling.iops-write=w]]]</p></li>
+<li><p>[[,throttling.bps-total-max=bm]|[[,throttling.bps-read-max=rm][,throttling.bps-write-max=wm]]]</p></li>
+<li><p>[[,throttling.iops-total-max=im]|[[,throttling.iops-read-max=irm][,throttling.iops-write-max=iwm]]]</p></li>
+<li><p>[[,throttling.iops-size=is]]</p></li>
+<li><p>-fsdev proxy,id=id,socket=socket[,writeout=immediate][,readonly=on]</p></li>
+<li><p>-fsdev proxy,id=id,sock_fd=sock_fd[,writeout=immediate][,readonly=on]</p></li>
+<li><p>-fsdev synth,id=id</p></li>
+<li><p>-virtfs local,path=path,mount_tag=tag,security_model=mapped-xattr|mapped-file|passthrough|none</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="p">[,</span><span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">][,</span><span class="n">writeout</span><span class="o">=</span><span class="n">immediate</span><span class="p">][,</span><span class="n">readonly</span><span class="o">=</span><span class="n">on</span><span class="p">][,</span><span class="n">fmode</span><span class="o">=</span><span class="n">fmode</span><span class="p">][,</span><span class="n">dmode</span><span class="o">=</span><span class="n">dmode</span><span class="p">][,</span><span class="n">multidevs</span><span class="o">=</span><span class="n">remap</span><span class="o">|</span><span class="n">forbid</span><span class="o">|</span><span class="n">warn</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><p>-virtfs proxy,mount_tag=tag,socket=socket[,id=id][,writeout=immediate][,readonly=on]</p></li>
+<li><p>-virtfs proxy,mount_tag=tag,sock_fd=sock_fd[,id=id][,writeout=immediate][,readonly=on]</p></li>
+<li><p>-virtfs synth,mount_tag=tag[,id=id][,readonly=on]</p></li>
+<li><p>-iscsi [user=user][,password=password]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="p">[,</span><span class="n">header</span><span class="o">-</span><span class="n">digest</span><span class="o">=</span><span class="n">CRC32C</span><span class="o">|</span><span class="n">CR32C</span><span class="o">-</span><span class="n">NONE</span><span class="o">|</span><span class="n">NONE</span><span class="o">-</span><span class="n">CRC32C</span><span class="o">|</span><span class="n">NONE</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="p">[,</span><span class="n">initiator</span><span class="o">-</span><span class="n">name</span><span class="o">=</span><span class="n">initiator</span><span class="o">-</span><span class="n">iqn</span><span class="p">][,</span><span class="nb">id</span><span class="o">=</span><span class="n">target</span><span class="o">-</span><span class="n">iqn</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="p">[,</span><span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">iSCSI</span> <span class="n">session</span> <span class="n">parameters</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>USB convenience options:</p>
+<ul class="simple">
+<li><p>-usb            enable on-board USB host controller (if not enabled by default)</p></li>
+<li><p>-usbdevice name add the host or guest USB device 'name'</p></li>
+</ul>
+</li>
+<li><p>Display options:</p>
+<ul>
+<li><p>-display spice-app[,gl=on|off]</p></li>
+<li><p>-display sdl[,alt_grab=on|off][,ctrl_grab=on|off][,gl=on|core|es|off]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>         <span class="p">[,</span><span class="n">grab</span><span class="o">-</span><span class="n">mod</span><span class="o">=&lt;</span><span class="n">mod</span><span class="o">&gt;</span><span class="p">][,</span><span class="n">show</span><span class="o">-</span><span class="n">cursor</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">][,</span><span class="n">window</span><span class="o">-</span><span class="n">close</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><p>-display gtk[,full-screen=on|off][,gl=on|off][,grab-on-hover=on|off]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>         <span class="p">[,</span><span class="n">show</span><span class="o">-</span><span class="n">cursor</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">][,</span><span class="n">window</span><span class="o">-</span><span class="n">close</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><p>-display vnc=<display>[,<optargs>]</p></li>
+<li><p>-display curses[,charset=<encoding>]</p></li>
+<li><p>-display egl-headless[,rendernode=<file>]</p></li>
+<li><p>-display none</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>             <span class="n">select</span> <span class="n">display</span> <span class="n">backend</span> <span class="nb">type</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>             <span class="n">The</span> <span class="n">default</span> <span class="n">display</span> <span class="ow">is</span> <span class="n">equivalent</span> <span class="n">to</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>             <span class="s2">&quot;-display gtk&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p>-nographic      disable graphical output and redirect serial I/Os to console</p></li>
+<li><p>-curses         shorthand for -display curses</p></li>
+<li><p>-alt-grab       use Ctrl-Alt-Shift to grab mouse (instead of Ctrl-Alt)</p></li>
+<li><p>-ctrl-grab      use Right-Ctrl to grab mouse (instead of Ctrl-Alt)</p></li>
+<li><p>-no-quit        disable SDL/GTK window close capability (deprecated)</p></li>
+<li><p>-sdl            shorthand for -display sdl</p></li>
+<li><p>-spice [port=port][,tls-port=secured-port][,x509-dir=<dir>]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="p">[,</span><span class="n">x509</span><span class="o">-</span><span class="n">key</span><span class="o">-</span><span class="n">file</span><span class="o">=&lt;</span><span class="n">file</span><span class="o">&gt;</span><span class="p">][,</span><span class="n">x509</span><span class="o">-</span><span class="n">key</span><span class="o">-</span><span class="n">password</span><span class="o">=&lt;</span><span class="n">file</span><span class="o">&gt;</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="p">[,</span><span class="n">x509</span><span class="o">-</span><span class="n">cert</span><span class="o">-</span><span class="n">file</span><span class="o">=&lt;</span><span class="n">file</span><span class="o">&gt;</span><span class="p">][,</span><span class="n">x509</span><span class="o">-</span><span class="n">cacert</span><span class="o">-</span><span class="n">file</span><span class="o">=&lt;</span><span class="n">file</span><span class="o">&gt;</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="p">[,</span><span class="n">x509</span><span class="o">-</span><span class="n">dh</span><span class="o">-</span><span class="n">key</span><span class="o">-</span><span class="n">file</span><span class="o">=&lt;</span><span class="n">file</span><span class="o">&gt;</span><span class="p">][,</span><span class="n">addr</span><span class="o">=</span><span class="n">addr</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="p">[,</span><span class="n">ipv4</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">][,</span><span class="n">ipv6</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">][,</span><span class="n">unix</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="p">[,</span><span class="n">tls</span><span class="o">-</span><span class="n">ciphers</span><span class="o">=&lt;</span><span class="nb">list</span><span class="o">&gt;</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="p">[,</span><span class="n">tls</span><span class="o">-</span><span class="n">channel</span><span class="o">=</span><span class="p">[</span><span class="n">main</span><span class="o">|</span><span class="n">display</span><span class="o">|</span><span class="n">cursor</span><span class="o">|</span><span class="n">inputs</span><span class="o">|</span><span class="n">record</span><span class="o">|</span><span class="n">playback</span><span class="p">]]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="p">[,</span><span class="n">plaintext</span><span class="o">-</span><span class="n">channel</span><span class="o">=</span><span class="p">[</span><span class="n">main</span><span class="o">|</span><span class="n">display</span><span class="o">|</span><span class="n">cursor</span><span class="o">|</span><span class="n">inputs</span><span class="o">|</span><span class="n">record</span><span class="o">|</span><span class="n">playback</span><span class="p">]]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="p">[,</span><span class="n">sasl</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">][,</span><span class="n">disable</span><span class="o">-</span><span class="n">ticketing</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="p">[,</span><span class="n">password</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">][,</span><span class="n">password</span><span class="o">-</span><span class="n">secret</span><span class="o">=&lt;</span><span class="n">secret</span><span class="o">-</span><span class="nb">id</span><span class="o">&gt;</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="p">[,</span><span class="n">image</span><span class="o">-</span><span class="n">compression</span><span class="o">=</span><span class="p">[</span><span class="n">auto_glz</span><span class="o">|</span><span class="n">auto_lz</span><span class="o">|</span><span class="n">quic</span><span class="o">|</span><span class="n">glz</span><span class="o">|</span><span class="n">lz</span><span class="o">|</span><span class="n">off</span><span class="p">]]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="p">[,</span><span class="n">jpeg</span><span class="o">-</span><span class="n">wan</span><span class="o">-</span><span class="n">compression</span><span class="o">=</span><span class="p">[</span><span class="n">auto</span><span class="o">|</span><span class="n">never</span><span class="o">|</span><span class="n">always</span><span class="p">]]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="p">[,</span><span class="n">zlib</span><span class="o">-</span><span class="n">glz</span><span class="o">-</span><span class="n">wan</span><span class="o">-</span><span class="n">compression</span><span class="o">=</span><span class="p">[</span><span class="n">auto</span><span class="o">|</span><span class="n">never</span><span class="o">|</span><span class="n">always</span><span class="p">]]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="p">[,</span><span class="n">streaming</span><span class="o">-</span><span class="n">video</span><span class="o">=</span><span class="p">[</span><span class="n">off</span><span class="o">|</span><span class="nb">all</span><span class="o">|</span><span class="nb">filter</span><span class="p">]][,</span><span class="n">disable</span><span class="o">-</span><span class="n">copy</span><span class="o">-</span><span class="n">paste</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="p">[,</span><span class="n">disable</span><span class="o">-</span><span class="n">agent</span><span class="o">-</span><span class="n">file</span><span class="o">-</span><span class="n">xfer</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">][,</span><span class="n">agent</span><span class="o">-</span><span class="n">mouse</span><span class="o">=</span><span class="p">[</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">]]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="p">[,</span><span class="n">playback</span><span class="o">-</span><span class="n">compression</span><span class="o">=</span><span class="p">[</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">]][,</span><span class="n">seamless</span><span class="o">-</span><span class="n">migration</span><span class="o">=</span><span class="p">[</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">]]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="p">[,</span><span class="n">gl</span><span class="o">=</span><span class="p">[</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">]][,</span><span class="n">rendernode</span><span class="o">=&lt;</span><span class="n">file</span><span class="o">&gt;</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">enable</span> <span class="n">spice</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">at</span> <span class="n">least</span> <span class="n">one</span> <span class="n">of</span> <span class="p">{</span><span class="n">port</span><span class="p">,</span> <span class="n">tls</span><span class="o">-</span><span class="n">port</span><span class="p">}</span> <span class="ow">is</span> <span class="n">mandatory</span>
+</pre></div>
+</div>
+</li>
+<li><p>-portrait       rotate graphical output 90 deg left (only PXA LCD)</p></li>
+<li><p>-rotate <deg>   rotate graphical output some deg left (only PXA LCD)</p></li>
+<li><p>-vga [std|cirrus|vmware|qxl|xenfb|tcx|cg3|virtio|none]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>             <span class="n">select</span> <span class="n">video</span> <span class="n">card</span> <span class="nb">type</span>
+</pre></div>
+</div>
+</li>
+<li><p>-full-screen    start in full screen</p></li>
+<li><p>-vnc <display>  shorthand for -display vnc=<display></p></li>
+</ul>
+</li>
+<li><p>i386 target only:</p>
+<ul>
+<li><p>-win2k-hack     use it when installing Windows 2000 to avoid a disk full bug</p></li>
+<li><p>-no-fd-bootchk  disable boot signature checking for floppy disks</p></li>
+<li><p>-no-acpi        disable ACPI</p></li>
+<li><p>-no-hpet        disable HPET</p></li>
+<li><p>-acpitable [sig=str][,rev=n][,oem_id=str][,oem_table_id=str][,oem_rev=n][,asl_compiler_id=str][,asl_compiler_rev=n][,{data|file}=file1[:file2]...]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">ACPI</span> <span class="n">table</span> <span class="n">description</span>
+</pre></div>
+</div>
+</li>
+<li><p>-smbios file=binary</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">load</span> <span class="n">SMBIOS</span> <span class="n">entry</span> <span class="kn">from</span> <span class="nn">binary</span> <span class="n">file</span>
+</pre></div>
+</div>
+</li>
+<li><p>-smbios type=0[,vendor=str][,version=str][,date=str][,release=%d.%d]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>          <span class="p">[,</span><span class="n">uefi</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">specify</span> <span class="n">SMBIOS</span> <span class="nb">type</span> <span class="mi">0</span> <span class="n">fields</span>
+</pre></div>
+</div>
+</li>
+<li><p>-smbios type=1[,manufacturer=str][,product=str][,version=str][,serial=str]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>          <span class="p">[,</span><span class="n">uuid</span><span class="o">=</span><span class="n">uuid</span><span class="p">][,</span><span class="n">sku</span><span class="o">=</span><span class="nb">str</span><span class="p">][,</span><span class="n">family</span><span class="o">=</span><span class="nb">str</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">specify</span> <span class="n">SMBIOS</span> <span class="nb">type</span> <span class="mi">1</span> <span class="n">fields</span>
+</pre></div>
+</div>
+</li>
+<li><p>-smbios type=2[,manufacturer=str][,product=str][,version=str][,serial=str]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>          <span class="p">[,</span><span class="n">asset</span><span class="o">=</span><span class="nb">str</span><span class="p">][,</span><span class="n">location</span><span class="o">=</span><span class="nb">str</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">specify</span> <span class="n">SMBIOS</span> <span class="nb">type</span> <span class="mi">2</span> <span class="n">fields</span>
+</pre></div>
+</div>
+</li>
+<li><p>-smbios type=3[,manufacturer=str][,version=str][,serial=str][,asset=str]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>          <span class="p">[,</span><span class="n">sku</span><span class="o">=</span><span class="nb">str</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">specify</span> <span class="n">SMBIOS</span> <span class="nb">type</span> <span class="mi">3</span> <span class="n">fields</span>
+</pre></div>
+</div>
+</li>
+<li><p>-smbios type=4[,sock_pfx=str][,manufacturer=str][,version=str][,serial=str]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>          <span class="p">[,</span><span class="n">asset</span><span class="o">=</span><span class="nb">str</span><span class="p">][,</span><span class="n">part</span><span class="o">=</span><span class="nb">str</span><span class="p">][,</span><span class="nb">max</span><span class="o">-</span><span class="n">speed</span><span class="o">=%</span><span class="n">d</span><span class="p">][,</span><span class="n">current</span><span class="o">-</span><span class="n">speed</span><span class="o">=%</span><span class="n">d</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">specify</span> <span class="n">SMBIOS</span> <span class="nb">type</span> <span class="mi">4</span> <span class="n">fields</span>
+</pre></div>
+</div>
+</li>
+<li><p>-smbios type=11[,value=str][,path=filename]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">specify</span> <span class="n">SMBIOS</span> <span class="nb">type</span> <span class="mi">11</span> <span class="n">fields</span>
+</pre></div>
+</div>
+</li>
+<li><p>-smbios type=17[,loc_pfx=str][,bank=str][,manufacturer=str][,serial=str]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>           <span class="p">[,</span><span class="n">asset</span><span class="o">=</span><span class="nb">str</span><span class="p">][,</span><span class="n">part</span><span class="o">=</span><span class="nb">str</span><span class="p">][,</span><span class="n">speed</span><span class="o">=%</span><span class="n">d</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">specify</span> <span class="n">SMBIOS</span> <span class="nb">type</span> <span class="mi">17</span> <span class="n">fields</span>
+</pre></div>
+</div>
+</li>
+<li><p>-smbios type=41[,designation=str][,kind=str][,instance=%d][,pcidev=str]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">specify</span> <span class="n">SMBIOS</span> <span class="nb">type</span> <span class="mi">41</span> <span class="n">fields</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>Network options:</p>
+<ul>
+<li><p>-netdev user,id=str[,ipv4=on|off][,net=addr[/mask]][,host=addr]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>     <span class="p">[,</span><span class="n">ipv6</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">][,</span><span class="n">ipv6</span><span class="o">-</span><span class="n">net</span><span class="o">=</span><span class="n">addr</span><span class="p">[</span><span class="o">/</span><span class="nb">int</span><span class="p">]][,</span><span class="n">ipv6</span><span class="o">-</span><span class="n">host</span><span class="o">=</span><span class="n">addr</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>     <span class="p">[,</span><span class="n">restrict</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">][,</span><span class="n">hostname</span><span class="o">=</span><span class="n">host</span><span class="p">][,</span><span class="n">dhcpstart</span><span class="o">=</span><span class="n">addr</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>     <span class="p">[,</span><span class="n">dns</span><span class="o">=</span><span class="n">addr</span><span class="p">][,</span><span class="n">ipv6</span><span class="o">-</span><span class="n">dns</span><span class="o">=</span><span class="n">addr</span><span class="p">][,</span><span class="n">dnssearch</span><span class="o">=</span><span class="n">domain</span><span class="p">][,</span><span class="n">domainname</span><span class="o">=</span><span class="n">domain</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>     <span class="p">[,</span><span class="n">tftp</span><span class="o">=</span><span class="nb">dir</span><span class="p">][,</span><span class="n">tftp</span><span class="o">-</span><span class="n">server</span><span class="o">-</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">][,</span><span class="n">bootfile</span><span class="o">=</span><span class="n">f</span><span class="p">][,</span><span class="n">hostfwd</span><span class="o">=</span><span class="n">rule</span><span class="p">][,</span><span class="n">guestfwd</span><span class="o">=</span><span class="n">rule</span><span class="p">][,</span><span class="n">smb</span><span class="o">=</span><span class="nb">dir</span><span class="p">[,</span><span class="n">smbserver</span><span class="o">=</span><span class="n">addr</span><span class="p">]]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">configure</span> <span class="n">a</span> <span class="n">user</span> <span class="n">mode</span> <span class="n">network</span> <span class="n">backend</span> <span class="k">with</span> <span class="n">ID</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">its</span> <span class="n">DHCP</span> <span class="n">server</span> <span class="ow">and</span> <span class="n">optional</span> <span class="n">services</span>
+</pre></div>
+</div>
+</li>
+<li><p>-netdev tap,id=str[,fd=h][,fds=x:y:...:z][,ifname=name][,script=file][,downscript=dfile]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>     <span class="p">[,</span><span class="n">br</span><span class="o">=</span><span class="n">bridge</span><span class="p">][,</span><span class="n">helper</span><span class="o">=</span><span class="n">helper</span><span class="p">][,</span><span class="n">sndbuf</span><span class="o">=</span><span class="n">nbytes</span><span class="p">][,</span><span class="n">vnet_hdr</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">][,</span><span class="n">vhost</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>     <span class="p">[,</span><span class="n">vhostfd</span><span class="o">=</span><span class="n">h</span><span class="p">][,</span><span class="n">vhostfds</span><span class="o">=</span><span class="n">x</span><span class="p">:</span><span class="n">y</span><span class="p">:</span><span class="o">...</span><span class="p">:</span><span class="n">z</span><span class="p">][,</span><span class="n">vhostforce</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">][,</span><span class="n">queues</span><span class="o">=</span><span class="n">n</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>     <span class="p">[,</span><span class="n">poll</span><span class="o">-</span><span class="n">us</span><span class="o">=</span><span class="n">n</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">configure</span> <span class="n">a</span> <span class="n">host</span> <span class="n">TAP</span> <span class="n">network</span> <span class="n">backend</span> <span class="k">with</span> <span class="n">ID</span> <span class="s1">&#39;str&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">connected</span> <span class="n">to</span> <span class="n">a</span> <span class="n">bridge</span> <span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">br0</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">use</span> <span class="n">network</span> <span class="n">scripts</span> <span class="s1">&#39;file&#39;</span> <span class="p">(</span><span class="n">default</span><span class="o">=/</span><span class="n">etc</span><span class="o">/</span><span class="n">qemu</span><span class="o">-</span><span class="n">ifup</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">to</span> <span class="n">configure</span> <span class="n">it</span> <span class="ow">and</span> <span class="s1">&#39;dfile&#39;</span> <span class="p">(</span><span class="n">default</span><span class="o">=/</span><span class="n">etc</span><span class="o">/</span><span class="n">qemu</span><span class="o">-</span><span class="n">ifdown</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">to</span> <span class="n">deconfigure</span> <span class="n">it</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">use</span> <span class="s1">&#39;[down]script=no&#39;</span> <span class="n">to</span> <span class="n">disable</span> <span class="n">script</span> <span class="n">execution</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">use</span> <span class="n">network</span> <span class="n">helper</span> <span class="s1">&#39;helper&#39;</span> <span class="p">(</span><span class="n">default</span><span class="o">=/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">qemu</span><span class="o">/</span><span class="n">qemu</span><span class="o">-</span><span class="n">bridge</span><span class="o">-</span><span class="n">helper</span><span class="p">)</span> <span class="n">to</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">configure</span> <span class="n">it</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">use</span> <span class="s1">&#39;fd=h&#39;</span> <span class="n">to</span> <span class="n">connect</span> <span class="n">to</span> <span class="n">an</span> <span class="n">already</span> <span class="n">opened</span> <span class="n">TAP</span> <span class="n">interface</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">use</span> <span class="s1">&#39;fds=x:y:...:z&#39;</span> <span class="n">to</span> <span class="n">connect</span> <span class="n">to</span> <span class="n">already</span> <span class="n">opened</span> <span class="n">multiqueue</span> <span class="n">capable</span> <span class="n">TAP</span> <span class="n">interfaces</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">use</span> <span class="s1">&#39;sndbuf=nbytes&#39;</span> <span class="n">to</span> <span class="n">limit</span> <span class="n">the</span> <span class="n">size</span> <span class="n">of</span> <span class="n">the</span> <span class="n">send</span> <span class="n">buffer</span> <span class="p">(</span><span class="n">the</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">default</span> <span class="ow">is</span> <span class="n">disabled</span> <span class="s1">&#39;sndbuf=0&#39;</span> <span class="n">to</span> <span class="n">enable</span> <span class="n">flow</span> <span class="n">control</span> <span class="nb">set</span> <span class="s1">&#39;sndbuf=1048576&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">use</span> <span class="n">vnet_hdr</span><span class="o">=</span><span class="n">off</span> <span class="n">to</span> <span class="n">avoid</span> <span class="n">enabling</span> <span class="n">the</span> <span class="n">IFF_VNET_HDR</span> <span class="n">tap</span> <span class="n">flag</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">use</span> <span class="n">vnet_hdr</span><span class="o">=</span><span class="n">on</span> <span class="n">to</span> <span class="n">make</span> <span class="n">the</span> <span class="n">lack</span> <span class="n">of</span> <span class="n">IFF_VNET_HDR</span> <span class="n">support</span> <span class="n">an</span> <span class="n">error</span> <span class="n">condition</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">use</span> <span class="n">vhost</span><span class="o">=</span><span class="n">on</span> <span class="n">to</span> <span class="n">enable</span> <span class="n">experimental</span> <span class="ow">in</span> <span class="n">kernel</span> <span class="n">accelerator</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                <span class="p">(</span><span class="n">only</span> <span class="n">has</span> <span class="n">effect</span> <span class="k">for</span> <span class="n">virtio</span> <span class="n">guests</span> <span class="n">which</span> <span class="n">use</span> <span class="n">MSIX</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">use</span> <span class="n">vhostforce</span><span class="o">=</span><span class="n">on</span> <span class="n">to</span> <span class="n">force</span> <span class="n">vhost</span> <span class="n">on</span> <span class="k">for</span> <span class="n">non</span><span class="o">-</span><span class="n">MSIX</span> <span class="n">virtio</span> <span class="n">guests</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">use</span> <span class="s1">&#39;vhostfd=h&#39;</span> <span class="n">to</span> <span class="n">connect</span> <span class="n">to</span> <span class="n">an</span> <span class="n">already</span> <span class="n">opened</span> <span class="n">vhost</span> <span class="n">net</span> <span class="n">device</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">use</span> <span class="s1">&#39;vhostfds=x:y:...:z to connect to multiple already opened vhost net devices</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">use</span> <span class="s1">&#39;queues=n&#39;</span> <span class="n">to</span> <span class="n">specify</span> <span class="n">the</span> <span class="n">number</span> <span class="n">of</span> <span class="n">queues</span> <span class="n">to</span> <span class="n">be</span> <span class="n">created</span> <span class="k">for</span> <span class="n">multiqueue</span> <span class="n">TAP</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">use</span> <span class="s1">&#39;poll-us=n&#39;</span> <span class="n">to</span> <span class="n">specify</span> <span class="n">the</span> <span class="n">maximum</span> <span class="n">number</span> <span class="n">of</span> <span class="n">microseconds</span> <span class="n">that</span> <span class="n">could</span> <span class="n">be</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">spent</span> <span class="n">on</span> <span class="n">busy</span> <span class="n">polling</span> <span class="k">for</span> <span class="n">vhost</span> <span class="n">net</span>
+</pre></div>
+</div>
+</li>
+<li><p>-netdev bridge,id=str[,br=bridge][,helper=helper]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">configure</span> <span class="n">a</span> <span class="n">host</span> <span class="n">TAP</span> <span class="n">network</span> <span class="n">backend</span> <span class="k">with</span> <span class="n">ID</span> <span class="s1">&#39;str&#39;</span> <span class="n">that</span> <span class="ow">is</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">connected</span> <span class="n">to</span> <span class="n">a</span> <span class="n">bridge</span> <span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">br0</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">using</span> <span class="n">the</span> <span class="n">program</span> <span class="s1">&#39;helper (default=/usr/lib/qemu/qemu-bridge-helper)</span>
+</pre></div>
+</div>
+</li>
+<li><p>-netdev l2tpv3,id=str,src=srcaddr,dst=dstaddr[,srcport=srcport][,dstport=dstport]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>     <span class="p">[,</span><span class="n">rxsession</span><span class="o">=</span><span class="n">rxsession</span><span class="p">],</span><span class="n">txsession</span><span class="o">=</span><span class="n">txsession</span><span class="p">[,</span><span class="n">ipv6</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">][,</span><span class="n">udp</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>     <span class="p">[,</span><span class="n">cookie64</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">][,</span><span class="n">counter</span><span class="p">][,</span><span class="n">pincounter</span><span class="p">][,</span><span class="n">txcookie</span><span class="o">=</span><span class="n">txcookie</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>     <span class="p">[,</span><span class="n">rxcookie</span><span class="o">=</span><span class="n">rxcookie</span><span class="p">][,</span><span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">configure</span> <span class="n">a</span> <span class="n">network</span> <span class="n">backend</span> <span class="k">with</span> <span class="n">ID</span> <span class="s1">&#39;str&#39;</span> <span class="n">connected</span> <span class="n">to</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">an</span> <span class="n">Ethernet</span> <span class="n">over</span> <span class="n">L2TPv3</span> <span class="n">pseudowire</span><span class="o">.</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">Linux</span> <span class="n">kernel</span> <span class="mf">3.3</span><span class="o">+</span> <span class="k">as</span> <span class="n">well</span> <span class="k">as</span> <span class="n">most</span> <span class="n">routers</span> <span class="n">can</span> <span class="n">talk</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">L2TPv3</span><span class="o">.</span> <span class="n">This</span> <span class="n">transport</span> <span class="n">allows</span> <span class="n">connecting</span> <span class="n">a</span> <span class="n">VM</span> <span class="n">to</span> <span class="n">a</span> <span class="n">VM</span><span class="p">,</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">VM</span> <span class="n">to</span> <span class="n">a</span> <span class="n">router</span> <span class="ow">and</span> <span class="n">even</span> <span class="n">VM</span> <span class="n">to</span> <span class="n">Host</span><span class="o">.</span> <span class="n">It</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">nearly</span><span class="o">-</span><span class="n">universal</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">standard</span> <span class="p">(</span><span class="n">RFC3931</span><span class="p">)</span><span class="o">.</span> <span class="n">Note</span> <span class="o">-</span> <span class="n">this</span> <span class="n">implementation</span> <span class="n">uses</span> <span class="n">static</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">pre</span><span class="o">-</span><span class="n">configured</span> <span class="n">tunnels</span> <span class="p">(</span><span class="n">same</span> <span class="k">as</span> <span class="n">the</span> <span class="n">Linux</span> <span class="n">kernel</span><span class="p">)</span><span class="o">.</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">use</span> <span class="s1">&#39;src=&#39;</span> <span class="n">to</span> <span class="n">specify</span> <span class="n">source</span> <span class="n">address</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">use</span> <span class="s1">&#39;dst=&#39;</span> <span class="n">to</span> <span class="n">specify</span> <span class="n">destination</span> <span class="n">address</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">use</span> <span class="s1">&#39;udp=on&#39;</span> <span class="n">to</span> <span class="n">specify</span> <span class="n">udp</span> <span class="n">encapsulation</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">use</span> <span class="s1">&#39;srcport=&#39;</span> <span class="n">to</span> <span class="n">specify</span> <span class="n">source</span> <span class="n">udp</span> <span class="n">port</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">use</span> <span class="s1">&#39;dstport=&#39;</span> <span class="n">to</span> <span class="n">specify</span> <span class="n">destination</span> <span class="n">udp</span> <span class="n">port</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">use</span> <span class="s1">&#39;ipv6=on&#39;</span> <span class="n">to</span> <span class="n">force</span> <span class="n">v6</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">L2TPv3</span> <span class="n">uses</span> <span class="n">cookies</span> <span class="n">to</span> <span class="n">prevent</span> <span class="n">misconfiguration</span> <span class="k">as</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">well</span> <span class="k">as</span> <span class="n">a</span> <span class="n">weak</span> <span class="n">security</span> <span class="n">measure</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">use</span> <span class="s1">&#39;rxcookie=0x012345678&#39;</span> <span class="n">to</span> <span class="n">specify</span> <span class="n">a</span> <span class="n">rxcookie</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">use</span> <span class="s1">&#39;txcookie=0x012345678&#39;</span> <span class="n">to</span> <span class="n">specify</span> <span class="n">a</span> <span class="n">txcookie</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">use</span> <span class="s1">&#39;cookie64=on&#39;</span> <span class="n">to</span> <span class="nb">set</span> <span class="n">cookie</span> <span class="n">size</span> <span class="n">to</span> <span class="mi">64</span> <span class="n">bit</span><span class="p">,</span> <span class="n">otherwise</span> <span class="mi">32</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">use</span> <span class="s1">&#39;counter=off&#39;</span> <span class="n">to</span> <span class="n">force</span> <span class="n">a</span> <span class="s1">&#39;cut-down&#39;</span> <span class="n">L2TPv3</span> <span class="k">with</span> <span class="n">no</span> <span class="n">counter</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">use</span> <span class="s1">&#39;pincounter=on&#39;</span> <span class="n">to</span> <span class="n">work</span> <span class="n">around</span> <span class="n">broken</span> <span class="n">counter</span> <span class="n">handling</span> <span class="ow">in</span> <span class="n">peer</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">use</span> <span class="s1">&#39;offset=X&#39;</span> <span class="n">to</span> <span class="n">add</span> <span class="n">an</span> <span class="n">extra</span> <span class="n">offset</span> <span class="n">between</span> <span class="n">header</span> <span class="ow">and</span> <span class="n">data</span>
+</pre></div>
+</div>
+</li>
+<li><p>-netdev socket,id=str[,fd=h][,listen=[host]:port][,connect=host:port]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">configure</span> <span class="n">a</span> <span class="n">network</span> <span class="n">backend</span> <span class="n">to</span> <span class="n">connect</span> <span class="n">to</span> <span class="n">another</span> <span class="n">network</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">using</span> <span class="n">a</span> <span class="n">socket</span> <span class="n">connection</span>
+</pre></div>
+</div>
+</li>
+<li><p>-netdev socket,id=str[,fd=h][,mcast=maddr:port[,localaddr=addr]]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">configure</span> <span class="n">a</span> <span class="n">network</span> <span class="n">backend</span> <span class="n">to</span> <span class="n">connect</span> <span class="n">to</span> <span class="n">a</span> <span class="n">multicast</span> <span class="n">maddr</span> <span class="ow">and</span> <span class="n">port</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">use</span> <span class="s1">&#39;localaddr=addr&#39;</span> <span class="n">to</span> <span class="n">specify</span> <span class="n">the</span> <span class="n">host</span> <span class="n">address</span> <span class="n">to</span> <span class="n">send</span> <span class="n">packets</span> <span class="kn">from</span>
+</pre></div>
+</div>
+</li>
+<li><p>-netdev socket,id=str[,fd=h][,udp=host:port][,localaddr=host:port]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">configure</span> <span class="n">a</span> <span class="n">network</span> <span class="n">backend</span> <span class="n">to</span> <span class="n">connect</span> <span class="n">to</span> <span class="n">another</span> <span class="n">network</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">using</span> <span class="n">an</span> <span class="n">UDP</span> <span class="n">tunnel</span>
+</pre></div>
+</div>
+</li>
+<li><p>-netdev vhost-user,id=str,chardev=dev[,vhostforce=on|off]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">configure</span> <span class="n">a</span> <span class="n">vhost</span><span class="o">-</span><span class="n">user</span> <span class="n">network</span><span class="p">,</span> <span class="n">backed</span> <span class="n">by</span> <span class="n">a</span> <span class="n">chardev</span> <span class="s1">&#39;dev&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p>-netdev vhost-vdpa,id=str,vhostdev=/path/to/dev</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">configure</span> <span class="n">a</span> <span class="n">vhost</span><span class="o">-</span><span class="n">vdpa</span> <span class="n">network</span><span class="p">,</span><span class="n">Establish</span> <span class="n">a</span> <span class="n">vhost</span><span class="o">-</span><span class="n">vdpa</span> <span class="n">netdev</span>
+</pre></div>
+</div>
+</li>
+<li><p>-netdev hubport,id=str,hubid=n[,netdev=nd]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">configure</span> <span class="n">a</span> <span class="n">hub</span> <span class="n">port</span> <span class="n">on</span> <span class="n">the</span> <span class="n">hub</span> <span class="k">with</span> <span class="n">ID</span> <span class="s1">&#39;n&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p>-nic [tap|bridge|user|l2tpv3|vhost-user|socket][,option][,...][mac=macaddr]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">initialize</span> <span class="n">an</span> <span class="n">on</span><span class="o">-</span><span class="n">board</span> <span class="o">/</span> <span class="n">default</span> <span class="n">host</span> <span class="n">NIC</span> <span class="p">(</span><span class="n">using</span> <span class="n">MAC</span> <span class="n">address</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">macaddr</span><span class="p">)</span> <span class="ow">and</span> <span class="n">connect</span> <span class="n">it</span> <span class="n">to</span> <span class="n">the</span> <span class="n">given</span> <span class="n">host</span> <span class="n">network</span> <span class="n">backend</span>
+</pre></div>
+</div>
+</li>
+<li><p>-nic none       use it alone to have zero network devices (the default is to</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">provided</span> <span class="n">a</span> <span class="s1">&#39;user&#39;</span> <span class="n">network</span> <span class="n">connection</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>-net nic[,macaddr=mac][,model=type][,name=str][,addr=str][,vectors=v]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">configure</span> <span class="ow">or</span> <span class="n">create</span> <span class="n">an</span> <span class="n">on</span><span class="o">-</span><span class="n">board</span> <span class="p">(</span><span class="ow">or</span> <span class="n">machine</span> <span class="n">default</span><span class="p">)</span> <span class="n">NIC</span> <span class="ow">and</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">connect</span> <span class="n">it</span> <span class="n">to</span> <span class="n">hub</span> <span class="mi">0</span> <span class="p">(</span><span class="n">please</span> <span class="n">use</span> <span class="o">-</span><span class="n">nic</span> <span class="n">unless</span> <span class="n">you</span> <span class="n">need</span> <span class="n">a</span> <span class="n">hub</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>-net [user|tap|bridge|socket][,option][,option][,...]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">old</span> <span class="n">way</span> <span class="n">to</span> <span class="n">initialize</span> <span class="n">a</span> <span class="n">host</span> <span class="n">network</span> <span class="n">interface</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="p">(</span><span class="n">use</span> <span class="n">the</span> <span class="o">-</span><span class="n">netdev</span> <span class="n">option</span> <span class="k">if</span> <span class="n">possible</span> <span class="n">instead</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>Character device options:</p>
+<ul>
+<li><p>-chardev help</p></li>
+<li><p>-chardev null,id=id[,mux=on|off][,logfile=PATH][,logappend=on|off]</p></li>
+<li><p>-chardev socket,id=id[,host=host],port=port[,to=to][,ipv4=on|off][,ipv6=on|off][,nodelay=on|off]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>     <span class="p">[,</span><span class="n">server</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">][,</span><span class="n">wait</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">][,</span><span class="n">telnet</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">][,</span><span class="n">websocket</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">][,</span><span class="n">reconnect</span><span class="o">=</span><span class="n">seconds</span><span class="p">][,</span><span class="n">mux</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>     <span class="p">[,</span><span class="n">logfile</span><span class="o">=</span><span class="n">PATH</span><span class="p">][,</span><span class="n">logappend</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">][,</span><span class="n">tls</span><span class="o">-</span><span class="n">creds</span><span class="o">=</span><span class="n">ID</span><span class="p">][,</span><span class="n">tls</span><span class="o">-</span><span class="n">authz</span><span class="o">=</span><span class="n">ID</span><span class="p">]</span> <span class="p">(</span><span class="n">tcp</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>-chardev socket,id=id,path=path[,server=on|off][,wait=on|off][,telnet=on|off][,websocket=on|off][,reconnect=seconds]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>     <span class="p">[,</span><span class="n">mux</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">][,</span><span class="n">logfile</span><span class="o">=</span><span class="n">PATH</span><span class="p">][,</span><span class="n">logappend</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">][,</span><span class="n">abstract</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">][,</span><span class="n">tight</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">]</span> <span class="p">(</span><span class="n">unix</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>-chardev udp,id=id[,host=host],port=port[,localaddr=localaddr]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>     <span class="p">[,</span><span class="n">localport</span><span class="o">=</span><span class="n">localport</span><span class="p">][,</span><span class="n">ipv4</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">][,</span><span class="n">ipv6</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">][,</span><span class="n">mux</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>     <span class="p">[,</span><span class="n">logfile</span><span class="o">=</span><span class="n">PATH</span><span class="p">][,</span><span class="n">logappend</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><p>-chardev msmouse,id=id[,mux=on|off][,logfile=PATH][,logappend=on|off]</p></li>
+<li><p>-chardev vc,id=id[[,width=width][,height=height]][[,cols=cols][,rows=rows]]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>     <span class="p">[,</span><span class="n">mux</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">][,</span><span class="n">logfile</span><span class="o">=</span><span class="n">PATH</span><span class="p">][,</span><span class="n">logappend</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><p>-chardev ringbuf,id=id[,size=size][,logfile=PATH][,logappend=on|off]</p></li>
+<li><p>-chardev file,id=id,path=path[,mux=on|off][,logfile=PATH][,logappend=on|off]</p></li>
+<li><p>-chardev pipe,id=id,path=path[,mux=on|off][,logfile=PATH][,logappend=on|off]</p></li>
+<li><p>-chardev pty,id=id[,mux=on|off][,logfile=PATH][,logappend=on|off]</p></li>
+<li><p>-chardev stdio,id=id[,mux=on|off][,signal=on|off][,logfile=PATH][,logappend=on|off]</p></li>
+<li><p>-chardev braille,id=id[,mux=on|off][,logfile=PATH][,logappend=on|off]</p></li>
+<li><p>-chardev serial,id=id,path=path[,mux=on|off][,logfile=PATH][,logappend=on|off]</p></li>
+<li><p>-chardev tty,id=id,path=path[,mux=on|off][,logfile=PATH][,logappend=on|off]</p></li>
+<li><p>-chardev parallel,id=id,path=path[,mux=on|off][,logfile=PATH][,logappend=on|off]</p></li>
+<li><p>-chardev parport,id=id,path=path[,mux=on|off][,logfile=PATH][,logappend=on|off]</p></li>
+<li><p>-chardev spicevmc,id=id,name=name[,debug=debug][,logfile=PATH][,logappend=on|off]</p></li>
+<li><p>-chardev spiceport,id=id,name=name[,debug=debug][,logfile=PATH][,logappend=on|off]</p></li>
+<li></li>
+</ul>
+</li>
+<li><p>TPM device options:</p>
+<ul>
+<li><p>-tpmdev passthrough,id=id[,path=path][,cancel-path=path]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">use</span> <span class="n">path</span> <span class="n">to</span> <span class="n">provide</span> <span class="n">path</span> <span class="n">to</span> <span class="n">a</span> <span class="n">character</span> <span class="n">device</span><span class="p">;</span> <span class="n">default</span> <span class="ow">is</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">tpm0</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">use</span> <span class="n">cancel</span><span class="o">-</span><span class="n">path</span> <span class="n">to</span> <span class="n">provide</span> <span class="n">path</span> <span class="n">to</span> <span class="n">TPM</span><span class="s1">&#39;s cancel sysfs entry; if</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            not provided it will be searched for in /sys/class/misc/tpm?/device
+</pre></div>
+</div>
+</li>
+<li><p>-tpmdev emulator,id=id,chardev=dev</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">configure</span> <span class="n">the</span> <span class="n">TPM</span> <span class="n">device</span> <span class="n">using</span> <span class="n">chardev</span> <span class="n">backend</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>Linux/Multiboot boot specific:</p>
+<ul class="simple">
+<li><p>-kernel bzImage use 'bzImage' as kernel image</p></li>
+<li><p>-append cmdline use 'cmdline' as kernel command line</p></li>
+<li><p>-initrd file    use 'file' as initial ram disk</p></li>
+<li><p>-dtb    file    use 'file' as device tree image</p></li>
+</ul>
+</li>
+<li><p>Debug/Expert options:</p>
+<ul>
+<li><p>-compat [deprecated-input=accept|reject|crash][,deprecated-output=accept|hide]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">Policy</span> <span class="k">for</span> <span class="n">handling</span> <span class="n">deprecated</span> <span class="n">management</span> <span class="n">interfaces</span>
+</pre></div>
+</div>
+</li>
+<li><p>-compat [unstable-input=accept|reject|crash][,unstable-output=accept|hide]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">Policy</span> <span class="k">for</span> <span class="n">handling</span> <span class="n">unstable</span> <span class="n">management</span> <span class="n">interfaces</span>
+</pre></div>
+</div>
+</li>
+<li><p>-fw_cfg [name=]<name>,file=<file></p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">add</span> <span class="n">named</span> <span class="n">fw_cfg</span> <span class="n">entry</span> <span class="k">with</span> <span class="n">contents</span> <span class="kn">from</span> <span class="nn">file</span>
+</pre></div>
+</div>
+</li>
+<li><p>-fw_cfg [name=]<name>,string=<str></p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">add</span> <span class="n">named</span> <span class="n">fw_cfg</span> <span class="n">entry</span> <span class="k">with</span> <span class="n">contents</span> <span class="kn">from</span> <span class="nn">string</span>
+</pre></div>
+</div>
+</li>
+<li><p>-serial dev     redirect the serial port to char device 'dev'</p></li>
+<li><p>-parallel dev   redirect the parallel port to char device 'dev'</p></li>
+<li><p>-monitor dev    redirect the monitor to char device 'dev'</p></li>
+<li><p>-qmp dev        like -monitor but opens in 'control' mode</p></li>
+<li><p>-qmp-pretty dev like -qmp but uses pretty JSON formatting</p></li>
+<li><p>-mon [chardev=]name[,mode=readline|control][,pretty[=on|off]]</p></li>
+<li><p>-debugcon dev   redirect the debug console to char device 'dev'</p></li>
+<li><p>-pidfile file   write PID to 'file'</p></li>
+<li><p>-singlestep     always run in singlestep mode</p></li>
+<li><p>--preconfig     pause QEMU before machine is initialized (experimental)</p></li>
+<li><p>-S              freeze CPU at startup (use 'c' to start execution)</p></li>
+<li><p>-overcommit [mem-lock=on|off][cpu-pm=on|off]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">run</span> <span class="n">qemu</span> <span class="k">with</span> <span class="n">overcommit</span> <span class="n">hints</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">mem</span><span class="o">-</span><span class="n">lock</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span> <span class="n">controls</span> <span class="n">memory</span> <span class="n">lock</span> <span class="n">support</span> <span class="p">(</span><span class="n">default</span><span class="p">:</span> <span class="n">off</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">cpu</span><span class="o">-</span><span class="n">pm</span><span class="o">=</span><span class="n">on</span><span class="o">|</span><span class="n">off</span> <span class="n">controls</span> <span class="n">cpu</span> <span class="n">power</span> <span class="n">management</span> <span class="p">(</span><span class="n">default</span><span class="p">:</span> <span class="n">off</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>-gdb dev        accept gdb connection on 'dev'. (QEMU defaults to starting</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">the</span> <span class="n">guest</span> <span class="n">without</span> <span class="n">waiting</span> <span class="k">for</span> <span class="n">gdb</span> <span class="n">to</span> <span class="n">connect</span><span class="p">;</span> <span class="n">use</span> <span class="o">-</span><span class="n">S</span> <span class="n">too</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="k">if</span> <span class="n">you</span> <span class="n">want</span> <span class="n">it</span> <span class="n">to</span> <span class="ow">not</span> <span class="n">start</span> <span class="n">execution</span><span class="o">.</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>-s              shorthand for -gdb tcp::1234</p></li>
+<li><p>-d item1,...    enable logging of specified items (use '-d help' for a list of log items)</p></li>
+<li><p>-D logfile      output log to logfile (default stderr)</p></li>
+<li><p>-dfilter range,..  filter debug output to range of addresses (useful for -d cpu,exec,etc..)</p></li>
+<li><p>-seed number       seed the pseudo-random number generator</p></li>
+<li><p>-L path         set the directory for the BIOS, VGA BIOS and keymaps</p></li>
+<li><p>-bios file      set the filename for the BIOS</p></li>
+<li><p>-enable-kvm     enable KVM full virtualization support</p></li>
+<li><p>-xen-domid id   specify xen guest domain id</p></li>
+<li><p>-xen-attach     attach to existing xen domain</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">libxl</span> <span class="n">will</span> <span class="n">use</span> <span class="n">this</span> <span class="n">when</span> <span class="n">starting</span> <span class="n">QEMU</span>
+</pre></div>
+</div>
+</li>
+<li><p>-xen-domid-restrict     restrict set of available xen operations</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                    <span class="n">to</span> <span class="n">specified</span> <span class="n">domain</span> <span class="nb">id</span><span class="o">.</span> <span class="p">(</span><span class="n">Does</span> <span class="ow">not</span> <span class="n">affect</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                    <span class="n">xenpv</span> <span class="n">machine</span> <span class="nb">type</span><span class="p">)</span><span class="o">.</span>
+</pre></div>
+</div>
+</li>
+<li><p>-no-reboot      exit instead of rebooting</p></li>
+<li><p>-no-shutdown    stop before shutdown</p></li>
+<li><p>-action reboot=reset|shutdown</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>               <span class="n">action</span> <span class="n">when</span> <span class="n">guest</span> <span class="n">reboots</span> <span class="p">[</span><span class="n">default</span><span class="o">=</span><span class="n">reset</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><p>-action shutdown=poweroff|pause</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>               <span class="n">action</span> <span class="n">when</span> <span class="n">guest</span> <span class="n">shuts</span> <span class="n">down</span> <span class="p">[</span><span class="n">default</span><span class="o">=</span><span class="n">poweroff</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><p>-action panic=pause|shutdown|none</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>               <span class="n">action</span> <span class="n">when</span> <span class="n">guest</span> <span class="n">panics</span> <span class="p">[</span><span class="n">default</span><span class="o">=</span><span class="n">shutdown</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><p>-action watchdog=reset|shutdown|poweroff|inject-nmi|pause|debug|none</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>               <span class="n">action</span> <span class="n">when</span> <span class="n">watchdog</span> <span class="n">fires</span> <span class="p">[</span><span class="n">default</span><span class="o">=</span><span class="n">reset</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><p>-loadvm [tag|id]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">start</span> <span class="n">right</span> <span class="n">away</span> <span class="k">with</span> <span class="n">a</span> <span class="n">saved</span> <span class="n">state</span> <span class="p">(</span><span class="n">loadvm</span> <span class="ow">in</span> <span class="n">monitor</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>-daemonize      daemonize QEMU after initializing</p></li>
+<li><p>-option-rom rom load a file, rom, into the option ROM space</p></li>
+<li><p>-rtc [base=utc|localtime|<datetime>][,clock=host|rt|vm][,driftfix=none|slew]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="nb">set</span> <span class="n">the</span> <span class="n">RTC</span> <span class="n">base</span> <span class="ow">and</span> <span class="n">clock</span><span class="p">,</span> <span class="n">enable</span> <span class="n">drift</span> <span class="n">fix</span> <span class="k">for</span> <span class="n">clock</span> <span class="n">ticks</span> <span class="p">(</span><span class="n">x86</span> <span class="n">only</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>-icount [shift=N|auto][,align=on|off][,sleep=on|off][,rr=record|replay,rrfile=<filename>[,rrsnapshot=<snapshot>]]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">enable</span> <span class="n">virtual</span> <span class="n">instruction</span> <span class="n">counter</span> <span class="k">with</span> <span class="mi">2</span><span class="o">^</span><span class="n">N</span> <span class="n">clock</span> <span class="n">ticks</span> <span class="n">per</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">instruction</span><span class="p">,</span> <span class="n">enable</span> <span class="n">aligning</span> <span class="n">the</span> <span class="n">host</span> <span class="ow">and</span> <span class="n">virtual</span> <span class="n">clocks</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="ow">or</span> <span class="n">disable</span> <span class="n">real</span> <span class="n">time</span> <span class="n">cpu</span> <span class="n">sleeping</span><span class="p">,</span> <span class="ow">and</span> <span class="n">optionally</span> <span class="n">enable</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">record</span><span class="o">-</span><span class="ow">and</span><span class="o">-</span><span class="n">replay</span> <span class="n">mode</span>
+</pre></div>
+</div>
+</li>
+<li><p>-watchdog model</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">enable</span> <span class="n">virtual</span> <span class="n">hardware</span> <span class="n">watchdog</span> <span class="p">[</span><span class="n">default</span><span class="o">=</span><span class="n">none</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><p>-watchdog-action reset|shutdown|poweroff|inject-nmi|pause|debug|none</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">action</span> <span class="n">when</span> <span class="n">watchdog</span> <span class="n">fires</span> <span class="p">[</span><span class="n">default</span><span class="o">=</span><span class="n">reset</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><p>-echr chr       set terminal escape character instead of ctrl-a</p></li>
+<li><p>-incoming tcp:[host]:port[,to=maxport][,ipv4=on|off][,ipv6=on|off]</p></li>
+<li><p>-incoming rdma:host:port[,ipv4=on|off][,ipv6=on|off]</p></li>
+<li><p>-incoming unix:socketpath</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">prepare</span> <span class="k">for</span> <span class="n">incoming</span> <span class="n">migration</span><span class="p">,</span> <span class="n">listen</span> <span class="n">on</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">specified</span> <span class="n">protocol</span> <span class="ow">and</span> <span class="n">socket</span> <span class="n">address</span>
+</pre></div>
+</div>
+</li>
+<li><p>-incoming fd:fd</p></li>
+<li><p>-incoming exec:cmdline</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">accept</span> <span class="n">incoming</span> <span class="n">migration</span> <span class="n">on</span> <span class="n">given</span> <span class="n">file</span> <span class="n">descriptor</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="ow">or</span> <span class="kn">from</span> <span class="nn">given</span> <span class="n">external</span> <span class="n">command</span>
+</pre></div>
+</div>
+</li>
+<li><p>-incoming defer</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">wait</span> <span class="k">for</span> <span class="n">the</span> <span class="n">URI</span> <span class="n">to</span> <span class="n">be</span> <span class="n">specified</span> <span class="n">via</span> <span class="n">migrate_incoming</span>
+</pre></div>
+</div>
+</li>
+<li><p>-only-migratable     allow only migratable devices</p></li>
+<li><p>-nodefaults     don't create default devices</p></li>
+<li><p>-chroot dir     chroot to dir just before starting the VM</p></li>
+<li><p>-runas user     change to user id user just before starting the VM</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">user</span> <span class="n">can</span> <span class="n">be</span> <span class="n">numeric</span> <span class="n">uid</span><span class="p">:</span><span class="n">gid</span> <span class="n">instead</span>
+</pre></div>
+</div>
+</li>
+<li><p>-sandbox on[,obsolete=allow|deny][,elevateprivileges=allow|deny|children]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>      <span class="p">[,</span><span class="n">spawn</span><span class="o">=</span><span class="n">allow</span><span class="o">|</span><span class="n">deny</span><span class="p">][,</span><span class="n">resourcecontrol</span><span class="o">=</span><span class="n">allow</span><span class="o">|</span><span class="n">deny</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">Enable</span> <span class="n">seccomp</span> <span class="n">mode</span> <span class="mi">2</span> <span class="n">system</span> <span class="n">call</span> <span class="nb">filter</span> <span class="p">(</span><span class="n">default</span> <span class="s1">&#39;off&#39;</span><span class="p">)</span><span class="o">.</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">use</span> <span class="s1">&#39;obsolete&#39;</span> <span class="n">to</span> <span class="n">allow</span> <span class="n">obsolete</span> <span class="n">system</span> <span class="n">calls</span> <span class="n">that</span> <span class="n">are</span> <span class="n">provided</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                <span class="n">by</span> <span class="n">the</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">but</span> <span class="n">typically</span> <span class="n">no</span> <span class="n">longer</span> <span class="n">used</span> <span class="n">by</span> <span class="n">modern</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                <span class="n">C</span> <span class="n">library</span> <span class="n">implementations</span><span class="o">.</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">use</span> <span class="s1">&#39;elevateprivileges&#39;</span> <span class="n">to</span> <span class="n">allow</span> <span class="ow">or</span> <span class="n">deny</span> <span class="n">the</span> <span class="n">QEMU</span> <span class="n">process</span> <span class="n">ability</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                <span class="n">to</span> <span class="n">elevate</span> <span class="n">privileges</span> <span class="n">using</span> <span class="nb">set</span><span class="o">*</span><span class="n">uid</span><span class="o">|</span><span class="n">gid</span> <span class="n">system</span> <span class="n">calls</span><span class="o">.</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                <span class="n">The</span> <span class="n">value</span> <span class="s1">&#39;children&#39;</span> <span class="n">will</span> <span class="n">deny</span> <span class="nb">set</span><span class="o">*</span><span class="n">uid</span><span class="o">|</span><span class="n">gid</span> <span class="n">system</span> <span class="n">calls</span> <span class="k">for</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                <span class="n">main</span> <span class="n">QEMU</span> <span class="n">process</span> <span class="n">but</span> <span class="n">will</span> <span class="n">allow</span> <span class="n">forks</span> <span class="ow">and</span> <span class="n">execves</span> <span class="n">to</span> <span class="n">run</span> <span class="n">unprivileged</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">use</span> <span class="s1">&#39;spawn&#39;</span> <span class="n">to</span> <span class="n">avoid</span> <span class="n">QEMU</span> <span class="n">to</span> <span class="n">spawn</span> <span class="n">new</span> <span class="n">threads</span> <span class="ow">or</span> <span class="n">processes</span> <span class="n">by</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                 <span class="n">blocking</span> <span class="o">*</span><span class="n">fork</span> <span class="ow">and</span> <span class="n">execve</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">use</span> <span class="s1">&#39;resourcecontrol&#39;</span> <span class="n">to</span> <span class="n">disable</span> <span class="n">process</span> <span class="n">affinity</span> <span class="ow">and</span> <span class="n">schedular</span> <span class="n">priority</span>
+</pre></div>
+</div>
+</li>
+<li><p>-readconfig <file></p></li>
+<li><p>-writeconfig <file></p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">read</span><span class="o">/</span><span class="n">write</span> <span class="n">config</span> <span class="n">file</span> <span class="p">(</span><span class="n">deprecated</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>-no-user-config</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">do</span> <span class="ow">not</span> <span class="n">load</span> <span class="n">default</span> <span class="n">user</span><span class="o">-</span><span class="n">provided</span> <span class="n">config</span> <span class="n">files</span> <span class="n">at</span> <span class="n">startup</span>
+</pre></div>
+</div>
+</li>
+<li><p>-trace [[enable=]<pattern>][,events=<file>][,file=<file>]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">specify</span> <span class="n">tracing</span> <span class="n">options</span>
+</pre></div>
+</div>
+</li>
+<li><p>-plugin [file=]<file>[,<argname>=<argvalue>]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">load</span> <span class="n">a</span> <span class="n">plugin</span>
+</pre></div>
+</div>
+</li>
+<li><p>-enable-fips    enable FIPS 140-2 compliance</p></li>
+<li><p>-msg [timestamp[=on|off]][,guest-name=[on|off]]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">control</span> <span class="n">error</span> <span class="n">message</span> <span class="nb">format</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">timestamp</span><span class="o">=</span><span class="n">on</span> <span class="n">enables</span> <span class="n">timestamps</span> <span class="p">(</span><span class="n">default</span><span class="p">:</span> <span class="n">off</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">guest</span><span class="o">-</span><span class="n">name</span><span class="o">=</span><span class="n">on</span> <span class="n">enables</span> <span class="n">guest</span> <span class="n">name</span> <span class="n">prefix</span> <span class="n">but</span> <span class="n">only</span> <span class="k">if</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                          <span class="o">-</span><span class="n">name</span> <span class="n">guest</span> <span class="n">option</span> <span class="ow">is</span> <span class="nb">set</span> <span class="p">(</span><span class="n">default</span><span class="p">:</span> <span class="n">off</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>-dump-vmstate <file></p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">Output</span> <span class="n">vmstate</span> <span class="n">information</span> <span class="ow">in</span> <span class="n">JSON</span> <span class="nb">format</span> <span class="n">to</span> <span class="n">file</span><span class="o">.</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">Use</span> <span class="n">the</span> <span class="n">scripts</span><span class="o">/</span><span class="n">vmstate</span><span class="o">-</span><span class="n">static</span><span class="o">-</span><span class="n">checker</span><span class="o">.</span><span class="n">py</span> <span class="n">file</span> <span class="n">to</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">check</span> <span class="k">for</span> <span class="n">possible</span> <span class="n">regressions</span> <span class="ow">in</span> <span class="n">migration</span> <span class="n">code</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">by</span> <span class="n">comparing</span> <span class="n">two</span> <span class="n">such</span> <span class="n">vmstate</span> <span class="n">dumps</span><span class="o">.</span>
+</pre></div>
+</div>
+</li>
+<li><p>-enable-sync-profile</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">enable</span> <span class="n">synchronization</span> <span class="n">profiling</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>Generic object creation:</p>
+<ul>
+<li><p>-object TYPENAME[,PROP1=VALUE1,...]</p></li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">create</span> <span class="n">a</span> <span class="n">new</span> <span class="nb">object</span> <span class="n">of</span> <span class="nb">type</span> <span class="n">TYPENAME</span> <span class="n">setting</span> <span class="n">properties</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="ow">in</span> <span class="n">the</span> <span class="n">order</span> <span class="n">they</span> <span class="n">are</span> <span class="n">specified</span><span class="o">.</span>  <span class="n">Note</span> <span class="n">that</span> <span class="n">the</span> <span class="s1">&#39;id&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="nb">property</span> <span class="n">must</span> <span class="n">be</span> <span class="nb">set</span><span class="o">.</span>  <span class="n">These</span> <span class="n">objects</span> <span class="n">are</span> <span class="n">placed</span> <span class="ow">in</span> <span class="n">the</span>
+</pre></div>
+</div>
+</li>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="s1">&#39;/objects&#39;</span> <span class="n">path</span><span class="o">.</span>
+</pre></div>
+</div>
+</li>
+<li></li>
+</ul>
+</li>
+<li><p>During emulation, the following keys are useful:</p>
+<ul class="simple">
+<li><p>ctrl-alt-f      toggle full screen</p></li>
+<li><p>ctrl-alt-n      switch to virtual console 'n'</p></li>
+<li><p>ctrl-alt        toggle mouse and keyboard grab</p></li>
+</ul>
+</li>
+<li><p>When using -nographic, press 'ctrl-a h' to get some help.</p>
+<ul class="simple">
+<li><p>See <a class="reference external" href="https://qemu.org/contribute/report-a-bug">https://qemu.org/contribute/report-a-bug</a> for how to report bugs.</p></li>
+<li><p>More information on the QEMU project at <a class="reference external" href="https://qemu.org">https://qemu.org</a>.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="useVirt-rescue-to-installAnyOS.html" class="btn btn-neutral float-left" title="使用 virt-rescue 在不丢数据的情况下，改变成任意的操作系统" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="multipassVM-Clone.html" class="btn btn-neutral float-right" title="如何实现对 Ubuntu multipass 虚拟机的“克隆”" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2022, Albert Xu.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

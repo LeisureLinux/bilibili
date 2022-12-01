@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bash 命令行编辑(emacs 模式) &mdash; LeisureLinux 1.1.0beta 文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="对初学者很有用的 Bash 小技巧" href="bashTips.html" />
+    <link rel="prev" title="Linux 桌面系统存放背景图片的目录" href="backgrouds.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> LeisureLinux
+          </a>
+              <div class="version">
+                1.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="31linux_command.html">Ubuntu 初学者必知必会的31条命令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E9%9D%9E%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%93%E4%B8%9A-Linux%E5%85%A5%E9%97%A8.html">如何学习 Linux (Ver 0.2.20221015)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E7%90%86%E8%A7%A3%E4%B8%89%E7%A7%8Dsocket.html">三种 Socket (套接字)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apt.html">25 个 apt-get/apt-cache 包管理命令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="archlinux.html">Arch Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="backgrouds.html">Linux 桌面系统存放背景图片的目录</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Bash 命令行编辑(emacs 模式)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#set-o-emacs">默认：set -o emacs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#set-o-vi-vi">set -o vi 切换为 vi 模式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inputrc">配置文件：~/.inputrc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#shell">Shell 操作</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">控制屏显</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">移动</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">历史搜索</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">自动补全</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">编辑</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bashTips.html">对初学者很有用的 Bash 小技巧</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cargoConfig.html">The Rustup Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="China-Root-Community.html">中国的开源根社区</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CinnamonDE.html">DE/DW/WM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EmailAnti-Spamming.html">建设自己的邮件系统 AS/AV</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GNU-Autotols.html">GNU Auto Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howto-rpm.html">三步创建 rpm 包</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LoongArch-Evolve.html">LoongArch 在 Linux 操作系统上的进展</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lsblk.html">lsblk,blkid,findmnt,findfs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LTS_Kernel.html">Linux 内核版本 LTS 的支持时间</a></li>
+<li class="toctree-l1"><a class="reference internal" href="macOS-QEMU-Linux.html">如何在 macOS 上使用 QEMU 创建 Linux 虚拟机（而不是 Virtualbox）</a></li>
+<li class="toctree-l1"><a class="reference internal" href="man.html">如何高效阅读 Man 手册</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mdcat.html">kitty+mdcat+lsd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OpenWrt.html">编译自己的 OpenWrt 镜像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SELinux.html">SELinux On Ubuntu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="snap.html">snap 介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="systemd.html">systemd 解释</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uuencode-base64.html">从 UUENCODE 说开来的那些事情</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Vim82-editing.html">Vim 8.2 手册</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zsh-vi-mode.html">zsh 命令行下的 line editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="website-basic.html">如何建设一个网站</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xdgBaseDir.html">XDG 基础目录</a></li>
+<li class="toctree-l1"><a class="reference internal" href="XdgIntro.html">XDG 介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UbuntuSupport.html">Ubuntu 支持介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="useVirt-rescue-to-installAnyOS.html">使用 virt-rescue 在不丢数据的情况下，改变成任意的操作系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qemu-system.html">QEMU emulator version 6.2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qemu-system.html#usage-qemu-system-x86-64-options-disk-image">usage: qemu-system-x86_64 [options] [disk_image]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multipassVM-Clone.html">如何实现对 Ubuntu multipass 虚拟机的“克隆”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="virsh-command.html">Virsh 262 条命令全表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="virsh-help.html">virsh 帮助</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">LeisureLinux</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Bash 命令行编辑(emacs 模式)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/bash-emacs.md.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="bash-emacs">
+<h1>Bash 命令行编辑(emacs 模式)<a class="headerlink" href="#bash-emacs" title="永久链接至标题"></a></h1>
+<section id="set-o-emacs">
+<h2>默认：set -o emacs<a class="headerlink" href="#set-o-emacs" title="永久链接至标题"></a></h2>
+</section>
+<section id="set-o-vi-vi">
+<h2>set -o vi 切换为 vi 模式<a class="headerlink" href="#set-o-vi-vi" title="永久链接至标题"></a></h2>
+</section>
+<section id="inputrc">
+<h2>配置文件：~/.inputrc<a class="headerlink" href="#inputrc" title="永久链接至标题"></a></h2>
+</section>
+<section id="shell">
+<h2>Shell 操作<a class="headerlink" href="#shell" title="永久链接至标题"></a></h2>
+<ul class="simple">
+<li><p>Ctr-c: 退出当前命令</p></li>
+<li><p>Ctr-z: 当前进程放后台, fg %1, 可以放到前台, jobs 可以查看任务</p></li>
+<li><p>Ctr-d：退出 Shell，相当于敲 exit</p></li>
+</ul>
+</section>
+<section id="id1">
+<h2>控制屏显<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
+<ul class="simple">
+<li><p>Ctr-l: 清屏</p></li>
+<li><p>Ctr-s: 暂停屏幕输出</p></li>
+<li><p>Ctr-q: 继续屏幕输出</p></li>
+</ul>
+</section>
+<section id="id2">
+<h2>移动<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<ul class="simple">
+<li><p>Ctr-a: 移动到行首</p></li>
+<li><p>Ctr-e: 移动到行尾</p></li>
+<li><p>Ctr-f: 前进一个字符</p></li>
+<li><p>Ctr-b: 后退一个字符</p></li>
+<li><p>Alt-f: 前进一个单词</p></li>
+<li><p>Alt-b: 后退一个单词</p></li>
+<li><p>Ctrl-xx: 行首到当前光标之间切换</p></li>
+</ul>
+</section>
+<section id="id3">
+<h2>历史搜索<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<ul class="simple">
+<li><p>Ctr-p: 上一条命令历史</p></li>
+<li><p>Ctr-n: 下一条命令历史</p></li>
+<li><p>Alt-&lt;: 命令历史的第一行</p></li>
+<li><p>Alt-&gt;: 命令历史的最后一行</p></li>
+<li><p>Ctr-r: 向前搜索</p></li>
+<li><p>Ctr-s: 向前搜索</p></li>
+<li><p>Ctr-0: 运行搜索结果的命令, Ctr-g: 离开搜索界面，不自行命令</p></li>
+<li><p>!!: 重复上次命令</p></li>
+<li><p>!n: 重复命令历史里的第 n 个命令</p></li>
+<li><p>!n:m: 重复命令历史的 n:m 个命令</p></li>
+<li><p>!n:$: 重复第n 个命令到最后一个</p></li>
+<li><p>!n:p: 显示第n 个命令到最后</p></li>
+<li><p>!string 显示 string 开头的命令</p></li>
+<li><p>!:q: 引用上次命令</p></li>
+<li><p>!$: 上个命令的最后一个参数</p></li>
+<li><p>!*: 上个命令的所有参数</p></li>
+<li><p>^abc^def: 运行上个命令，把 abc 替换为 def</p></li>
+</ul>
+</section>
+<section id="id4">
+<h2>自动补全<a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<ul class="simple">
+<li><p>Tab: 补全</p></li>
+<li><p>Esc-Tab: 从上一条命令补全</p></li>
+<li><p>Alt-?: 列出可选的补全</p></li>
+<li><p>Alt-/: 尝试文件名补全</p></li>
+<li><p>Alt-~: 尝试用户名补全</p></li>
+<li><p>Alt-$: 尝试变量名补全</p></li>
+<li><p>Alt-&#64;: 尝试主机名补全</p></li>
+<li><p>Alt-!: 尝试命令补全</p></li>
+<li><p>Ctr-x /:	列出可补全的文件名</p></li>
+<li><p>Ctr-x ~: 列出可补全的用户名替换</p></li>
+<li><p>Ctr-x $: 列出可补全的变量名替换</p></li>
+<li><p>Ctr-x &#64;: 列出可补全的主机名替换</p></li>
+<li><p>Ctr-x !: 列出可补全的命令替换</p></li>
+</ul>
+</section>
+<section id="id5">
+<h2>编辑<a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
+<ul class="simple">
+<li><p>Ctr-d 或者 Del: 删除当前光标的字符</p></li>
+<li><p>Ctr-q 或者 Ctr-v: 引用式插入</p></li>
+<li><p>Alt-Ctr-i: 插入 tab 键，等于提示命令</p></li>
+<li><p>Ctr-t: 交换字母位置</p></li>
+<li><p>Alt-t: 交换单词位置</p></li>
+<li><p>Alt-u: 整个单词都大写</p></li>
+<li><p>Alt-l: 整个单词都小写</p></li>
+<li><p>Alt-c: 大写单词首字母</p></li>
+<li><p>Ctr-k: 删除到行尾,送到剪贴板</p></li>
+<li><p>Ctr-u: 从行首删除到当前位置,送到剪贴板</p></li>
+<li><p>Alt-d: 删除当前光标的单词</p></li>
+<li><p>Alt-Del 或者 Esc-Ctr-h: 向前删除一个单词</p></li>
+<li><p>Ctr-w: 剪切光标前的单词</p></li>
+<li><p>Alt-: 删除当前光标上的空格</p></li>
+<li><p>Ctr-y: 粘贴文本</p></li>
+<li><p>Alt-y: 粘贴文本</p></li>
+<li><p>Ctr-h: 删除光标前的字符(回退键)</p></li>
+<li><p>Alt-d: 向后删除一个单词</p></li>
+<li><p>Esc-t: 交换光标前两个单词的位置</p></li>
+<li><p>Ctr-_ 或者 Ctr-x Ctr-u: Undo 上次交换(Terminal 下是缩小字体，无法使用)</p></li>
+<li><p>Alt-r: 取消修改(rollback)</p></li>
+<li><p>Ctr-e: 切换为 emacs 模式</p></li>
+<li><p>Alt-Ctr-j: 切换为 vi 模式</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="backgrouds.html" class="btn btn-neutral float-left" title="Linux 桌面系统存放背景图片的目录" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="bashTips.html" class="btn btn-neutral float-right" title="对初学者很有用的 Bash 小技巧" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2022, Albert Xu.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

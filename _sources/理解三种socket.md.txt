@@ -1,0 +1,26 @@
+#### 三种 Socket (套接字)
+- 三种 Socket
+  - TCP Socket: 正式名称叫 Stream sockets
+  - UDP Socket: 正式名称叫 Datagram sockets
+  - Unix Socket: 正式名称：Unix Domain Sockets
+- 三个软件包：
+  - iproute2: 提供 ss 工具
+  - netcat-openbsd: 提供 netcat (nc) 工具
+  - socat: 提供 socat 工具
+- 实验 TCP socket:
+  - 启动 socket：$ socat TCP4-LISTEN:8080,fork /dev/null &
+  - 检查 socket 是否启动： $ ss -4 -tln 
+  - 连接到 socket: $ nc -4 -vz 127.0.0.1 8080
+- 实验 UDP socket:
+  - 启动 socket：$ socat UDP4-LISTEN:8181,fork /dev/null &
+  - 检查 socket 是否启动： $ ss -4 -uln 
+  - 连接到 socket: $ nc -4 -u -vz 127.0.0.1 8181
+- 实验 Unix socket(基于 stream):
+  - 启动 socket：$ socat unix-listen:/tmp/stream.sock,fork /dev/null &
+  - 检查 socket 是否启动： $ ss -xln  (u\_str 代表 stream)
+  - 连接到 socket: $ nc -U -z /tmp/stream.sock
+- 实验 Unix socket(基于 datagram):
+  - 启动 socket：$ socat unix-recvfrom:/tmp/datagram.sock,fork /dev/null &
+  - 检查 socket 是否启动： $ ss -xln  (u\_dgr 代表 datagram)
+  - 连接到 socket: $ nc -uU -z /tmp/datagram.sock
+- 参考：[Understanding Sockets](https://www.digitalocean.com/community/tutorials/understanding-sockets)
