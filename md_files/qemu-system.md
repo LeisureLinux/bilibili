@@ -1,10 +1,11 @@
 #### QEMU emulator version 6.2.0
-#### usage: qemu-system-x86_64 [options] [disk_image]
+##### usage: qemu-system-x86_64 [options] [disk_image]
  - 'disk_image' is a raw hard disk image for IDE hard disk 0
  - Standard options:
   - -h or -help     display this help and exit
   - -version        display version information and exit
   - -machine [type=]name[,prop[=value][,...]]
+  ```
                 selects emulated machine ('-machine help' for list)
                 property accel=accel1[:accel2[:...]] selects accelerator
                 supported accelerators are kvm, xen, hax, hvf, nvmm, whpx or tcg (default: tcg)
@@ -19,8 +20,10 @@
                 hmat=on|off controls ACPI HMAT support (default=off)
                 memory-backend='backend-id' specifies explicitly provided backend for main RAM (default=none)
                 sgx-epc.0.memdev=memid
+  ```
   - -cpu cpu        select CPU ('-cpu help' for list)
   - -accel [accel=]accelerator[,prop[=value][,...]]
+  ```
                 select accelerator (kvm, xen, hax, hvf, nvmm, whpx or tcg; use 'help' for a list)
                 igd-passthru=on|off (enable Xen integrated Intel graphics passthrough, default=off)
                 kernel-irqchip=on|off|split controls accelerated irqchip support (default=on)
@@ -29,7 +32,9 @@
                 tb-size=n (TCG translation block cache size)
                 dirty-ring-size=n (KVM dirty ring GFN count, default 0)
                 thread=single|multi (enable multi-threaded TCG)
+  ```
   - -smp [[cpus=]n][,maxcpus=maxcpus][,sockets=sockets][,dies=dies][,cores=cores][,threads=threads]
+  ```
                 set the number of CPUs to 'n' [default=1]
                 maxcpus= maximum number of total CPUs, including
                 offline CPUs for hotplug, etc
@@ -37,6 +42,7 @@
                 dies= number of CPU dies on one socket (for PC only)
                 cores= number of CPU cores on one socket (for PC, it's on one die)
                 threads= number of threads on one CPU core
+  ```
   - -numa node[,mem=size][,cpus=firstcpu[-lastcpu]][,nodeid=node][,initiator=node]
   - -numa node[,memdev=id][,cpus=firstcpu[-lastcpu]][,nodeid=node][,initiator=node]
   - -numa dist,src=source,dst=destination,val=distance
@@ -52,19 +58,24 @@
   - -global driver=driver,property=property,value=value
                 set a global default for a driver property
   - -boot [order=drives][,once=drives][,menu=on|off]
+  ```
       [,splash=sp_name][,splash-time=sp_time][,reboot-timeout=rb_time][,strict=on|off]
                 'drives': floppy (a), hard disk (c), CD-ROM (d), network (n)
                 'sp_name': the file's name that would be passed to bios as logo picture, if menu=on
                 'sp_time': the period that splash picture last if menu=on, unit is ms
                 'rb_timeout': the timeout before guest reboot when boot failed, unit is ms
+  ```
   - -m [size=]megs[,slots=n,maxmem=size]
+  ```
                 configure guest RAM
                 size: initial amount of guest memory
                 slots: number of hotplug slots (default: none)
                 maxmem: maximum amount of guest memory (default: none)
+  ```
   - -k language     use keyboard layout (for example 'fr' for French)
   - -audio-help     show -audiodev equivalent of the currently specified audio settings
   - -audiodev [driver=]driver,id=id[,prop[=value][,...]]
+  ```
                 specifies the audio backend to use
                 id= identifier of the backend
                 timer-period= timer period in microseconds
@@ -76,33 +87,42 @@
                 valid values: s8, s16, s32, u8, u16, u32, f32
                 in|out.voices= number of voices to use
                 in|out.buffer-length= length of buffer in microseconds
+  ```
   - -audiodev none,id=id,[,prop[=value][,...]]
                 dummy driver that discards all output
   - -audiodev alsa,id=id[,prop[=value][,...]]
+  ```
                 in|out.dev= name of the audio device to use
                 in|out.period-length= length of period in microseconds
                 in|out.try-poll= attempt to use poll mode
                 threshold= threshold (in microseconds) when playback starts
+  ```
   - -audiodev oss,id=id[,prop[=value][,...]]
+  ```
                 in|out.dev= path of the audio device to use
                 in|out.buffer-count= number of buffers
                 in|out.try-poll= attempt to use poll mode
                 try-mmap= try using memory mapped access
                 exclusive= open device in exclusive mode
                 dsp-policy= set timing policy (0..10), -1 to use fragment mode
+  ```
   - -audiodev pa,id=id[,prop[=value][,...]]
+  ```
                 server= PulseAudio server address
                 in|out.name= source/sink device name
                 in|out.latency= desired latency in microseconds
+  ```
   - -audiodev sdl,id=id[,prop[=value][,...]]
                 in|out.buffer-count= number of buffers
   - -audiodev spice,id=id[,prop[=value][,...]]
   - -audiodev wav,id=id[,prop[=value][,...]]
                 path= path of wav file to record
   - -soundhw c1,... enable audio support
+  ```
                 and only specified sound cards (comma separated list)
                 use '-soundhw help' to get the list of supported cards
                 use '-soundhw all' to enable all of them
+  ```
   - -device driver[,prop[=value][,...]]
                 add device (based on driver)
                 prop=value,... sets driver properties
@@ -128,6 +148,7 @@
   -           [,driver specific parameters...]
   -                 configure a block backend
   - -drive [file=file][,if=type][,bus=n][,unit=m][,media=d][,index=i]
+  ```
   -        [,cache=writethrough|writeback|none|directsync|unsafe][,format=f]
   -        [,snapshot=on|off][,rerror=ignore|stop|report]
   -        [,werror=ignore|stop|report|enospc][,id=name]
@@ -140,6 +161,7 @@
   -        [[,iops_max=im]|[[,iops_rd_max=irm][,iops_wr_max=iwm]]]
   -        [[,iops_size=is]]
   -        [[,group=g]]
+  ```
   -                 use 'file' as a drive image
   - -mtdblock file  use 'file' as on-board Flash memory image
   - -sd file        use 'file' as SecureDigital card image
@@ -180,9 +202,11 @@
   -  -display curses[,charset=<encoding>]
   -  -display egl-headless[,rendernode=<file>]
   -  -display none
+  ```
   -                  select display backend type
   -                  The default display is equivalent to
   -                  "-display gtk"
+  ```
   -  -nographic      disable graphical output and redirect serial I/Os to console
   -  -curses         shorthand for -display curses
   -  -alt-grab       use Ctrl-Alt-Shift to grab mouse (instead of Ctrl-Alt)
@@ -190,6 +214,7 @@
   -  -no-quit        disable SDL/GTK window close capability (deprecated)
   -  -sdl            shorthand for -display sdl
   -  -spice [port=port][,tls-port=secured-port][,x509-dir=<dir>]
+  ```
   -         [,x509-key-file=<file>][,x509-key-password=<file>]
   -         [,x509-cert-file=<file>][,x509-cacert-file=<file>]
   -         [,x509-dh-key-file=<file>][,addr=addr]
@@ -208,6 +233,7 @@
   -         [,gl=[on|off]][,rendernode=<file>]
   -     enable spice
   -     at least one of {port, tls-port} is mandatory
+  ```
   -  -portrait       rotate graphical output 90 deg left (only PXA LCD)
   -  -rotate <deg>   rotate graphical output some deg left (only PXA LCD)
   -  -vga [std|cirrus|vmware|qxl|xenfb|tcx|cg3|virtio|none]
@@ -259,6 +285,7 @@
   -          [,br=bridge][,helper=helper][,sndbuf=nbytes][,vnet_hdr=on|off][,vhost=on|off]
   -          [,vhostfd=h][,vhostfds=x:y:...:z][,vhostforce=on|off][,queues=n]
   -          [,poll-us=n]
+  ```
   -                 configure a host TAP network backend with ID 'str'
   -                 connected to a bridge (default=br0)
   -                 use network scripts 'file' (default=/etc/qemu-ifup)
@@ -281,14 +308,18 @@
   -                 use 'queues=n' to specify the number of queues to be created for multiqueue TAP
   -                 use 'poll-us=n' to specify the maximum number of microseconds that could be
   -                 spent on busy polling for vhost net
+  ```
   - -netdev bridge,id=str[,br=bridge][,helper=helper]
+  ```
   -                 configure a host TAP network backend with ID 'str' that is
   -                 connected to a bridge (default=br0)
   -                 using the program 'helper (default=/usr/lib/qemu/qemu-bridge-helper)
+  ```
   - -netdev l2tpv3,id=str,src=srcaddr,dst=dstaddr[,srcport=srcport][,dstport=dstport]
   -          [,rxsession=rxsession],txsession=txsession[,ipv6=on|off][,udp=on|off]
   -          [,cookie64=on|off][,counter][,pincounter][,txcookie=txcookie]
   -          [,rxcookie=rxcookie][,offset=offset]
+  ```
   -                 configure a network backend with ID 'str' connected to
   -                 an Ethernet over L2TPv3 pseudowire.
   -                 Linux kernel 3.3+ as well as most routers can talk
@@ -310,24 +341,39 @@
   -                 use 'counter=off' to force a 'cut-down' L2TPv3 with no counter
   -                 use 'pincounter=on' to work around broken counter handling in peer
   -                 use 'offset=X' to add an extra offset between header and data
+  ```
   - -netdev socket,id=str[,fd=h][,listen=[host]:port][,connect=host:port]
+  ```
   -                 configure a network backend to connect to another network
   -                 using a socket connection
+  ```
   - -netdev socket,id=str[,fd=h][,mcast=maddr:port[,localaddr=addr]]
+  ```
   -                 configure a network backend to connect to a multicast maddr and port
   -                 use 'localaddr=addr' to specify the host address to send packets from
+  ```
   - -netdev socket,id=str[,fd=h][,udp=host:port][,localaddr=host:port]
+  ```
   -                 configure a network backend to connect to another network
   -                 using an UDP tunnel
+  ```
   - -netdev vhost-user,id=str,chardev=dev[,vhostforce=on|off]
+  ```
   -                 configure a vhost-user network, backed by a chardev 'dev'
+  ```
   - -netdev vhost-vdpa,id=str,vhostdev=/path/to/dev
+  ```
   -                 configure a vhost-vdpa network,Establish a vhost-vdpa netdev
+  ```
   - -netdev hubport,id=str,hubid=n[,netdev=nd]
+  ```
   -                 configure a hub port on the hub with ID 'n'
+  ```
   - -nic [tap|bridge|user|l2tpv3|vhost-user|socket][,option][,...][mac=macaddr]
+  ```
   -                 initialize an on-board / default host NIC (using MAC address
   -                 macaddr) and connect it to the given host network backend
+  ```
   - -nic none       use it alone to have zero network devices (the default is to
   -                 provided a 'user' network connection)
   - -net nic[,macaddr=mac][,model=type][,name=str][,addr=str][,vectors=v]
@@ -366,11 +412,15 @@
   - 
 - TPM device options:
   - -tpmdev passthrough,id=id[,path=path][,cancel-path=path]
+  ```
   -                 use path to provide path to a character device; default is /dev/tpm0
   -                 use cancel-path to provide path to TPM's cancel sysfs entry; if
   -                 not provided it will be searched for in /sys/class/misc/tpm?/device
+  ```
   - -tpmdev emulator,id=id,chardev=dev
+  ```
   -                 configure the TPM device using chardev backend
+  ```
 
 - Linux/Multiboot boot specific:
   - -kernel bzImage use 'bzImage' as kernel image
@@ -399,12 +449,16 @@
   - --preconfig     pause QEMU before machine is initialized (experimental)
   - -S              freeze CPU at startup (use 'c' to start execution)
   - -overcommit [mem-lock=on|off][cpu-pm=on|off]
+  ```
   -                 run qemu with overcommit hints
   -                 mem-lock=on|off controls memory lock support (default: off)
   -                 cpu-pm=on|off controls cpu power management (default: off)
+  ```
   - -gdb dev        accept gdb connection on 'dev'. (QEMU defaults to starting
+  ```
   -                 the guest without waiting for gdb to connect; use -S too
   -                 if you want it to not start execution.)
+  ```
   - -s              shorthand for -gdb tcp::1234
   - -d item1,...    enable logging of specified items (use '-d help' for a list of log items)
   - -D logfile      output log to logfile (default stderr)
@@ -462,6 +516,7 @@
   - -runas user     change to user id user just before starting the VM
   -                 user can be numeric uid:gid instead
   - -sandbox on[,obsolete=allow|deny][,elevateprivileges=allow|deny|children]
+  ```
   -           [,spawn=allow|deny][,resourcecontrol=allow|deny]
   -                 Enable seccomp mode 2 system call filter (default 'off').
   -                 use 'obsolete' to allow obsolete system calls that are provided
@@ -474,6 +529,7 @@
   -                 use 'spawn' to avoid QEMU to spawn new threads or processes by
   -                      blocking *fork and execve
   -                 use 'resourcecontrol' to disable process affinity and schedular priority
+  ```
   - -readconfig <file>
   - -writeconfig <file>
   -                 read/write config file (deprecated)
@@ -485,29 +541,35 @@
   -                 load a plugin
   - -enable-fips    enable FIPS 140-2 compliance
   - -msg [timestamp[=on|off]][,guest-name=[on|off]]
+  ```
   -                 control error message format
   -                 timestamp=on enables timestamps (default: off)
   -                 guest-name=on enables guest name prefix but only if
   -                               -name guest option is set (default: off)
+  ```
   - -dump-vmstate <file>
+  ```
   -                 Output vmstate information in JSON format to file.
   -                 Use the scripts/vmstate-static-checker.py file to
   -                 check for possible regressions in migration code
   -                 by comparing two such vmstate dumps.
+  ```
   - -enable-sync-profile
+  ```
   -                 enable synchronization profiling
+  ```
 
 - Generic object creation:
   - -object TYPENAME[,PROP1=VALUE1,...]
+  ```
   -                 create a new object of type TYPENAME setting properties
   -                 in the order they are specified.  Note that the 'id'
   -                 property must be set.  These objects are placed in the
   -                 '/objects' path.
+  ```
   - 
 - During emulation, the following keys are useful:
   - ctrl-alt-f      toggle full screen
   - ctrl-alt-n      switch to virtual console 'n'
   - ctrl-alt        toggle mouse and keyboard grab
 - When using -nographic, press 'ctrl-a h' to get some help.
-  - See <https://qemu.org/contribute/report-a-bug> for how to report bugs.
-  - More information on the QEMU project at <https://qemu.org>.

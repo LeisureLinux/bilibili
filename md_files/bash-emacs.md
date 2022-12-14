@@ -74,3 +74,5 @@
  - Alt-r: 取消修改(rollback)
  - Ctr-e: 切换为 emacs 模式
  - Alt-Ctr-j: 切换为 vi 模式
+
+##### Ref: [Cheetsheets](books/readline-emacs-editing-mode-cheat-sheet.pdf)

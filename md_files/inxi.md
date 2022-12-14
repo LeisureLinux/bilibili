@@ -27,6 +27,7 @@
 ### -B , --battery: 显示电池信息
       * -c , --color: 以颜色输出
 ### -C , --cpu: 输出所有 CPU 信息
+      ```
               - 类型解释：
                 * AMCP -  非对称多核处理器
                 * AMP - 非对称多处理器
@@ -38,27 +39,39 @@
                 * UP - Uni (single core) Processor.
 
        * -d , --disk-full,--optical: 在 -D 硬盘数据以外显示光驱数据，同时也显示软驱数据
+      ```
 ### -D , --disk: 显示硬盘信息
 ### -E, --bluetooth: 显示蓝牙信息
+      ```
        * --edid: 图形方式显示 EDID 数据
        * --filter, -z: 过滤选项，详细见 FILTER
        * -f , --flags: 显示所有 CPU 旗标
        * -F , --full: 完整输出
        * --gpu: 显示高级 GPU 数据 --nvidia, --nv 
+      ```
 ### -G , --graphics: 显示显卡信息 -Gxx 显示监视器数据 --edid 显示高级的监视器数据
+      ```
        * -h , --help: 帮助
        * -i , --ip: 显示公网 IP 以及本地网卡
        * -I , --info
        * -j, --swap: 交换分区
+      ```
 ### -J , --usb: USB 信息
+      ```
        * -l , --label: 分区标签
        * -L, --logical: 逻辑卷信息
+      ```
 ### -m , --memory: 内存
+      ```
        * --memory-modules, --mm: 仅显示内存阵列和模块
        * --memory-short, --ms: 一行显示内存信息
+      ```
 ### -M , --machine: 显示机器信息
+      ```
        * -n , --network-advanced: 网络
+      ```
 ### -N , --network: 网卡
+      ```
        * -o , --unmounted: 未挂接的分区信息
        * -p , --partitions-full: 完整的分区信息
        * -P , --partitions: 基本的分区信息
@@ -82,10 +95,14 @@
               * XBPS (Void)
               YUM/ZYPP (Fedora, Red Hat, Suse + derived versions)
        * -R , --raid: RAID 信息
+      ```
 ### --recommends: 查看 inxi 需要的依赖以及建议安装的软件
+      ```
        * -s , --sensors: 传感器
        * --slots: PCI 
+      ```
 ### -S , --system: 系统
+      ```
        * -t , --processes: top CPU & Memory
        * -t c: top CPU only
        * -t m: top memory only
@@ -93,8 +110,10 @@
        * -u , --uuid: 分区的 UUID
        * -U , --update: 软件更新
        * -v , --verbosity, 支持 0-8 详细级别，默认 0
+      ```
 
 #### 过滤选项
+      ```
        --filter , --filter-override See -z, -Z.
        --filter-label, --filter-uuid, --filter-vulnerabilities See --zl, --zu, --zv.
        --host Turns on hostname in System line. Overrides inxi config file value (if set):
@@ -110,8 +129,10 @@
               Filter Vulnerabilities report from -Ca. Generally only useful in very specialized cases.
        -Z , --filter-override , --no-filter
               Absolute override for output filters. Useful for debugging networking issues in IRC for example.
+      ```
 
 #### 输出控制：
+      ```
     - 颜色
        -c , --color [0-42] : 显示颜色模式
        -c [94-99]
@@ -132,8 +153,10 @@
        --wrap-max [integer]
        -y, --width [integer]
        -Y, --height, --less [-3-[integer]
+      ```
 
 #### 管理附加数据
+      ```
        --admin 选项设置了  -xxx
        -a -A  : 声音服务
        -a -C : CPU
@@ -151,8 +174,10 @@
        -a -R  - Adds device kernel major:minor number (mdraid, Linux only).
        -a -S  - Adds kernel boot parameters to Kernel section (if detected). Support varies by OS type.
        -a --slots: PCI 信息
+      ```
 
 #### 高级选项
+      ```
        --alt 40 Bypass Perl as a downloader option. Priority is: Perl (HTTP::Tiny), Curl, Wget, Fetch, (OpenBSD only) ftp.
        --alt 41 Bypass Curl as a downloader option. Priority is: Perl (HTTP::Tiny), Curl, Wget, Fetch, (OpenBSD only) ftp.
        --alt 42 Bypass Fetch as a downloader option. Priority is: Perl (HTTP::Tiny), Curl, Wget, Fetch, (OpenBSD only) ftp.
@@ -200,8 +225,10 @@
        --wan-ip-url [URL] Force -i to use supplied URL as WAN IP source. Overrides dig or default IP source urls. URL must start with http[s] or ftp.
        --wayland, --wl Shortcut. See --force wayland.
        --wm   Shortcut. See --force wmctl.
+      ```
 
 #### 调试选项（略）
+      ```
        --dbg {[1-x][,[1-x]]}
        --debug [1-3] - On screen debugger output.
        --debug 10 - Basic logging. Check $XDG_DATA_HOME/inxi/inxi.log or $HOME/.local/share/inxi/inxi.log or $HOME/.inxi/inxi.log.
@@ -215,14 +242,18 @@
        --debug 22 Automatically uploads debugger data tar.gz file to ftp.smxi.org, then removes the debug data directory and  the  tar.gz  file. See --ftp for uploading to alternate locations.
        --fake-data-dir Developer only: Change default location of $fake_data_dir, which is where files are for --fake {item} items.
        --ftp [ftp.yoursite.com/incoming] For alternate ftp upload locations: Example: inxi --ftp ftp.yourserver.com/incoming --debug 21
+      ```
 
 #### 配置文件
+      ```
        inxi will read its configuration/initialization files in the following order:
        /etc/inxi.conf  contains  the  default configurations. These can be overridden by creating a /etc/inxi.d/inxi.conf file (global override, which will prevent distro packages from changing or overwriting your edits. This method is recommended if you are using a  distro packaged inxi and want to override some configuration items from the package's default /etc/inxi.conf file but don't want to lose your changes on a package update.
        You can old override, per user, with a user configuration file found in one of the following locations (inxi will  store  its  config file using the following precedence:
        if  $XDG_CONFIG_HOME  is  not empty, it will go there, else if $HOME/.conf/inxi.conf exists, it will go there, and as a last default, the legacy location is used), i.e.: $XDG_CONFIG_HOME/inxi.conf > $HOME/.conf/inxi.conf > $HOME/.inxi/inxi.conf
+      ```
 
 #### 配置选项：
+      ```
        See the documentation page for more complete information on how to set these up, and for a complete list of options:
        https://smxi.org/docs/inxi-configuration.htm
 
@@ -261,7 +292,4 @@
             *  IRC_X_TERM_COLOR_SCHEME In X/Wayland IRC client terminal color scheme.
             *  VIRT_TERM_COLOR_SCHEME Color scheme for virtual terminal output (in X/Wayland).
             *  FAKE_DATA_DIR - change default fake data directory location. See --fake-data-dir.
-
-HOMEPAGE
-       https://github.com/smxi/inxi
-       https://smxi.org/docs/inxi.htm
+      ```

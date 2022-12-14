@@ -13,33 +13,37 @@
       - $ yay -Rs:删除软件包及其依赖
   2. 使用最近的镜像源
     - $ sudo pacman -S pacman-contrib
-    - $ curl -s "https://archlinux.org/mirrorlist/?country=CN&usr_mirror_status=on" |sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n 5 - |tee /etc/pacman.d/mirrorlist
+    - $ curl \-s "https://archlinux.org/mirrorlist/?country=CN&usr_mirror_status=on" |sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n 5 - |tee /etc/pacman.d/mirrorlist
   3. 安装 gnome & gdm
-    - $ sudo pacman -S xorg xorg-server
-    - $ sudo pacman -S gnome gdm gnome-tweaks
-    - $ sudo systemctl --now enable gdm.service
+    - $ sudo pacman \-S xorg xorg-server
+    - $ sudo pacman \-S gnome gdm gnome-tweaks
+    - $ sudo systemctl \-\-now enable gdm.service
     - 或者安装其他 DM: lxdm, lightdm
   4. 中文的支持
-    - 参考： https://wiki.archlinux.org/title/Localization_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)/Simplified_Chinese_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)
-    - $ grep -v ^# /etc/locale.gen
+    - [参考](https://wiki.archlinux.org/title/Localization_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87\)/Simplified_Chinese_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87\))
+    - $ grep \-v ^# /etc/locale.gen
         ` en_US.UTF-8 UTF-8  
         ` zh_CN.UTF-8 UTF-8
-    - $ locale-gen 
-  5. 升级到搜狗拼音 4.0
-    - 参考文档： https://aur.archlinux.org/packages/fcitx-sogoupinyin
-    - $ yay -S fcitx-sogoupinyin
-    - http://cdn2.ime.sogou.com/dl/gzindex/1646897940/sogoupinyin_4.0.0.1605_amd64.deb
-    - vim ~/.xprofile
-        ' export LANG=zh_CN.UTF-8 
+    - $ locale\-gen 
+
+  5. 升级到搜狗拼音 4.0 
+    - [参考文档](https://aur.archlinux.org/packages/fcitx-sogoupinyin) 
+    - 安装： $ yay -S fcitx-sogoupinyin 
+
+    - [PKG 下载](http://cdn2.ime.sogou.com/dl/gzindex/1646897940/sogoupinyin_4.0.0.1605_amd64.deb) 
+
+    - vim ~/.xprofile 
+        ` export LANG=zh_CN.UTF-8 
           export LANGUAGE=zh_CN:en_US 
           export LC_ALL=zh_CN.UTF-8 
           export GTK_IM_MODULE=fcitx 
           export QT_IM_MODULE=fcitx 
           export XMODIFIERS="@im=fcitx"
+
   6. 微信的安装
-    - 参考：https://aur.archlinux.org/packages/deepin-wine-wechat
-    - Wine 的 archlinux Wiki: https://wiki.archlinux.org/title/wine
-    - 微信聊天界面字体的问题： https://unix.stackexchange.com/questions/496135/chinese-characters-in-wine
+    - [参考](https://aur.archlinux.org/packages/deepin-wine-wechat)
+    - [Wine 的 archlinux Wiki](https://wiki.archlinux.org/title/wine)
+    - [微信聊天界面字体的问题](https://unix.stackexchange.com/questions/496135/chinese-characters-in-wine)
   7. 开启 serial console
     - $ vim /etc/default/grub
     GRUB_TERMINAL_INPUT="console serial"

@@ -1,3 +1,4 @@
+#### MIME 类型介绍
 - Media Type (MIME Type)
 
   - 目前 IANA 是官方的标准机构定义 media type
