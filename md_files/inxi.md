@@ -22,11 +22,11 @@
   - 等等
 
 #### 标准选项
-### -A , --audio: 声卡信息，-xxA 显示所有检测到的声音服务
+##### -A , --audio: 声卡信息，-xxA 显示所有检测到的声音服务
       * -b , --basic: 显示基本输出，另外一个相同的命令是 inxi -v 2
-### -B , --battery: 显示电池信息
+##### -B , --battery: 显示电池信息
       * -c , --color: 以颜色输出
-### -C , --cpu: 输出所有 CPU 信息
+##### -C , --cpu: 输出所有 CPU 信息
       ```
               - 类型解释：
                 * AMCP -  非对称多核处理器
@@ -40,8 +40,8 @@
 
        * -d , --disk-full,--optical: 在 -D 硬盘数据以外显示光驱数据，同时也显示软驱数据
       ```
-### -D , --disk: 显示硬盘信息
-### -E, --bluetooth: 显示蓝牙信息
+##### -D , --disk: 显示硬盘信息
+##### -E, --bluetooth: 显示蓝牙信息
       ```
        * --edid: 图形方式显示 EDID 数据
        * --filter, -z: 过滤选项，详细见 FILTER
@@ -49,34 +49,36 @@
        * -F , --full: 完整输出
        * --gpu: 显示高级 GPU 数据 --nvidia, --nv 
       ```
-### -G , --graphics: 显示显卡信息 -Gxx 显示监视器数据 --edid 显示高级的监视器数据
+##### -G , --graphics: 显示显卡信息 -Gxx 显示监视器数据 --edid 显示高级的监视器数据
       ```
        * -h , --help: 帮助
        * -i , --ip: 显示公网 IP 以及本地网卡
        * -I , --info
        * -j, --swap: 交换分区
       ```
-### -J , --usb: USB 信息
+##### -J , --usb: USB 信息
       ```
        * -l , --label: 分区标签
        * -L, --logical: 逻辑卷信息
       ```
-### -m , --memory: 内存
+##### -m , --memory: 内存
       ```
        * --memory-modules, --mm: 仅显示内存阵列和模块
        * --memory-short, --ms: 一行显示内存信息
       ```
-### -M , --machine: 显示机器信息
+##### -M , --machine: 显示机器信息
       ```
        * -n , --network-advanced: 网络
       ```
-### -N , --network: 网卡
+##### -N , --network: 网卡
       ```
        * -o , --unmounted: 未挂接的分区信息
        * -p , --partitions-full: 完整的分区信息
        * -P , --partitions: 基本的分区信息
        * --processes See -t.
-### -r , --repos: 显示软件库信息,目前支持
+      ```
+##### -r , --repos: 显示软件库信息,目前支持
+      ```
               APK (Alpine Linux + derived versions)
               APT (Debian, Ubuntu + derived versions, as well as RPM based APT distros like PCLinuxOS or Alt-Linux)
               * CARDS (NuTyX + derived versions)
@@ -96,12 +98,12 @@
               YUM/ZYPP (Fedora, Red Hat, Suse + derived versions)
        * -R , --raid: RAID 信息
       ```
-### --recommends: 查看 inxi 需要的依赖以及建议安装的软件
+##### --recommends: 查看 inxi 需要的依赖以及建议安装的软件
       ```
        * -s , --sensors: 传感器
        * --slots: PCI 
       ```
-### -S , --system: 系统
+##### -S , --system: 系统
       ```
        * -t , --processes: top CPU & Memory
        * -t c: top CPU only
@@ -112,7 +114,7 @@
        * -v , --verbosity, 支持 0-8 详细级别，默认 0
       ```
 
-#### 过滤选项
+##### 过滤选项
       ```
        --filter , --filter-override See -z, -Z.
        --filter-label, --filter-uuid, --filter-vulnerabilities See --zl, --zu, --zv.
@@ -131,7 +133,7 @@
               Absolute override for output filters. Useful for debugging networking issues in IRC for example.
       ```
 
-#### 输出控制：
+##### 输出控制：
       ```
     - 颜色
        -c , --color [0-42] : 显示颜色模式
@@ -155,7 +157,7 @@
        -Y, --height, --less [-3-[integer]
       ```
 
-#### 管理附加数据
+##### 管理附加数据
       ```
        --admin 选项设置了  -xxx
        -a -A  : 声音服务
@@ -176,7 +178,7 @@
        -a --slots: PCI 信息
       ```
 
-#### 高级选项
+##### 高级选项
       ```
        --alt 40 Bypass Perl as a downloader option. Priority is: Perl (HTTP::Tiny), Curl, Wget, Fetch, (OpenBSD only) ftp.
        --alt 41 Bypass Curl as a downloader option. Priority is: Perl (HTTP::Tiny), Curl, Wget, Fetch, (OpenBSD only) ftp.
@@ -227,7 +229,7 @@
        --wm   Shortcut. See --force wmctl.
       ```
 
-#### 调试选项（略）
+##### 调试选项（略）
       ```
        --dbg {[1-x][,[1-x]]}
        --debug [1-3] - On screen debugger output.
@@ -244,7 +246,7 @@
        --ftp [ftp.yoursite.com/incoming] For alternate ftp upload locations: Example: inxi --ftp ftp.yourserver.com/incoming --debug 21
       ```
 
-#### 配置文件
+##### 配置文件
       ```
        inxi will read its configuration/initialization files in the following order:
        /etc/inxi.conf  contains  the  default configurations. These can be overridden by creating a /etc/inxi.d/inxi.conf file (global override, which will prevent distro packages from changing or overwriting your edits. This method is recommended if you are using a  distro packaged inxi and want to override some configuration items from the package's default /etc/inxi.conf file but don't want to lose your changes on a package update.
@@ -252,7 +254,7 @@
        if  $XDG_CONFIG_HOME  is  not empty, it will go there, else if $HOME/.conf/inxi.conf exists, it will go there, and as a last default, the legacy location is used), i.e.: $XDG_CONFIG_HOME/inxi.conf > $HOME/.conf/inxi.conf > $HOME/.inxi/inxi.conf
       ```
 
-#### 配置选项：
+##### 配置选项：
       ```
        See the documentation page for more complete information on how to set these up, and for a complete list of options:
        https://smxi.org/docs/inxi-configuration.htm

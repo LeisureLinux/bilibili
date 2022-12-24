@@ -17,6 +17,9 @@
    :caption: Todo:
 
    todo
+   sphinx
+   pagekite
+   youtube.rst
 
 .. toctree::
    :maxdepth: 2
@@ -26,7 +29,7 @@
    非计算机专业-Linux入门
    理解三种socket
    man
-   mdcat
+   mdcat.rst
 
 .. toctree::
    :maxdepth: 2
@@ -67,6 +70,7 @@
    :caption: 树莓派:
 
    pi-hole
+   pi3_xcompile
 
 
 .. toctree::
@@ -90,6 +94,13 @@
    EmailAnti-Spamming
    SELinux
    dnssec
+   hidden-service
+   via-http
+   内网透传
+
+   Todo
+   ######
+   unbound
 
 
 .. toctree::
@@ -98,6 +109,8 @@
 
    mediaType
    website-basic
+   龙芯中科
+   inxi
 
 .. toctree::
    :maxdepth: 2

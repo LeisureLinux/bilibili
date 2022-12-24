@@ -2,21 +2,16 @@
 # My own virt-build small script
 # Tested on OS=debian-11
 # Need to run "chmod +r /boot/vmlinuz" on host if not root user
-# Video URL: https://www.bilibili.com/video/BV1k5411d7mm/
-# Modify/Run at your own needs/risk, but please leave above line in the scripts
-#
 
 OS="$1"
-# Modify your hostname here
 HOSTNAME="$1-99"
-#
+# 当前用户名作为镜像内的用户名
 UM="$USER"
-# FORMAT=qcow2 or raw
+# 镜像格式：qcow2 or raw
 FORMAT="qcow2"
+# 镜像文件名
 IMG_FN="$HOSTNAME.$FORMAT"
-[ -z "$OS" ] && echo "Syntax: $0 OS-TYPE" && exit 0
 
-# Debian apt source in China
 DEB_APT_SRC="
 deb http://ftp.cn.debian.org/debian bullseye main
 deb http://security.debian.org/debian-security bullseye-security main
@@ -26,11 +21,10 @@ deb http://ftp.cn.debian.org/debian bullseye-backports main
 
 # Set DEBUG="-v" if needed
 # export LIBGUESTFS_DEBUG=1 LIBGUESTFS_TRACE=1
-DEBUG=""
-# Remove the all_proxy line, Normally you don't need if you don't have
-# all_proxy=http://proxy:8888/ \
-# NTP server and user initial password is hard coded below
-time virt-builder $DEBUG $OS \
+DEBUG="-v"
+#
+time sudo all_proxy=http://192.168.7.11:8888/ \
+	virt-builder $DEBUG $OS \
 	--arch x86_64 \
 	--size 10G \
 	--format $FORMAT \
@@ -48,11 +42,12 @@ time virt-builder $DEBUG $OS \
 	--firstboot-command "sed -i -e 's/#NTP=/NTP=ntp.aliyun.com/' /etc/systemd/timesyncd.conf" \
 	--firstboot-command "systemctl --now enable systemd-timesyncd" \
 	--firstboot-command "localectl set-locale LANG=zh_CN.UTF8" \
-	--write /etc/apt/sources.list:"$DEB_APT_SRC" \
 	--run-command "locale-gen" \
-	--run-command "apt update" \
-	--run-command "apt -y install vim psmisc neofetch" \
 	--ssh-inject root:file:/home/$UM/.ssh/id_rsa.pub
+
+# --write /etc/apt/sources.list:"$DEB_APT_SRC" \
+# --run-command "apt update" \
+# --run-command "apt -y install vim psmisc neofetch" \
 
 [ $? != 0 ] && echo "Error: Generate qcow2 failed!" && exit $?
 
