@@ -1,7 +1,12 @@
 #!/bin/sh
-# My own virt-build small script
-# Tested on OS=debian-11
-# Need to run "chmod +r /boot/vmlinuz" on host if not root user
+#
+# virt-builder --list 显示支持的 OS，大多数 Fedora，Debian，CentOS，都支持
+# Ubuntu 的 LTS 版本
+# root 密码为 root，当前用户的公钥可以直接 ssh root@虚机 IP
+# 当前用户密码为 LeisureLinux，首次登录时会要求修改密码
+# Bug 01: 网卡不一定是 ens3
+# Bug 02: 缺少 sudo 包
+#
 
 OS="$1"
 HOSTNAME="$1-99"
@@ -12,18 +17,14 @@ FORMAT="qcow2"
 # 镜像文件名
 IMG_FN="$HOSTNAME.$FORMAT"
 
-DEB_APT_SRC="
-deb http://ftp.cn.debian.org/debian bullseye main
-deb http://security.debian.org/debian-security bullseye-security main
-deb http://ftp.cn.debian.org/debian bullseye-updates main
-deb http://ftp.cn.debian.org/debian bullseye-backports main
-"
+DEB_APT_SRC=""
 
 # Set DEBUG="-v" if needed
 # export LIBGUESTFS_DEBUG=1 LIBGUESTFS_TRACE=1
 DEBUG="-v"
 #
-time sudo all_proxy=http://192.168.7.11:8888/ \
+# proxy server
+time sudo all_proxy=http://internal-proxy:8080/ \
 	virt-builder $DEBUG $OS \
 	--arch x86_64 \
 	--size 10G \
