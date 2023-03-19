@@ -1,10 +1,9 @@
 #!/bin/sh
 # download, extract, edit pkg metainfo, then repack binary package
-# Syntax: $0 pkg_name[=version] to download & extract
-#  After modify, run: $0 -p pkg_name to repack
+[ $# -gt 1 -a "$1" != "-p" ] && echo "Syntax: $0 pkg_name[=version] to download & extract" && echo "    After modified, run: $0 -p pkg_name to repack" && exit
 [ "$1" = "-p" ] && PKG=$2 || PKG=$1
 # PKG take the form: pkgname=version
-DIR=$(echo $PKG | awk -F= '{print $1}')
+DIR=$(echo $PKG|awk -F= '{print $1}')
 [ -z "$DIR" ] && echo "Error: wrong package name: $PKG" && exit 1
 
 [ "$1" != "-p" -a -d "$DIR" ] && echo "Error: $DIR existed, please remove it first" && exit 2
@@ -12,7 +11,7 @@ DIR=$(echo $PKG | awk -F= '{print $1}')
 # Make it an absolute dir
 DIR=$PWD/$DIR
 
-pkg_download() {
+pkg_download () {
 	# 下载二进制包，或者是从别的地方下载下来的 .deb 二进制包
 	cd $DIR
 	apt download $PKG
@@ -29,7 +28,7 @@ pkg_extract() {
 	# 修改 changelog, 以 nginx 包为例子
 	mkdir debian
 	CHLOG=$(find . -name "changelog.Debian.gz")
-	zcat $CHLOG >debian/changelog
+	zcat $CHLOG > debian/changelog
 	echo " -- Now you can cd $DIR, modify DEBIAN/control file "
 	echo "    Also run like \"debchange -D unstable -l ubuntu\" to modify changelog if needed."
 	echo " -- then run $0 -p $PKG to repack"
@@ -41,16 +40,16 @@ pkg_repack() {
 	[ $? != 0 ] && echo "Error: $DIR not exist!" && exit 11
 	# 如果修改了 changelog，以 nginx 包为例子
 	CHLOG=$(find . -name "changelog.Debian.gz")
-	[ -f "debian/changelog" -a -f "$CHLOG" ] && gzip -9 -c debian/changelog >$CHLOG && rm -rf debian
+	[ -f "debian/changelog" -a -f "$CHLOG" ] && gzip -9 -c debian/changelog > $CHLOG && rm -rf debian
 	# 打包
 	[ ! -f "DEBIAN/control" ] && echo "Warn: no control file found, no need to repack!" && exit 12
-	DEBNAME=$(grep -E '^Package|^Version|^Architecture' DEBIAN/control | awk '{print $2}' | xargs | sed -e 's/ /_/g')
-	fakeroot dpkg-deb -b . ../${DEBNAME}.deb
+	DEBNAME=$(grep -E '^Package|^Version|^Architecture' DEBIAN/control|awk '{print $2}'|xargs |sed -e 's/ /_/g')
+	fakeroot dpkg-deb -b . $DIR/../${DEBNAME}.deb
 	[ $? != 0 ] && echo "Error: repack failed!" && exit 13
 }
 
-# Main Prog.
-if [ "$1" = "-p" ]; then
+# Main.
+if [ "$1" = "-p" ] ; then
 	pkg_repack
 else
 	pkg_download
