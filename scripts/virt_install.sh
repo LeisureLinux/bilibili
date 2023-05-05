@@ -5,19 +5,25 @@
 # multipass launch mp_img_name -n domain_name -c 2 -m 4g -d 10g --cloud-init demo.yaml
 # Once script run completed, run virsh console $NAME to check the cloud-init status
 # Exit console, run ssh DEFAULT_USER@IP to verify the pub key is injected correctly
-# Where DEFAULT_USER in: ubuntu, almalinux, fedora, debian
-#
+# Todo:
+# 1. Support parameter pass in
+# 2. Place downloaded image into a permenent dir
+# 3. modify CL_INIT based on image
+# How to troubleshoot:
+# In case no network or something else wrong, reset root password:
+#   $ virsh destroy VM
+#   $ sudo virt-customize -d VM-NAME --root-password password:ROOT-PASS
 # ============================================================================
 # VM Name
 NAME=$1
-# IMG, now support auto-download for ubuntu-jammy, almalinux-9, fedora-36, debian-11
-# Input IMG as: jammy|almalinux|fedora|debian or the qcow2|iso file
+# IMG can be local path for iso/qcow2, can also be OS-Type(see supported_os)
 IMG=$2
+# 2c/4GB/10GB as default
 CPU=2
 MEM=4096
 DISK_SIZE=$3
 [ -z "$DISK_SIZE" ] && DISK_SIZE=10
-[ -z "$IMG" ] && echo "Syntax: $0 vm_name image_file [size]" && exit 0
+[ -z "$IMG" ] && echo "Syntax: $0 vm_name image_file [size] or $0 vm_name vm_type" && exit 0
 # Cloud Image dir, Do not place "-" in dir name
 BASE_DIR="/nfsroot/iso/cloud"
 # Output VM Dir
@@ -26,6 +32,7 @@ VM_DIR="/nfsroot/VMs/cloud"
 PUB_KEY="/home/$USER/.ssh/id_rsa.pub"
 # Temporary cloud-init.yaml file
 CL_INIT="/tmp/$(basename $0 .sh).yaml"
+[ ! -x /usr/bin/axel ] && echo "Error: Please install axel package" && exit
 
 supported_os() {
 	# ============================================================================
@@ -95,6 +102,7 @@ package_update: false
 package_upgrade: false
 package_reboot_if_required: false
 packages:
+  - network-manager
   - avahi-daemon
   - qemu-guest-agent
   - neofetch
@@ -152,7 +160,7 @@ cloud() {
 	fi
 	BASE=$BASE_DIR/$(ls $BASE_DIR | grep -i ^$IMG | sort | tail -1)
 	[ -z "$BASE" ] && echo "Error: No Image found for $IMG under $BASE_DIR" && exit 6
-	# Uncompress xz file
+	# Decompress xz file
 	[ "$(basename $BASE .xz)" != "$(basename $BASE)" ] && xz -v -d $BASE && BASE=$BASE_DIR/$(basename $BASE .xz)
 	FORMAT=$(qemu-img info --output json $BASE | jq -r .format)
 	[ $? != 0 ] && echo "Error: Wrong format detected for $BASE" && exit 7
@@ -174,7 +182,7 @@ install() {
 		--noautoconsole \
 		--import --disk $DISK,bus=virtio \
 		--cloud-init user-data=$CL_INIT
-	# ,meta-data=$CL_INIT
+	# --cloud-init root-password-generate=on,disable=on,ssh-key=/home/xxx/.ssh/id_rsa.pub
 	# clouduser-ssh-key=$PUB_KEY,root-ssh-key=$PUB_KEY
 	# network-config
 }
