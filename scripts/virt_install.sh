@@ -25,7 +25,7 @@ CPU=2
 MEM=4096
 DISK_SIZE=$3
 [ -z "$DISK_SIZE" ] && DISK_SIZE=10
-[ -z "$IMG" ] && echo "Syntax: $0 vm_name image_file [size] or $0 vm_name vm_type" && exit 0
+[ -z "$IMG" ] && echo "Syntax: $0 vm_name image_file [size] or $0 vm_name vm_type/img_url" && exit 0
 # Cloud Image dir, Do not place "-" in dir name
 BASE_DIR="/nfsroot/iso/cloud"
 # Output VM Dir
@@ -69,6 +69,21 @@ supported_os() {
 #
 [ ! -d $BASE_DIR ] && mkdir -p $BASE_DIR
 [ ! -d $VM_DIR ] && mkdir -p $VM_DIR
+
+net_install() {
+	# Debian URL: e.g IMG=https://mirror.nju.edu.cn/debian/dists/stable/main/installer-amd64/
+	# Fedora URL: https://mirror.nju.edu.cn/fedora/releases/38/Server/x86_64/os/
+	sudo virt-install \
+		--connect qemu:///system \
+		--graphics vnc \
+		--vcpu $CPU \
+		--memory $MEM \
+		--name $NAME \
+		--network default \
+		--disk size=$DISK_SIZE \
+		--osinfo detect=on,name=generic \
+		--location $IMG
+}
 
 gen_yaml() {
 	# Part A
@@ -191,6 +206,10 @@ install() {
 }
 
 # Main Prog.
+if [ "$(echo $IMG | cut -c1-4)" = "http" ]; then
+	net_install
+	exit 0
+fi
 if [ "$(basename $IMG .iso).iso" = "$(basename $IMG)" ]; then
 	echo "Install from Live CD: $IMG"
 	iso
