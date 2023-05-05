@@ -8,7 +8,9 @@
 # Todo:
 # 1. Support parameter pass in
 # 2. Place downloaded image into a permenent dir
-# 3. modify CL_INIT based on image
+# 3. modify CL_INIT based on image, add mirror support, change default cloud-user
+# 4. add opencloudOS
+# 5. check why openeuler failed
 # How to troubleshoot:
 # In case no network or something else wrong, reset root password:
 #   $ virsh destroy VM
@@ -49,9 +51,10 @@ supported_os() {
 	local arch=$NJU"/archlinux/images/latest/Arch-Linux-x86_64-cloudimg.qcow2"
 	# username is cloud-user, not centos
 	local centos=$NJU"/centos-cloud/centos/9-stream/x86_64/images/CentOS-Stream-GenericCloud-9-20230501.0.x86_64.qcow2"
+	# need to find a proper CN mirror for debian
+	local debian="https://cdimage.debian.org/cdimage/cloud/bookworm/daily/latest/debian-12-generic-arm64-daily.qcow2"
 	# Failed test:
 	local openeuler=$NJU"/openeuler/openEuler-23.03/virtual_machine_img/x86_64/openEuler-23.03-x86_64.qcow2.xz"
-	local debian=$NJU"/debian-cdimage/cloud/bullseye/latest/debian-11-genericcloud-amd64.qcow2"
 	#
 	[ -n "${!IMG}" ] && URL=${!IMG} && return
 	echo "Error: Supported-OS: arch,almalinux,centos,debian,fedora,jammy,openeuler,rocky"
@@ -148,7 +151,7 @@ iso() {
 
 cloud() {
 	# Todo: check the image date, if 30 days old, still download
-	BASE=$(ls $BASE_DIR | grep -i ^$IMG | tail -1)
+	BASE=$(ls $BASE_DIR/*.qcow2 $BASE_DIR/*.raw $BASE_DIR/*.img | grep -i ^$IMG | tail -1)
 	# If image not exist
 	if [ -n "$BASE" ]; then
 		echo "Info: Base image $BASE found."
