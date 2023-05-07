@@ -11,6 +11,7 @@ BITS=64
 # PREFIX="${ARCH}${BITS}-unknown-linux-gnu-"
 PREFIX="${ARCH}${BITS}-linux-gnu-"
 KERNEL_VER="6.1.27"
+QEMU="qemu-system-${ARCH}${BITS}"
 
 # Disk image size in Mib
 SIZE=16
@@ -25,20 +26,22 @@ CMP="CROSS_COMPILE=${PREFIX}"
 LD="LDFLAGS=--static"
 #
 BUSY="$HOME/busybox"
-# clone source code [ ! -d "$BUSY" ] && git clone --depth=1 https://github.com/mirror/busybox.git $BUSY
+# clone source code
+[ ! -d "$BUSY" ] && git clone --depth=1 https://github.com/mirror/busybox.git $BUSY
 if [ ! -r $BUSY/.config ]; then
 	echo "Please initilize source code first, by run:"
 	echo "cd $BUSY; $CMP $LD make defconfig; cd -"
 	exit
 fi
+
+# Output dir, disk image will write to this directory
+VM_DIR="/nfsroot/VMs/$ARCH"
+[ ! -d $VM_DIR ] && sudo mkdir -p $VM_DIR
+#
+IMG="$VM_DIR/busybox-${HOSTNAME}.img"
+#
 # Just the mount point
 ROOT="$BUSY/mnt"
-# Output dir, disk image will write to this directory
-DIR="/opt/busybox"
-[ ! -d $DIR ] && sudo mkdir -p $DIR
-#
-IMG="$DIR/busybox-${HOSTNAME}.img"
-#
 
 build_kernel() {
 	# Use axel to download the kernel from
@@ -58,7 +61,7 @@ compile_busybox() {
 }
 
 qemu_busybox() {
-	qemu-system-${ARCH}${BITS} -nographic -machine virt \
+	$QEMU -nographic -machine virt \
 		-no-reboot -nographic -m $RAM -smp cores=$VCPU \
 		-kernel $KERNEL \
 		-drive file=$IMG,format=raw,id=hd0 \
@@ -68,6 +71,58 @@ qemu_busybox() {
 		-device virtio-net-device,netdev=eth0
 }
 
+qemu_ubuntu() {
+	# Bilibili URL: https://www.bilibili.com/video/BV1NS4y1z7uS/
+	# -netdev tap,id=net0,ifname=tap0,script=no,downscript=no \
+	# -device virtio-net-device,netdev=net0 \
+	# Download Image from: https://ubuntu.com/download/risc-v
+	# 23.04 URL:
+	# https://mirror.nju.edu.cn/ubuntu-cdimage/releases/23.04/release/ubuntu-23.04-preinstalled-server-riscv64%2Bunmatched.img.xz
+	DISK="$VM_DIR/ubuntu-22.04-preinstalled-server-riscv64+unmatched.img"
+	$QEMU -boot d -no-reboot -nographic \
+		-m 1G -smp cores=8 -M virt \
+		-bios /usr/lib/riscv64-linux-gnu/opensbi/generic/fw_dynamic.elf \
+		-kernel /usr/lib/u-boot/qemu-riscv64_smode/uboot.elf \
+		-object rng-random,filename=/dev/urandom,id=rng0 \
+		-device virtio-net-device,netdev=net \
+		-netdev user,id=net,hostfwd=tcp::2222-:22 \
+		-device virtio-rng-device,rng=rng0 \
+		-device virtio-blk-device,drive=blk0 \
+		-drive file=$DISK,format=raw,if=none,id=blk0,aio=native,cache=none \
+		-append 'root=/dev/vda rw console=ttyAMA0 rootwait earlyprintk'
+	# echo "Cleanup tap"
+	# sudo tunctl -d tap0
+}
+
+qemu_debian() {
+	# Download Image from: https://people.debian.org/~gio/dqib/
+	# Unzip it, startup, and login with root/root
+	# use nano to update the sourc.list to mirror.nju.edu.cn
+	# apt install vim sudo psmisc locales zstd file
+	# # usermod -G sudo debian
+	# echo "127.0.1.1 $(hostname)" >> /etc/hosts
+	# use ssh debian@localhost -p 2222 login from ssh (password is debian)
+	# sudo dpkg-reconfigure locales
+	# sudo unlink /etc/localtime
+	# sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+	# Or: Run 'dpkg-reconfigure tzdata'
+	#
+	DISK="$VM_DIR/dqib_riscv64-virt/image.qcow2"
+	$QEMU -machine virt -m 1G -smp 8 -cpu rv64 \
+		-device virtio-blk-device,drive=hd \
+		-drive file=$DISK,if=none,id=hd \
+		-device virtio-net-device,netdev=net \
+		-netdev user,id=net,hostfwd=tcp::2222-:22 \
+		-bios /usr/lib/riscv64-linux-gnu/opensbi/generic/fw_jump.elf \
+		-kernel /usr/lib/u-boot/qemu-riscv64_smode/uboot.elf \
+		-object rng-random,filename=/dev/urandom,id=rng \
+		-device virtio-rng-device,rng=rng \
+		-nographic -append "root=LABEL=rootfs console=ttyS0"
+}
+
+#
+# qemu_debian
+# qemu_ubuntu
 #
 build_kernel
 cd $BUSY
