@@ -3,7 +3,7 @@
 # Last modified: 2023年 05月 07日 星期日 10:52:58 CST
 # Bilibili Video URL: To-Be-Filled
 # Besides package qemu-system-misc
-# If to run Ubuntu, pre-requist: $ sudo apt install opensbi u-boot-qemu
+# If to run Debian/Ubuntu, pre-requist: $ sudo apt install opensbi u-boot-qemu
 #
 ARCH="riscv"
 # ARCH="loongarch"
@@ -78,9 +78,10 @@ qemu_ubuntu() {
 	# Download Image from: https://ubuntu.com/download/risc-v
 	# 23.04 URL:
 	# https://mirror.nju.edu.cn/ubuntu-cdimage/releases/23.04/release/ubuntu-23.04-preinstalled-server-riscv64%2Bunmatched.img.xz
-	DISK="$VM_DIR/ubuntu-22.04-preinstalled-server-riscv64+unmatched.img"
+	# Initial login: ubuntu/ubuntu
+	DISK="$VM_DIR/ubuntu-23.04-preinstalled-server-riscv64+unmatched.img"
 	$QEMU -boot d -no-reboot -nographic \
-		-m 1G -smp cores=8 -M virt \
+		-m 2G -smp cores=4 -M virt \
 		-bios /usr/lib/riscv64-linux-gnu/opensbi/generic/fw_dynamic.elf \
 		-kernel /usr/lib/u-boot/qemu-riscv64_smode/uboot.elf \
 		-object rng-random,filename=/dev/urandom,id=rng0 \
@@ -120,25 +121,22 @@ qemu_debian() {
 		-nographic -append "root=LABEL=rootfs console=ttyS0"
 }
 
-#
-# qemu_debian
-# qemu_ubuntu
-#
-build_kernel
-cd $BUSY
-echo "Info: filling zero to $IMG"
-sudo dd if=/dev/zero of=$IMG bs=1M count=$SIZE
-echo "Info: formating $IMG"
-sudo mkfs.ext4 $IMG
-mkdir -p $ROOT
-sudo mount $IMG $ROOT
-compile_busybox
-sudo mkdir -p $ROOT/proc $ROOT/sys $ROOT/dev $ROOT/root
-sudo mkdir -p $ROOT/etc
-sudo touch $ROOT/etc/fstab
-sudo mkdir -p $ROOT/etc/init.d
-#
-cat <<EOF | sudo tee $ROOT/etc/init.d/rcS
+setup_busybox() {
+	build_kernel
+	cd $BUSY
+	echo "Info: filling zero to $IMG"
+	sudo dd if=/dev/zero of=$IMG bs=1M count=$SIZE
+	echo "Info: formating $IMG"
+	sudo mkfs.ext4 $IMG
+	mkdir -p $ROOT
+	sudo mount $IMG $ROOT
+	compile_busybox
+	sudo mkdir -p $ROOT/proc $ROOT/sys $ROOT/dev $ROOT/root
+	sudo mkdir -p $ROOT/etc
+	sudo touch $ROOT/etc/fstab
+	sudo mkdir -p $ROOT/etc/init.d
+	#
+	cat <<EOF | sudo tee $ROOT/etc/init.d/rcS
 #!/bin/sh
 # rcS scripts
 echo  
@@ -161,38 +159,47 @@ telnetd -l /bin/sh
 hostname $HOSTNAME
 echo "  ** Press Ctr-A X to exit BusyBox when in Qemu **"
 EOF
-#
-sudo chmod +x $ROOT/etc/init.d/rcS
-sudo mkdir -p $ROOT/usr/share/udhcpc
-sudo cp $BUSY/examples/udhcp/simple.script $ROOT/usr/share/udhcpc/default.script
+	#
+	sudo chmod +x $ROOT/etc/init.d/rcS
+	sudo mkdir -p $ROOT/usr/share/udhcpc
+	sudo cp $BUSY/examples/udhcp/simple.script $ROOT/usr/share/udhcpc/default.script
 
-cat $BUSY/examples/inittab | sudo tee $ROOT/etc/inittab
-# Todo: Let inittab show login screen
-# echo "::respawn:/sbin/getty -L ttyS0 115200 ansi" | sudo tee -a $ROOT/etc/inittab
-# echo "console::respawn:/sbin/getty ttyS0 115200 ansi" | sudo tee -a $ROOT/etc/inittab
-# echo "console::respawn:/sbin/getty console 115200 ansi" | sudo tee -a $ROOT/etc/inittab
-# echo "::respawn:-/bin/sh" | sudo tee -a $ROOT/etc/inittab
-# create group file
-# echo "root:x:0:" | sudo tee $ROOT/etc/group
-# echo "root::0:0:root:/root:/bin/sh" | sudo tee $ROOT/etc/passwd
-# echo "root::19055:0:99999:7:::" | sudo tee $ROOT/etc/shadow
-# sudo chmod 644 $ROOT/etc/passwd $ROOT/etc/group
-# sudo chmod 600 $ROOT/etc/shadow
+	cat $BUSY/examples/inittab | sudo tee $ROOT/etc/inittab
+	# Todo: Let inittab show login screen
+	# echo "::respawn:/sbin/getty -L ttyS0 115200 ansi" | sudo tee -a $ROOT/etc/inittab
+	# echo "console::respawn:/sbin/getty ttyS0 115200 ansi" | sudo tee -a $ROOT/etc/inittab
+	# echo "console::respawn:/sbin/getty console 115200 ansi" | sudo tee -a $ROOT/etc/inittab
+	# echo "::respawn:-/bin/sh" | sudo tee -a $ROOT/etc/inittab
+	# create group file
+	# echo "root:x:0:" | sudo tee $ROOT/etc/group
+	# echo "root::0:0:root:/root:/bin/sh" | sudo tee $ROOT/etc/passwd
+	# echo "root::19055:0:99999:7:::" | sudo tee $ROOT/etc/shadow
+	# sudo chmod 644 $ROOT/etc/passwd $ROOT/etc/group
+	# sudo chmod 600 $ROOT/etc/shadow
+	#
+	sudo umount $ROOT
+	# Old way to generate image
+	# find . | cpio -H newc -o | gzip -9 >$IMG
+}
 
-#
-sudo umount $ROOT
-# find . | cpio -H newc -o | gzip -9 >$IMG
-if [ $? = 0 ]; then
-	echo "busybox image: $IMG generated"
-	sudo chown $USER $IMG
-	qemu_busybox
-else
-	echo "Error: failed"
-fi
-
-demo() {
-	# start x86_64 image:
+qemu_x86() {
+	# start x86_64 image, not tested yet.
 	qemu-system-x86_64 -kernel arch/x86_64/boot/bzImage \
 		-nographic -initrd busybox/busybox.img \
 		-append "console=ttyS0" -m 512 --enable-kvm
 }
+
+# Main Prog.
+#
+case $1 in
+"debian")
+	qemu_debian
+	;;
+"ubuntu")
+	qemu_ubuntu
+	;;
+*)
+	setup_busybox
+	qemu_busybox
+	;;
+esac
