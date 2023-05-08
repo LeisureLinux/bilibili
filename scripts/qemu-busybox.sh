@@ -81,7 +81,7 @@ qemu_ubuntu() {
 	# Initial login: ubuntu/ubuntu
 	DISK="$VM_DIR/ubuntu-23.04-preinstalled-server-riscv64+unmatched.img"
 	$QEMU -boot d -no-reboot -nographic \
-		-m 2G -smp cores=4 -M virt \
+		-m 2G -smp cpus=4,cores=4 -M virt \
 		-bios /usr/lib/riscv64-linux-gnu/opensbi/generic/fw_dynamic.elf \
 		-kernel /usr/lib/u-boot/qemu-riscv64_smode/uboot.elf \
 		-object rng-random,filename=/dev/urandom,id=rng0 \
@@ -125,18 +125,23 @@ qemu_arch_loong() {
 	# Download bios and qcow2 from: https://mirrors.wsyu.edu.cn/loongarch/archlinux/images/
 	QEMU="qemu-system-loongarch64"
 	VM_DIR="$VM_DIR/../loong"
-	# DISK="$VM_DIR/archlinux-xfce4-2022.12.03-loong64.qcow2"
-	# DISK="$VM_DIR/archlinux-minimal-2022.12.02-loong64.qcow2"
 	DISK="$VM_DIR/archlinux-mate-2022.12.03-loong64.qcow2"
 	# Build Loongson Qemu:
 	# git clone https://github.com/loongson/qemu.git
 	# ./configure  --target-list=loongarch64-softmmu,loongarch64-linux-user --enable-slirp
 	# make && sudo make install
-	# -device virtio-net-device,netdev=net \
-	# -net nic -net user \
-	# -netdev user,id=net,hostfwd=tcp::2222-:22 \
-	# -vga qxl
-	$QEMU -machine virt -m 4G -smp 4 -cpu la464-loongarch-cpu \
+	# -smp n,sockets=s,cores=c,threads=t
+	# n = total number of threads in the whole system
+	# s = total number of sockets in the system
+	# c = number of cores per socket
+	# t = number of threads per core
+	# Todo:
+	# * Check Why only see one CPU online.
+	# * Try to compile edk2 to generate a 8.0 version .fd
+	$QEMU -machine virt -m 4G \
+		-smp 4,sockets=4,cores=1,threads=1 \
+		-cpu la464-loongarch-cpu \
+		-accel tcg,thread=multi \
 		-bios $VM_DIR/QEMU_EFI_7.2.fd \
 		-serial stdio \
 		-device virtio-gpu-pci \
