@@ -121,6 +121,35 @@ qemu_debian() {
 		-nographic -append "root=LABEL=rootfs console=ttyS0"
 }
 
+qemu_arch_loong() {
+	# Download bios and qcow2 from: https://mirrors.wsyu.edu.cn/loongarch/archlinux/images/
+	QEMU="qemu-system-loongarch64"
+	VM_DIR="$VM_DIR/../loong"
+	# DISK="$VM_DIR/archlinux-xfce4-2022.12.03-loong64.qcow2"
+	# DISK="$VM_DIR/archlinux-minimal-2022.12.02-loong64.qcow2"
+	DISK="$VM_DIR/archlinux-mate-2022.12.03-loong64.qcow2"
+	# Build Loongson Qemu:
+	# git clone https://github.com/loongson/qemu.git
+	# ./configure  --target-list=loongarch64-softmmu,loongarch64-linux-user --enable-slirp
+	# make && sudo make install
+	# -device virtio-net-device,netdev=net \
+	# -net nic -net user \
+	# -netdev user,id=net,hostfwd=tcp::2222-:22 \
+	# -vga qxl
+	$QEMU -machine virt -m 4G -smp 4 -cpu la464-loongarch-cpu \
+		-bios $VM_DIR/QEMU_EFI_7.2.fd \
+		-serial stdio \
+		-device virtio-gpu-pci \
+		-nic user,hostfwd=tcp::2222-:22 \
+		-device nec-usb-xhci,id=xhci,addr=0x1b \
+		-device usb-tablet,id=tablet,bus=xhci.0,port=1 \
+		-device usb-kbd,id=keyboard,bus=xhci.0,port=2 \
+		-hda $DISK \
+		-device virtio-serial-pci -spice port=5930,disable-ticketing=on \
+		-device virtserialport,chardev=spicechannel0,name=com.redhat.spice.0 \
+		-chardev spicevmc,id=spicechannel0,name=vdagent
+}
+
 setup_busybox() {
 	build_kernel
 	cd $BUSY
@@ -197,6 +226,9 @@ case $1 in
 	;;
 "ubuntu")
 	qemu_ubuntu
+	;;
+"arch")
+	qemu_arch_loong
 	;;
 *)
 	setup_busybox
