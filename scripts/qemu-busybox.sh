@@ -122,6 +122,7 @@ qemu_debian() {
 }
 
 qemu_arch_loong() {
+	# Bilibili video for this part: https://www.bilibili.com/video/BV17c411K7ng/
 	# Download bios and qcow2 from: https://mirrors.wsyu.edu.cn/loongarch/archlinux/images/
 	QEMU="qemu-system-loongarch64"
 	VM_DIR="$VM_DIR/../loong"
