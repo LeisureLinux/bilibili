@@ -65,6 +65,8 @@ qemu_sparc() {
 qemu_mips() {
 	# To be test
 	# automate u-boot compile
+	# CROSS_COMPILE=mips64-linux-gnuabi64- make malta64_defconfig
+	# mv u-boot-dtb.bin ../linux-6.1.27/arch/mips/boot/u-boot.bin
 	sudo mkdir -p $VM_DIR/tftproot
 	ker_dir mips
 	local bios="$(dirname $KER)/u-boot.bin"
