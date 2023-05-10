@@ -8,21 +8,27 @@ BITS=64
 # VM vcpu and ram size
 VCPU=2
 RAM="64M"
+KER_VER="6.1.27"
+KER_DIR=$HOME/github/
+[ ! -d $KER_DIR ] && mkdir -p $KER_DIR
+KER_URL="https://mirror.nju.edu.cn/kernel/v6.x/linux-${KER_VER}.tar.gz"
 #
 # ####################################################################
 
 # check package:
 # git zstd axel opensbi u-boot-qemu
 #
+
+ker_dir() {
+	KER="$KER_DIR/linux-${KER_VER}/arch/$1/boot/Image"
+	[ "$1" = "sparc" ] && KER="$KER_DIR/linux-${KER_VER}/arch/$1/boot/image"
+}
+
 build_kernel() {
-	KER_VER="6.1.27"
-	KER_DIR=$HOME/github/
-	KER="$KER_DIR/linux-${KER_VER}/arch/$ARCH/boot/Image"
-	[ "$ARCH" = "sparc" ] && KER="$KER_DIR/linux-${KER_VER}/arch/$ARCH/boot/image"
+	ker_dir $1
+	# KER="$KER_DIR/linux-${KER_VER}/arch/$ARCH/boot/Image"
 	[ -r "$KER" ] && return
 	#
-	[ ! -d $KER_DIR ] && mkdir -p $KER_DIR
-	KER_URL="https://mirror.nju.edu.cn/kernel/v6.x/linux-${KER_VER}.tar.gz"
 	# https://gist.github.com/chrisdone/02e165a0004be33734ac2334f215380e
 	if [ ! -d $KER_DIR/$(basename $KER_URL .tar.gz) ]; then
 		axel -o /var/tmp $KER_URL
@@ -55,11 +61,18 @@ qemu_sparc() {
 		-nographic -m 256 \
 		-drive if=pflash,readonly=on,file=/nfsroot/VMs/OpenSparcT1/S10image/disk.s10hw2
 }
+
 qemu_mips() {
-	$QEMU -nographic -cpu ${VCPU} -m 256 \
-		-drive if=pflash,file="$(pwd)/pflash.img",format=raw \
-		-netdev user,id=net0,tftp="$(pwd)/tftproot" \
+	# To be test
+	# automate u-boot compile
+	sudo mkdir -p $VM_DIR/tftproot
+	ker_dir mips
+	local bios="$(dirname $KER)/u-boot.bin"
+	$QEMU -m 256 -cpu MIPS64R2-generic -M malta -bios $bios \
+		-nographic \
+		-netdev user,id=net0,tftp="$VM_DIR/tftproot" \
 		-device pcnet,netdev=net0
+	# -drive if=pflash,file="$(dirname $KER)/u-boot",format=raw
 }
 
 qemu_busybox() {
@@ -175,7 +188,7 @@ arch_loongarch() {
 }
 
 setup_busybox() {
-	build_kernel
+	build_kernel $ARCH
 	# Disk image size in Mib
 	SIZE=16
 	cd $BUSY
@@ -291,45 +304,6 @@ qemu_pkgs() {
 	esac
 }
 
-# gcc-alpha-linux-gnu
-# gcc-arc-linux-gnu
-# gcc-arm-linux-gnueabi
-# gcc-arm-linux-gnueabihf
-# gcc-arm-none-eabi
-# gcc-arm-none-eabi-source
-# gcc-avr
-# gcc-bpf
-# gcc-doc
-# gcc-doc-base
-# gcc-h8300-hms
-# gcc-hppa-linux-gnu
-# gcc-hppa64-linux-gnu
-# gcc-i686-linux-gnu
-# gcc-m68k-linux-gnu
-# gcc-mips-linux-gnu
-# gcc-mips64el-linux-gnuabi64
-# gcc-mipsel-linux-gnu
-# gcc-mipsisa32r6-linux-gnu
-# gcc-mipsisa32r6el-linux-gnu
-# gcc-mipsisa64r6-linux-gnuabi64
-# gcc-mipsisa64r6el-linux-gnuabi64
-# gcc-msp430
-# gcc-offload-amdgcn
-# gcc-offload-nvptx
-# gcc-opt
-# gcc-or1k-elf
-# gcc-powerpc-linux-gnu
-# gcc-powerpc64le-linux-gnu
-# gcc-python-plugin-doc
-# gcc-python3-dbg-plugin
-# gcc-python3-plugin
-# gcc-riscv64-unknown-elf
-# gcc-sh-elf
-# gcc-sh4-linux-gnu
-# gcc-snapshot
-# gcc-x86-64-linux-gnux32
-# gcc-xtensa-lx106
-
 # Main Prog.
 #
 case $1 in
@@ -352,7 +326,13 @@ case $1 in
 	QEMU="qemu-system-${ARCH}${BITS}"
 	qemu_sparc
 	;;
-
+"mips")
+	ARCH="mips"
+	VM_DIR="/opt/VMs/$ARCH"
+	QEMU="qemu-system-${ARCH}${BITS}"
+	# qemu_pkgs $ARCH
+	qemu_mips
+	;;
 "arch")
 	ARCH="loongarch"
 	VM_DIR="/opt/VMs/$ARCH"
