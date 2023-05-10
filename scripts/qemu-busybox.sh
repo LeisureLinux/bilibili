@@ -18,6 +18,7 @@ build_kernel() {
 	KER_VER="6.1.27"
 	KER_DIR=$HOME/github/
 	KER="$KER_DIR/linux-${KER_VER}/arch/$ARCH/boot/Image"
+	[ "$ARCH" = "sparc" ] && KER="$KER_DIR/linux-${KER_VER}/arch/$ARCH/boot/image"
 	[ -r "$KER" ] && return
 	#
 	[ ! -d $KER_DIR ] && mkdir -p $KER_DIR
@@ -30,8 +31,12 @@ build_kernel() {
 		rm /var/tmp/$(basename $KER_URL)
 	fi
 	cd $KER_DIR/$(basename $KER_URL .tar.gz)
-	make ARCH=$ARCH CROSS_COMPILE=$PREFIX defconfig
+	local CONF="defconfig"
+	[ "$ARCH" = "mips" ] && local CONF="malta_kvm_defconfig"
+	make ARCH=$ARCH CROSS_COMPILE=$PREFIX $CONF
+	[ $? != 0 ] && echo "Error: compile kernel failed!" && exit 11
 	make ARCH=$ARCH CROSS_COMPILE=$PREFIX -j$(nproc)
+	[ $? != 0 ] && echo "Error: compile kernel failed!" && exit 11
 }
 
 compile_busybox() {
@@ -40,15 +45,32 @@ compile_busybox() {
 	echo "Info: Compiling busybox and install to $ROOT ..."
 	cd $BUSY
 	sudo $CMP $LD make -C . -j $(nproc) install CONFIG_PREFIX=$ROOT
+	[ $? != 0 ] && echo "Error: compile busybox failed!" && exit 12
+}
+
+qemu_sparc() {
+	# Download image from:
+	# http://download.oracle.com/technetwork/systems/opensparc/OpenSPARCT1_Arch.1.5.tar.bz2
+	$QEMU -M niagara -L /nfsroot/VMs/OpenSparcT1/S10image/ \
+		-nographic -m 256 \
+		-drive if=pflash,readonly=on,file=/nfsroot/VMs/OpenSparcT1/S10image/disk.s10hw2
+}
+qemu_mips() {
+	$QEMU -nographic -cpu ${VCPU} -m 256 \
+		-drive if=pflash,file="$(pwd)/pflash.img",format=raw \
+		-netdev user,id=net0,tftp="$(pwd)/tftproot" \
+		-device pcnet,netdev=net0
 }
 
 qemu_busybox() {
-	$QEMU -nographic -machine virt \
+	[ -n "$maxcpu" ] && local VCPU=$maxcpu
+	$QEMU -nographic -machine $machine \
 		-no-reboot -nographic -m $RAM -smp cores=$VCPU \
 		-kernel $KER \
-		-drive file=$IMG,format=raw,id=hd0 \
+		-L /nfsroot/VMs/OpenSparcT1/S10image/ \
 		-device virtio-blk-device,drive=hd0 \
-		-append "root=/dev/vda rw earlyprintk console=ttyS0,115200" \
+		-drive file=$IMG,format=raw,id=hd0 \
+		-append "root=/dev/hda rw earlyprintk console=ttyS0,115200" \
 		-netdev user,id=eth0 \
 		-device virtio-net-device,netdev=eth0
 }
@@ -114,15 +136,18 @@ debian_riscv() {
 arch_loongarch() {
 	# Bilibili video for this part: https://www.bilibili.com/video/BV17c411K7ng/
 	QEMU="/usr/local/bin/qemu-system-loongarch64"
-	LOONG_URL="https://mirror.nju.edu.cn/loongarch/archlinux/images/"
+	local URL="https://mirror.nju.edu.cn/loongarch/archlinux/images/"
 	BIOS="QEMU_EFI_7.2.fd"
-	[ ! -r $VM_DIR/$BIOS ] && axel -o $VM_DIR ${LOONG_URL}${BIOS}
-	DISK="archlinux-minimal-2022.12.02-loong64.qcow2"
-	[ ! -r $VM_DIR/$DISK ] && axel -o $VM_DIR ${LOONG_URL}${DISK}.zst && zstd -d --rm $VM_DIR/${DISK}.zst
+	[ ! -r $VM_DIR/$BIOS ] && axel -o $VM_DIR ${URL}${BIOS}
+	DISK="archlinux-minimal-2023.05.10-loong64.qcow2"
+	[ ! -r $VM_DIR/$DISK ] && axel -o $VM_DIR ${URL}${DISK}.zst && zstd -d --rm $VM_DIR/${DISK}.zst
 	# Build Loongson Qemu:
 	# git clone https://github.com/loongson/qemu.git
 	# ./configure  --target-list=loongarch64-softmmu,loongarch64-linux-user --enable-slirp --enable-spice
 	# make && sudo make install
+	# for the minimal image, use pacman -Syu update OS first
+	# then pacman -S openssh vim && sudo systemctl --now enable sshd
+	# To enable Ctr-L, add "set -o emacs" to /etc/profile, re-login
 	# -smp n,sockets=s,cores=c,threads=t
 	# n = total number of threads in the whole system
 	# s = total number of sockets in the system
@@ -222,6 +247,89 @@ qemu_x86() {
 		-append "console=ttyS0" -m 512 --enable-kvm
 }
 
+qemu_pkgs() {
+	# qemu-guest-agent
+	local a=$1
+	case $(echo "$a" | cut -c1-3) in
+	arm)
+		pkg="qemu-system-arm"
+		gnu="gcc-aarch64-linux-gnu"
+		;;
+	mip)
+		# need package u-boot-tools to build u-boot image
+		pkg="qemu-system-mips"
+		gnu="mips64-linux-gnuabi64"
+		prefix="mips64-linux-gnuabi64-"
+		machine="malta"
+		# Supported machines are:
+		# magnum   malta   mipssim pica61
+		;;
+	ppc)
+		pkg="qemu-system-ppc"
+		gnu="gcc-powerpc64-linux-gnu"
+		;;
+	spa)
+		pkg="qemu-system-sparc"
+		gnu="gcc-sparc64-linux-gnu"
+		# niagara,sun4u,sun4v
+		machine="niagara"
+		maxcpu=1
+		;;
+	x86)
+		pkg="qemu-system-x86"
+		gnu="gcc-x86-64-linux-gnu"
+		;;
+	s39)
+		pkg="qemu-system-s390x"
+		gnu="gcc-s390x-linux-gnu"
+		;;
+	*)
+		pkg="qemu-system-misc"
+		gnu="gcc-riscv64-linux-gnu"
+		machine="virt"
+		;;
+	esac
+}
+
+# gcc-alpha-linux-gnu
+# gcc-arc-linux-gnu
+# gcc-arm-linux-gnueabi
+# gcc-arm-linux-gnueabihf
+# gcc-arm-none-eabi
+# gcc-arm-none-eabi-source
+# gcc-avr
+# gcc-bpf
+# gcc-doc
+# gcc-doc-base
+# gcc-h8300-hms
+# gcc-hppa-linux-gnu
+# gcc-hppa64-linux-gnu
+# gcc-i686-linux-gnu
+# gcc-m68k-linux-gnu
+# gcc-mips-linux-gnu
+# gcc-mips64el-linux-gnuabi64
+# gcc-mipsel-linux-gnu
+# gcc-mipsisa32r6-linux-gnu
+# gcc-mipsisa32r6el-linux-gnu
+# gcc-mipsisa64r6-linux-gnuabi64
+# gcc-mipsisa64r6el-linux-gnuabi64
+# gcc-msp430
+# gcc-offload-amdgcn
+# gcc-offload-nvptx
+# gcc-opt
+# gcc-or1k-elf
+# gcc-powerpc-linux-gnu
+# gcc-powerpc64le-linux-gnu
+# gcc-python-plugin-doc
+# gcc-python3-dbg-plugin
+# gcc-python3-plugin
+# gcc-riscv64-unknown-elf
+# gcc-sh-elf
+# gcc-sh4-linux-gnu
+# gcc-snapshot
+# gcc-x86-64-linux-gnux32
+# gcc-xtensa-lx106
+
 # Main Prog.
 #
 case $1 in
@@ -239,6 +347,12 @@ case $1 in
 	[ ! -d $VM_DIR ] && sudo mkdir -p $VM_DIR && sudo chown $USER $VM_DIR
 	ubuntu_riscv
 	;;
+"sparc")
+	ARCH="sparc"
+	QEMU="qemu-system-${ARCH}${BITS}"
+	qemu_sparc
+	;;
+
 "arch")
 	ARCH="loongarch"
 	VM_DIR="/opt/VMs/$ARCH"
@@ -247,26 +361,30 @@ case $1 in
 	arch_loongarch
 	;;
 *)
-	ARCH="riscv"
+	ARCH="$1"
+	[ -z "$ARCH" ] && echo "Syntax: $0 architecture" && exit 1
 	# hostname of the VM, and the image filename will be named in hostname
 	HOSTNAME="$ARCH-01"
 	#
 	QEMU="qemu-system-${ARCH}${BITS}"
+	qemu_pkgs $ARCH
+	[ ! -x "$(which $QEMU)" ] && echo "Error: $QEMU not found! You may need to install $pkg" && exit 2
+	#
 	# busybox source folder
 	BUSY="$HOME/busybox"
-	# Define your kernel path here
-	#
 	# Output dir, disk image will write to this directory
-	VM_DIR="/opt/VMs/$ARCH"
+	VM_DIR="/opt/VMs/BusyBox/$ARCH"
 	[ ! -d $VM_DIR ] && sudo mkdir -p $VM_DIR && sudo chown $USER $VM_DIR
+	#
 	IMG="$VM_DIR/busybox-${HOSTNAME}.img"
-	# PREFIX="${ARCH}${BITS}-unknown-linux-gnu-"
 	PREFIX="${ARCH}${BITS}-linux-gnu-"
+	[ -n "$prefix" ] && PREFIX=$prefix
 	# Just the mount point
 	ROOT="$BUSY/mnt"
 	if [ ! -x "$(which ${PREFIX}gcc)" ]; then
-		echo "Install gcc-${ARCH}${BITS}-linux-gnu package first ..."
-		sudo apt install gcc-${ARCH}${BITS}-linux-gnu
+		echo "Info: Install $gnu first ..."
+		sudo apt install $gnu
+		[ $? != 0 ] && echo "Error: install $gnu" && exit 3
 	fi
 	# clone busybox source code
 	[ ! -d "$BUSY" ] && git clone --depth=1 https://github.com/mirror/busybox.git $BUSY
