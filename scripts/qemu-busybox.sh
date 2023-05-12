@@ -1,33 +1,41 @@
 #!/bin/sh
 # Run minimal Linux with BusyBox on RISC-V from Source
+# Other stuffs, jump to bottom to read
 # Last modified: Tue May  9 16:04:39 CST 2023
 # Bilibili Video URL: To-Be-Filled
-# Besides package qemu-system-misc
-#
+# Todo: BusyBox for aarch64,loongarch64
 BITS=64
 # VM vcpu and ram size
 VCPU=2
 RAM="64M"
 KER_VER="6.1.27"
-KER_DIR=$HOME/github/
+# Place your kernel source to $KER_DIR
+KER_DIR="$HOME/github"
 [ ! -d $KER_DIR ] && mkdir -p $KER_DIR
-KER_URL="https://mirror.nju.edu.cn/kernel/v6.x/linux-${KER_VER}.tar.gz"
+KER_URL=$SJTU"kernel/v6.x/linux-${KER_VER}.tar.gz"
+SJTU="http://mirror.sjtu.edu.cn/"
+NJU="http://mirror.nju.edu.cn/"
 #
 # ####################################################################
 
-# check package:
-# git zstd axel opensbi u-boot-qemu
+if [ ! -r $HOME/.cache/.qemu.installed ]; then
+	echo "Check to install required packages"
+	sudo apt install git zstd axel opensbi \
+		u-boot-qemu guestfs-tools qemu-system-misc
+	[ $? = 0 ] && touch $HOME/.cache/.qemu.installed
+fi
 #
 
 ker_dir() {
 	KER="$KER_DIR/linux-${KER_VER}/arch/$1/boot/Image"
-	[ "$1" = "sparc" ] && KER="$KER_DIR/linux-${KER_VER}/arch/$1/boot/image"
 }
 
 build_kernel() {
 	ker_dir $1
+	echo "Debug: Destine output Image file: $KER"
 	# KER="$KER_DIR/linux-${KER_VER}/arch/$ARCH/boot/Image"
 	[ -r "$KER" ] && return
+	local a="$ARCH"
 	#
 	# https://gist.github.com/chrisdone/02e165a0004be33734ac2334f215380e
 	if [ ! -d $KER_DIR/$(basename $KER_URL .tar.gz) ]; then
@@ -37,11 +45,12 @@ build_kernel() {
 		rm /var/tmp/$(basename $KER_URL)
 	fi
 	cd $KER_DIR/$(basename $KER_URL .tar.gz)
-	local CONF="defconfig"
-	[ "$ARCH" = "mips" ] && local CONF="malta_kvm_defconfig"
-	make ARCH=$ARCH CROSS_COMPILE=$PREFIX $CONF
+	local conf="defconfig"
+	[ "$a" = "mips" ] && local conf="malta_kvm_defconfig"
+	# [ "$a" = "arm" ] && local a="arm64"
+	make ARCH=$a CROSS_COMPILE=$PREFIX $conf
 	[ $? != 0 ] && echo "Error: compile kernel failed!" && exit 11
-	make ARCH=$ARCH CROSS_COMPILE=$PREFIX -j$(nproc)
+	make ARCH=$a CROSS_COMPILE=$PREFIX -j$(nproc)
 	[ $? != 0 ] && echo "Error: compile kernel failed!" && exit 11
 }
 
@@ -55,11 +64,20 @@ compile_busybox() {
 }
 
 qemu_sparc() {
-	# Download image from:
-	# http://download.oracle.com/technetwork/systems/opensparc/OpenSPARCT1_Arch.1.5.tar.bz2
-	$QEMU -M niagara -L /nfsroot/VMs/OpenSparcT1/S10image/ \
+	# After boot up under OBP ok prompt, input "boot -v", login with root
+	# without password, run psrinfo check cpu info.
+	local dir="$VM_DIR/OpenSparcT1"
+	if [ ! -d "$dir/S10image" ]; then
+		mkdir -p $dir
+		# Download image from Oracle
+		local url="http://download.oracle.com/technetwork/systems/opensparc/OpenSPARCT1_Arch.1.5.tar.bz2"
+		local fn=$(basename $url)
+		axel -o $dir $url
+		tar xf $dir/$fn -C $dir
+	fi
+	$QEMU -M niagara -L $dir/S10image/ \
 		-nographic -m 256 \
-		-drive if=pflash,readonly=on,file=/nfsroot/VMs/OpenSparcT1/S10image/disk.s10hw2
+		-drive if=pflash,readonly=on,file=$dir/S10image/disk.s10hw2
 }
 
 qemu_mips() {
@@ -77,30 +95,66 @@ qemu_mips() {
 	# -drive if=pflash,file="$(dirname $KER)/u-boot",format=raw
 }
 
-qemu_busybox() {
-	[ -n "$maxcpu" ] && local VCPU=$maxcpu
-	$QEMU -nographic -machine $machine \
-		-no-reboot -nographic -m $RAM -smp cores=$VCPU \
-		-kernel $KER \
-		-L /nfsroot/VMs/OpenSparcT1/S10image/ \
-		-device virtio-blk-device,drive=hd0 \
-		-drive file=$IMG,format=raw,id=hd0 \
-		-append "root=/dev/hda rw earlyprintk console=ttyS0,115200" \
-		-netdev user,id=eth0 \
-		-device virtio-net-device,netdev=eth0
+qemu_pi() {
+	# Login with root without password
+	TTY="ttyAMA0"
+	local CPU="cortex-a72"
+	local NAME="softpi4-01"
+	# Download image, have no explicit mirror, but looked like itself had CDN
+	local url="https://raspi.debian.net/tested/20230101_raspi_4_bookworm.img.xz"
+	local fn=$(basename $url)
+	local DISK="$VM_DIR/$(basename $fn .xz)"
+	if [ ! -r "$DISK" ]; then
+		axel $url -o $VM_DIR
+		[ $? != 0 ] && echo "Error: failed to download $url to $DISK!" && exit 1
+		echo "Info: decompressing $DISK.xz ..."
+		unxz -d $DISK.xz
+	fi
+	[ ! -d "$VM_DIR/$NAME" ] && mkdir $VM_DIR/$NAME
+	local kernel="$VM_DIR/$NAME/vmlinuz-6.0.0-6-arm64"
+	local initrd="$VM_DIR/$NAME/initrd.img-6.0.0-6-arm64"
+	if [ ! -r $kernel ]; then
+		echo "Info: Extract kernel and initrd from $DISK"
+		sudo virt-get-kernel -a $DISK -o $VM_DIR/$NAME
+		[ $? != 0 ] && echo "Error: failed to get kernel image from $DISK" && exit 2
+	fi
+	sudo $QEMU -no-reboot -nographic \
+		-M virt -cpu $CPU -m 4G -smp 4 \
+		--name $NAME -pidfile /run/$NAME.pid \
+		-kernel $kernel -initrd $initrd \
+		-append "console=$TTY root=/dev/vda2 noresume rw" \
+		-device virtio-blk,drive=hd0,bootindex=0 \
+		-drive file=$DISK,format=raw,if=none,id=hd0,cache=writeback \
+		-device virtio-net-device,netdev=net \
+		-netdev user,id=net,hostfwd=tcp::2222-:22
 }
 
-ubuntu_riscv() {
+riscv_busybox() {
+	[ -n "$maxcpu" ] && local VCPU=$maxcpu
+	echo "Debug: $QEMU machine:$machine IMG:$IMG Kernel:$KER"
+	sleep 2
+	$QEMU -nographic -machine $machine \
+		-no-reboot -nographic -m $RAM -smp cores=$VCPU \
+		-device virtio-blk-device,drive=hd0 \
+		-drive file=$IMG,format=raw,id=hd0 \
+		-initrd $IMG \
+		-kernel $KER \
+		-append "root=/dev/vda rw earlyprintk console=ttyS0,115200" \
+		-device virtio-net-device,netdev=eth0 \
+		-netdev user,id=eth0
+}
+
+riscv_ubuntu() {
 	# Bilibili URL: https://www.bilibili.com/video/BV1NS4y1z7uS/
 	# -netdev tap,id=net0,ifname=tap0,script=no,downscript=no \
 	# -device virtio-net-device,netdev=net0 \
 	# Download Image from: https://ubuntu.com/download/risc-v
-	local URL="https://mirror.sjtu.edu.cn/ubuntu-cdimage/releases/23.04/release/ubuntu-23.04-preinstalled-server-riscv64+unmatched.img.xz"
-	local fn=$(basename $URL)
+	local url=$SJTU"ubuntu-cdimage/releases/23.04/release/ubuntu-23.04-preinstalled-server-riscv64+unmatched.img.xz"
+	local fn=$(basename $url)
 	# Initial login: ubuntu/ubuntu
 	DISK=$VM_DIR/$(basename $fn .xz)
 	if [ ! -r "$DISK" ]; then
-		axel -o $VM_DIR $URL
+		axel -o $VM_DIR $url
 		[ $? != 0 ] && echo "Error: Download failed!" && exit 1
 		echo "Info: decompressing $VM_DIR/$fn ..."
 		unxz $VM_DIR/$fn
@@ -109,16 +163,16 @@ ubuntu_riscv() {
 		-m 2G -smp cpus=4,cores=4 -M virt \
 		-bios /usr/lib/riscv64-linux-gnu/opensbi/generic/fw_dynamic.elf \
 		-kernel /usr/lib/u-boot/qemu-riscv64_smode/uboot.elf \
-		-object rng-random,filename=/dev/urandom,id=rng0 \
-		-device virtio-net-device,netdev=net \
-		-netdev user,id=net,hostfwd=tcp::2222-:22 \
-		-device virtio-rng-device,rng=rng0 \
+		-append 'root=/dev/vda rw console=ttyAMA0 rootwait earlyprintk' \
 		-device virtio-blk-device,drive=blk0 \
 		-drive file=$DISK,format=raw,if=none,id=blk0,aio=native,cache=none \
-		-append 'root=/dev/vda rw console=ttyAMA0 rootwait earlyprintk'
+		-device virtio-net-device,netdev=net \
+		-netdev user,id=net,hostfwd=tcp::2222-:22 \
+		-object rng-random,filename=/dev/urandom,id=rng0 \
+		-device virtio-rng-device,rng=rng0
 }
 
-debian_riscv() {
+riscv_debian() {
 	# Download Image from: https://people.debian.org/~gio/dqib/
 	# Unzip it, startup, and login with root/root
 	# use nano to update the sourc.list to mirror.nju.edu.cn
@@ -148,10 +202,10 @@ debian_riscv() {
 		-nographic -append "root=LABEL=rootfs console=ttyS0"
 }
 
-arch_loongarch() {
+loongarch_arch() {
 	# Bilibili video for this part: https://www.bilibili.com/video/BV17c411K7ng/
-	QEMU="/usr/local/bin/qemu-system-loongarch64"
-	local URL="https://mirror.nju.edu.cn/loongarch/archlinux/images/"
+	QEMU="qemu-system-loongarch64"
+	local URL=$MIRROR"loongarch/archlinux/images/"
 	BIOS="QEMU_EFI_7.2.fd"
 	[ ! -r $VM_DIR/$BIOS ] && axel -o $VM_DIR ${URL}${BIOS}
 	DISK="archlinux-minimal-2023.05.10-loong64.qcow2"
@@ -190,7 +244,8 @@ arch_loongarch() {
 }
 
 setup_busybox() {
-	build_kernel $ARCH
+	local ker_conf=$ARCH
+	build_kernel $ker_conf
 	# Disk image size in Mib
 	SIZE=16
 	cd $BUSY
@@ -269,6 +324,7 @@ qemu_pkgs() {
 	arm)
 		pkg="qemu-system-arm"
 		gnu="gcc-aarch64-linux-gnu"
+		machine="virt"
 		;;
 	mip)
 		# need package u-boot-tools to build u-boot image
@@ -314,41 +370,55 @@ case $1 in
 	VM_DIR="/opt/VMs/$ARCH"
 	QEMU="qemu-system-${ARCH}${BITS}"
 	[ ! -d $VM_DIR ] && sudo mkdir -p $VM_DIR && sudo chown $USER $VM_DIR
-	debian_riscv
+	riscv_debian
 	;;
 "ubuntu")
 	ARCH="riscv"
 	VM_DIR="/opt/VMs/$ARCH"
 	QEMU="qemu-system-${ARCH}${BITS}"
 	[ ! -d $VM_DIR ] && sudo mkdir -p $VM_DIR && sudo chown $USER $VM_DIR
-	ubuntu_riscv
+	riscv_ubuntu
 	;;
 "sparc")
 	ARCH="sparc"
 	QEMU="qemu-system-${ARCH}${BITS}"
+	VM_DIR="/opt/VMs/$ARCH"
 	qemu_sparc
 	;;
 "mips")
 	ARCH="mips"
 	VM_DIR="/opt/VMs/$ARCH"
 	QEMU="qemu-system-${ARCH}${BITS}"
-	# qemu_pkgs $ARCH
 	qemu_mips
 	;;
-"arch")
+
+"pi")
+	ARCH="arm"
+	VM_DIR="/opt/VMs/$ARCH"
+	# qemu_pkgs $ARCH
+	[ ! -d $VM_DIR ] && sudo mkdir -p $VM_DIR && sudo chown $USER $VM_DIR
+	QEMU="qemu-system-aarch${BITS}"
+	# PREFIX="aarch${BITS}-linux-gnu-"
+	# IMG="$VM_DIR/busybox-${HOSTNAME}.img"
+	qemu_pi
+	;;
+
+"loongarch")
 	ARCH="loongarch"
 	VM_DIR="/opt/VMs/$ARCH"
 	QEMU="qemu-system-${ARCH}${BITS}"
 	[ ! -d $VM_DIR ] && sudo mkdir -p $VM_DIR && sudo chown $USER $VM_DIR
-	arch_loongarch
+	loongarch_arch
 	;;
-*)
+
+"busybox")
 	ARCH="$1"
 	[ -z "$ARCH" ] && echo "Syntax: $0 architecture" && exit 1
 	# hostname of the VM, and the image filename will be named in hostname
 	HOSTNAME="$ARCH-01"
 	#
 	QEMU="qemu-system-${ARCH}${BITS}"
+	PREFIX="${ARCH}${BITS}-linux-gnu-"
 	qemu_pkgs $ARCH
 	[ ! -x "$(which $QEMU)" ] && echo "Error: $QEMU not found! You may need to install $pkg" && exit 2
 	#
@@ -359,7 +429,6 @@ case $1 in
 	[ ! -d $VM_DIR ] && sudo mkdir -p $VM_DIR && sudo chown $USER $VM_DIR
 	#
 	IMG="$VM_DIR/busybox-${HOSTNAME}.img"
-	PREFIX="${ARCH}${BITS}-linux-gnu-"
 	[ -n "$prefix" ] && PREFIX=$prefix
 	# Just the mount point
 	ROOT="$BUSY/mnt"
@@ -375,8 +444,12 @@ case $1 in
 		echo "cd $BUSY; $CMP $LD make defconfig; cd -"
 		exit
 	fi
-
 	setup_busybox
-	qemu_busybox
+	riscv_busybox
+	;;
+*)
+	echo "$0 pi|mips|sparc|loongarch|busybox|debian|ubuntu"
+	echo "busybox, debian, ubuntu emulate on riscv64 target"
+	echo "pi(aarch64) is on debian, loongarch is on archlinux, sparc on Solaris 10(T1)"
 	;;
 esac
