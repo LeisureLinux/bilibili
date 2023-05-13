@@ -18,6 +18,7 @@
 # ============================================================================
 # VM Name
 NAME=$1
+[ -n "$(virsh -q list --name --all | grep -i $NAME)" ] && echo "Error: domain $NAME already exist!" && exit 1
 # IMG can be local path for iso/qcow2, can also be OS-Type(see supported_os)
 IMG=$2
 # 2c/4GB/10GB as default
@@ -30,8 +31,8 @@ DISK_SIZE=$3
 BASE_DIR="/nfsroot/iso/cloud"
 # Output VM Dir
 VM_DIR="/nfsroot/VMs/cloud"
-# Your own key file to load
-PUB_KEY="/home/$USER/.ssh/id_rsa.pub"
+# Your own key file to load into cloud image
+PUB_KEY="$HOME/.ssh/id_rsa.pub"
 # Temporary cloud-init.yaml file
 CL_INIT="/tmp/$(basename $0 .sh).yaml"
 [ ! -x /usr/bin/axel ] && echo "Error: Please install axel package" && exit
