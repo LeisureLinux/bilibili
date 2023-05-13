@@ -52,7 +52,8 @@ supported_os() {
 	# username is cloud-user, not centos
 	local centos=$NJU"/centos-cloud/centos/9-stream/x86_64/images/CentOS-Stream-GenericCloud-9-20230501.0.x86_64.qcow2"
 	# need to find a proper CN mirror for debian
-	local debian="https://cdimage.debian.org/cdimage/cloud/bookworm/daily/latest/debian-12-generic-arm64-daily.qcow2"
+	# local debian="https://cdimage.debian.org/cdimage/cloud/bookworm/daily/latest/debian-12-generic-arm64-daily.qcow2"
+	local debian="https://cdimage.debian.org/cdimage/cloud/bookworm/daily/latest/debian-12-generic-amd64-daily.qcow2"
 	# Failed test:
 	local openeuler=$NJU"/openeuler/openEuler-23.03/virtual_machine_img/x86_64/openEuler-23.03-x86_64.qcow2.xz"
 	#
@@ -166,18 +167,20 @@ iso() {
 
 cloud() {
 	# Todo: check the image date, if 30 days old, still download
-	BASE=$(ls $BASE_DIR/*.qcow2 $BASE_DIR/*.raw $BASE_DIR/*.img | grep -i ^$IMG | tail -1)
+	shopt -s nullglob
+	BASE=$(ls $BASE_DIR/*.qcow2 $BASE_DIR/*.img $BASE_DIR/*.raw | grep -i ^$BASE_DIR/$IMG | tail -1)
+	# echo "base:$BASE Img:$IMG"
 	# If image not exist
 	if [ -n "$BASE" ]; then
 		echo "Info: Base image $BASE found."
 	else
 		supported_os $IMG
 		echo "Info: Downloading cloud-image from ${URL} to $BASE_DIR"
-		axel ${URL} -o $BASE_DIR/$(basename $URL)
+		axel ${URL} -o $BASE_DIR
 		[ $? != 0 ] && echo "Error: failed to download ${URL}" && exit 5
+		BASE=$BASE_DIR/$(basename $URL)
 	fi
-	BASE=$BASE_DIR/$(ls $BASE_DIR | grep -i ^$IMG | sort | tail -1)
-	[ -z "$BASE" ] && echo "Error: No Image found for $IMG under $BASE_DIR" && exit 6
+	# [ -z "$BASE" ] && echo "Error: No Image found for $IMG under $BASE_DIR" && exit 6
 	# Decompress xz file
 	[ "$(basename $BASE .xz)" != "$(basename $BASE)" ] && xz -v -d $BASE && BASE=$BASE_DIR/$(basename $BASE .xz)
 	FORMAT=$(qemu-img info --output json $BASE | jq -r .format)
