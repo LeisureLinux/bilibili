@@ -5,37 +5,35 @@
 # Disk style could be in: minimum, zsh, adhole
 disk="minimum"
 #
+# arch="s390x"
 # arch="ppc64le"
-arch="s390x"
+# arch="aarch64"
+arch="x86_64"
 # arch="arm"
 #
 vm_arch=$arch
 # vm_arch="armhf"
-nb_url="https://mirror.nju.edu.cn/alpine/latest-stable/releases/$vm_arch/netboot"
-modloop="modloop=none"
+nb_url="http://mirror.nju.edu.cn/alpine/latest-stable/releases/$vm_arch/netboot"
+# modloop="modloop=none"
+modloop="modloop=$nb_url/modloop-lts"
 #
 # default values
-####################
-virt="virt"
-machine="virt"
 domain_type="qemu"
-console="ttyS0"
 ####################
 case $arch in
 "x86_64")
-	# work
 	domain_type="kvm"
+	console="ttyS0"
 	machine='pc-i440fx-jammy'
 	;;
 "ppc64le")
-	# work, console had to be hvc0
 	console="hvc0"
 	machine="pseries"
 	cpu="POWER10"
 	;;
 "aarch64")
-	# work, need chronyd, to have right clock
 	console="ttyAMA0"
+	machine="virt"
 	cpu="cortex-a76"
 	;;
 "arm")
@@ -70,11 +68,11 @@ case $arch in
 	#	qemu-system-arm -M vexpress-a9 -kernel zImage -initrd initramfs-grsec -dtb vexpress-v2p-ca9.dtb -hda hda.img -serial stdio
 	;;
 "s390x")
-	# work, but very slow to startup in openrc
+	# refer: https://wiki.qemu.org/Documentation/Platforms/S390X
 	console="ttysclp0"
-	cpu="max"
 	machine="s390-ccw-virtio-7.2"
-	# modloop="modloop=$nb_url/modloop-lts"
+	cpu="max"
+	# -device virtio-blk-ccw
 	;;
 esac
 
@@ -112,7 +110,7 @@ cat <<EOF >/tmp/$my_domain.xml
    </os>
    <memory unit='KiB'>2048000</memory>
    <currentMemory unit='KiB'>2048000</currentMemory>
-   <vcpu placement='static'>1</vcpu>
+   <vcpu placement='static'>4</vcpu>
 </domain>
 EOF
 virsh -d 4 define /tmp/$my_domain.xml
@@ -131,10 +129,10 @@ virt-xml $my_domain --edit --boot cmdline="$cmdline"
 [ $arch = "arm" ] && virt-xml $my_domain --edit --boot loader="/usr/share/AAVMF/AAVMF32_CODE.fd"
 [ $arch = "aarch64" ] && virt-xml $my_domain --edit --boot loader="/usr/share/AAVMF/AAVMF_CODE.fd"
 # --options "readonly=yes,type=pflash"
-if [ "$arch" != "x86_64" ]; then
-	virt-xml $my_domain --edit --cpu model="$cpu"
+if [ "$arch" = "x86_64" ]; then
+	virt-xml $my_domain --edit --cpu $cpu mode='host-passthrough'
 else
-	virt-xml $my_domain --edit --cpu mode='host-passthrough'
+	virt-xml $my_domain --edit --cpu $cpu
 fi
 
 # <loader readonly='yes' type='pflash'>/usr/share/AAVMF/AAVMF_CODE.fd</loader>
@@ -145,8 +143,9 @@ fi
 #
 virt-xml $my_domain --add-device --network $my_network
 [ $? != 0 ] && echo "Error: found error in network device add" && virsh undefine $my_domain && exit 4
-virt-xml $my_domain --add-device --serial pty,target_type=isa-serial
 virt-xml $my_domain --add-device --console pty,target_type=virtio
+virt-xml $my_domain --add-device --channel unix,target_type=virtio
+virt-xml $my_domain --add-device --serial pty,target_type=isa-serial
 [ $? != 0 ] && echo "Error: found error in adding serial device" && virsh undefine $my_domain && exit 5
 echo
 echo "Domain $my_domain defined!"
