@@ -2,25 +2,43 @@
 # Define a netboot Alpine VM to run adhole, the adblocker
 # arch in: x86_64, aarch64, s390x, ppc64le, armv7, armhf
 #
-# Disk style could be in: minimum, zsh, adhole
-disk="minimum"
 #
-# arch="s390x"
-# arch="ppc64le"
-# arch="aarch64"
-arch="x86_64"
-# arch="arm"
-#
-vm_arch=$arch
-# vm_arch="armhf"
-nb_url="http://mirror.nju.edu.cn/alpine/latest-stable/releases/$vm_arch/netboot"
-# modloop="modloop=none"
-modloop="modloop=$nb_url/modloop-lts"
+arch=$1
 #
 # default values
+vm_arch=$arch
+os_arch=$arch
 domain_type="qemu"
+cpu_count=4
+mem_size=2048
+ker_ver="lts"
+
+add_kernel() {
+	virt-xml $my_domain --edit --boot kernel="$my_dir/vmlinuz-$ker_ver"
+	[ $? != 0 ] && echo "Error: found error in kernel define" && virsh undefine $my_domain && exit 1
+	virt-xml $my_domain --edit --boot initrd="$my_dir/initramfs-$ker_ver"
+	[ $? != 0 ] && echo "Error: found error in initrd define" && virsh undefine $my_domain && exit 2
+	virt-xml $my_domain --edit --boot cmdline="$cmdline"
+	[ $? != 0 ] && echo "Error: found error in cmdline define" && virsh undefine $my_domain && exit 3
+}
+
+ipxe() {
+	# add ipxe temprory to check command line netboot
+	kvm -cpu host -accel kvm \
+		-m 1024 -smp 2 -boot n \
+		-echr 2 \
+		-netdev user,id=net0,net=192.168.222.0/24 \
+		-device virtio-net-pci,netdev=net0 \
+		-display curses -nographic \
+		-monitor telnet:127.0.0.1:1234,server,nowait
+}
+
+ipxe
+exit
 ####################
-case $arch in
+# Main Prog.
+####################
+case "$arch" in
 "x86_64")
 	domain_type="kvm"
 	console="ttyS0"
@@ -36,36 +54,19 @@ case $arch in
 	machine="virt"
 	cpu="cortex-a76"
 	;;
-"arm")
+"armv7")
 	# not working yet
 	# not startup due to wrong arch
 	console="ttyAMA0"
+	# machine="raspi2b"
+	machine="virt"
 	cpu="cortex-a15"
-	machine="orangepi-pc"
-	vm_arch="armhf"
-	my_dir="/nfsroot/VMs/alpine/netboot/$vm_arch"
-	[ ! -d "$my_dir" ] && mkdir -p $my_dir
-	# https://gist.github.com/ambiamber/4e70be9ae0c7ecbbdbd7880b36db59ca
-	[ ! -r $my_dir/vmlinuz-rpi2 ] && axel -o $my_dir $nb_url/vmlinuz-rpi2
-	[ ! -r $my_dir/initramfs-rpi2 ] && axel -o $my_dir $nb_url/initramfs-rpi2
-	apkovl="http://192.168.7.11/apkovl/${disk}.tar.gz"
-	QEMU="qemu-system-arm -accel tcg,thread=multi"
-	CPU="-cpu cortex-a7 -smp cores=4"
-	MACHINE="-machine virt"
-	MEMORY=2048
-	$QEMU $MACHINE $CPU \
-		-m $MEMORY \
-		-kernel "$my_dir/vmlinuz-rpi" \
-		-append "console=ttyAMA0 ip=dhcp apkovl=$apkovl" \
-		-initrd "$my_dir/initramfs-rpi" \
-		-bios AAVMF32_CODE.fd \
-		-nographic \
-		-nic user,model=virtio \
-		-device virtio-rng-pci \
-		-rtc base=utc,clock=host
-	exit
-	# -bios /usr/share/AAVMF/AAVMF32_CODE.fd \
-	#	qemu-system-arm -M vexpress-a9 -kernel zImage -initrd initramfs-grsec -dtb vexpress-v2p-ca9.dtb -hda hda.img -serial stdio
+	cpu_count=1
+	os_arch="armv7l"
+	dtb="dtb=/nfsroot/VMs/soft-pi/boot/bcm2710-rpi-2-b.dtb"
+	ker_ver="rpi2"
+	mem_size=1024
+	# -net user,hostfwd=tcp::5022-:22 -net nic \
 	;;
 "s390x")
 	# refer: https://wiki.qemu.org/Documentation/Platforms/S390X
@@ -74,18 +75,29 @@ case $arch in
 	cpu="max"
 	# -device virtio-blk-ccw
 	;;
+*)
+	echo "Syntax: $0 ARCH"
+	echo "Where ARCH in: x86_64, aarch64, s390x, ppc64le, armv7, armhf"
+	exit
+	;;
 esac
 
+# Disk style could be in: minimum, zsh, adhole
+disk="minimum"
+#
+nb_url="http://mirror.nju.edu.cn/alpine/latest-stable/releases/$vm_arch/netboot"
+modloop="modloop=$nb_url/modloop-$ker_ver"
+
 # domain name you want to use
-my_domain="$disk-$arch-01"
+my_domain="$disk-$vm_arch-01"
 # your kernel and initramfs downloaded dir name
-my_dir="/nfsroot/VMs/alpine/netboot/$arch"
+my_dir="/nfsroot/VMs/alpine/netboot/$vm_arch"
 [ ! -d "$my_dir" ] && mkdir -p $my_dir
 # Web 端的 apkovl.tar.gz 的路径
 apkovl="http://192.168.7.11/apkovl/${disk}.tar.gz"
 # apkovl="https://apkovl:AdH0!e@apkovl.freelamp.com/adhole.apkovl.tar.gz"
-cmdline="console=$console ip=dhcp $modloop apkovl=$apkovl"
-# netboot image url
+# cmdline="modules=loop,squashfs,af_packet
+cmdline="console=$console ip=dhcp $modloop apkovl=$apkovl $dtb"
 #
 # use the last autostart network as your network name
 my_network="$(virsh -q net-list --autostart --name | tail -1)"
@@ -103,46 +115,46 @@ cat <<EOF >/tmp/$my_domain.xml
      </libosinfo:libosinfo>
    </metadata>
    <os>
-     <type arch='$vm_arch' machine='$machine'>hvm</type>
-     <kernel></kernel>
-     <initrd></initrd>
-     <cmdline></cmdline>
+     <type arch='$os_arch' machine='$machine'>hvm</type>
    </os>
-   <memory unit='KiB'>2048000</memory>
-   <currentMemory unit='KiB'>2048000</currentMemory>
-   <vcpu placement='static'>4</vcpu>
+   <memory unit='MiB'>$mem_size</memory>
+   <currentMemory unit='MiB'>$mem_size</currentMemory>
+   <vcpu placement='static'>$cpu_count</vcpu>
 </domain>
 EOF
-virsh -d 4 define /tmp/$my_domain.xml
+virsh define /tmp/$my_domain.xml
 [ $? != 0 ] && echo "Error: unable to define domain, please check: /tmp/$my_domain.xml" && exit 1
 rm /tmp/$my_domain.xml && echo "Info: removed: /tmp/$my_domain.xml"
 #
 virt-xml $my_domain --edit --metadata description="This VM is auto-generated by $0, a script coined by LeisureLinux."
 #
 # Old way: virt-xml $my_domain --edit --xml ./os/kernel="$my_dir/vmlinuz-lts"
-virt-xml $my_domain --edit --boot kernel="$my_dir/vmlinuz-lts"
-[ $? != 0 ] && echo "Error: found error in kernel define" && virsh undefine $my_domain && exit 1
-virt-xml $my_domain --edit --boot initrd="$my_dir/initramfs-lts"
-[ $? != 0 ] && echo "Error: found error in initrd define" && virsh undefine $my_domain && exit 2
-virt-xml $my_domain --edit --boot cmdline="$cmdline"
-[ $? != 0 ] && echo "Error: found error in cmdline define" && virsh undefine $my_domain && exit 3
-[ $arch = "arm" ] && virt-xml $my_domain --edit --boot loader="/usr/share/AAVMF/AAVMF32_CODE.fd"
-[ $arch = "aarch64" ] && virt-xml $my_domain --edit --boot loader="/usr/share/AAVMF/AAVMF_CODE.fd"
-# --options "readonly=yes,type=pflash"
+#
+# add_kernel
+
+[ $os_arch = "aarch64" ] && virt-xml $my_domain --edit --boot loader="/usr/share/AAVMF/AAVMF_CODE.fd"
+[ $os_arch = "armv7l" ] && virt-xml $my_domain --edit --boot loader="/usr/share/AAVMF/AAVMF32_CODE.fd"
+# [ $os_arch = "armv7l" ] && virt-xml $my_domain --edit --boot loader="/usr/lib/u-boot/qemu_arm/u-boot.bin"
+# [ $os_arch = "armv7l" ] && virt-xml $my_domain --edit --boot loader="/usr/lib/ipxe/qemu/pxe-virtio.rom"
+# [ $os_arch = "armv7l" ] &&
+# virt-xml $my_domain --add-device --disk "/usr/lib/ipxe/ipxe.iso",device=cdrom
+
+# [ $os_arch = "armv7l" ] && virt-xml $my_domain --edit --boot network
+# qemu-system-arm -M virt -kernel ./vmlinuz -initrd ./initrd.gz -hda debian-3607.qcow2 -nographic -m 1024M -append "console=ttyAMA0" -drive file=debian-10.9.0-armhf-netinst.iso,id=cdrom,if=none,media=cdrom -device virtio-scsi-device -device scsi-cd,drive=cdrom
+# -device usb-net,netdev=net0 -netdev user,id=net0,hostfwd=tcp::5555-:22
+
 if [ "$arch" = "x86_64" ]; then
 	virt-xml $my_domain --edit --cpu $cpu mode='host-passthrough'
 else
 	virt-xml $my_domain --edit --cpu $cpu
 fi
+virt-xml $my_domain --edit --boot network
 
-# <loader readonly='yes' type='pflash'>/usr/share/AAVMF/AAVMF_CODE.fd</loader>
-# <nvram>/var/lib/libvirt/qemu/nvram/softpi-3b-01_VARS.fd</nvram>
-# clock
-# virt-xml $my_domain --edit --clock rtc_tickpolicy=catchup
-# virt-xml $my_domain --edit --clock pit_tickpolicy=delay
-#
-virt-xml $my_domain --add-device --network $my_network
-[ $? != 0 ] && echo "Error: found error in network device add" && virsh undefine $my_domain && exit 4
+# virt-xml $my_domain --add-device --network $my_network
+# [ $? != 0 ] && echo "Error: found error in network device add" && virsh undefine $my_domain && exit 4
+virt-xml $my_domain --add-device --network type=user,rom.file=/usr/lib/ipxe/snp.efi
+# -device virtio-net-device,netdev=eth0 \
+
 virt-xml $my_domain --add-device --console pty,target_type=virtio
 virt-xml $my_domain --add-device --channel unix,target_type=virtio
 virt-xml $my_domain --add-device --serial pty,target_type=isa-serial
@@ -151,5 +163,5 @@ echo
 echo "Domain $my_domain defined!"
 
 # 下载最新版本的支持 netboot 的内核和initrd:
-[ ! -r $my_dir/vmlinuz-lts ] && axel -o $my_dir $nb_url/vmlinuz-lts
-[ ! -r $my_dir/initramfs-lts ] && axel -o $my_dir $nb_url/initramfs-lts
+[ ! -r $my_dir/vmlinuz-$ker_ver ] && axel -o $my_dir $nb_url/vmlinuz-$ker_ver
+[ ! -r $my_dir/initramfs-$ker_ver ] && axel -o $my_dir $nb_url/initramfs-$ker_ver
