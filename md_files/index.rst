@@ -1,5 +1,8 @@
 .. LeisureLinux documentation master file, created by
    sphinx-quickstart on Wed Nov 30 23:37:43 2022.
+   % Title: LeisureLinux 的个人知识库
+   % Author: LeisureLinux
+   % Date: 2023/02/05
 
 欢迎来到 LeisureLinux 的个人知识库
 ==================================
@@ -16,6 +19,7 @@
    :maxdepth: 2
    :caption: Todo:
 
+   about
    todo
    sphinx
    pagekite
@@ -30,6 +34,8 @@
    理解三种socket
    man
    mdcat.rst
+   commands_nobody_teaches_you
+   myvimsetup
 
 .. toctree::
    :maxdepth: 2
@@ -58,12 +64,14 @@
 
    GNU-Autotols
    cargoConfig
+   golang-glibc
 
 .. toctree::
    :maxdepth: 2
    :caption: Vim:
 
    Vim82-editing
+   VimTabs
 
 .. toctree::
    :maxdepth: 2
@@ -71,6 +79,7 @@
 
    pi-hole
    pi3_xcompile
+   debootstrap
 
 
 .. toctree::
@@ -86,6 +95,7 @@
    systemd
    uuencode-base64
    lsblk
+   aptly
 
 .. toctree::
    :maxdepth: 2
@@ -100,7 +110,6 @@
 
    Todo
    ######
-   unbound
 
 
 .. toctree::
@@ -111,6 +120,13 @@
    website-basic
    龙芯中科
    inxi
+
+.. toctree::
+   :maxdepth: 2
+   :caption: DNS:
+
+   nsd_root_zone
+
 
 .. toctree::
    :maxdepth: 2
@@ -128,6 +144,13 @@
    :caption: 雕虫小技:
 
    shrinkpdf
+
+.. toctree::
+   :maxdepth: 2
+   :caption: 一些网络免费电子书:
+
+    books
+
 
 
 索引以及表格

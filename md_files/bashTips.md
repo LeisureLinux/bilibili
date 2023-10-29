@@ -1,5 +1,8 @@
-# 对初学者很有用的 Bash 小技巧
-
+#### 对初学者很有用的 Bash 小技巧
+```
+ $ npm -g install livedown
+ $ echo "Hello"
+```
 1. 回到上次的目录：
    - cd -
    - pushd/popd

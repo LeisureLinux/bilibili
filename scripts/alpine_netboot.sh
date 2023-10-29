@@ -12,6 +12,8 @@ domain_type="qemu"
 cpu_count=4
 mem_size=2048
 ker_ver="lts"
+# BOOTP="http://boot.netboot.xyz/ipxe/netboot.xyz.lkrn"
+boot_dir="http://192.168.99.140/start"
 
 add_kernel() {
 	virt-xml $my_domain --edit --boot kernel="$my_dir/vmlinuz-$ker_ver"
@@ -22,19 +24,49 @@ add_kernel() {
 	[ $? != 0 ] && echo "Error: found error in cmdline define" && virsh undefine $my_domain && exit 3
 }
 
-ipxe() {
-	# add ipxe temprory to check command line netboot
-	kvm -cpu host -accel kvm \
-		-m 1024 -smp 2 -boot n \
-		-echr 2 \
-		-netdev user,id=net0,net=192.168.222.0/24 \
-		-device virtio-net-pci,netdev=net0 \
-		-display curses -nographic \
-		-monitor telnet:127.0.0.1:1234,server,nowait
+aarch64() {
+	local fla="rpi"
+	local url="http://192.168.99.140/aarch64"
+	local apkovl="http://192.168.7.11/apkovl/minimum.tar.gz"
+	local modloop="${url}/modloop-${fla}"
+	local cmdline="console=ttyS0 ip=dhcp modules=loop,squashfs modloop=${modloop} apkovl=${apkovl}"
+	local bootp="http://192.168.99.144/boot.ipxe"
+	local iso="http://mirror.nju.edu.cn/alpine/latest-stable/releases/aarch64/alpine-virt-3.18.0-aarch64.iso"
+
+	virt-install --arch aarch64 --name pxe-cmd \
+		--os-variant alpinelinux3.17 \
+		--disk none \
+		--pxe --network network=default \
+		--install no_install=yes,kernel=$url/vmlinuz-$fla,initrd=$url/initramfs-$fla,kernel_args="$cmdline"
+	# 	qemu-system-aarch64 -M virt -cpu cortex-a72 -accel tcg \
+	# 		-m 1024 -smp 2 \
+	# 		-nographic \
+	# 		-boot d \
+	# 		-L /usr/shae/AAVMF/AAVMF_CODE.fd \
+	# 		-nic user,id=n1,net=192.168.222.0/24,hostfwd=tcp::8022-:22,bootfile=$bootp \
+	# 		-drive media=cdrom,file=$iso,readonly=on
+	#		-device e1000,netdev=n1
+	# -device virtio-net-pci,netdev=net0
+	# -netdev user,id=n1,tftp=/path/to/tftp/files,bootfile=/pxelinux.0
+
+	return
+
+	#		-netdev user,id=net0,net=192.168.222.0/24,hostfwd=tcp::8022-:22,bootfile=$BOOTP \
+	#		-device virtio-net-pci,netdev=net0
+	# -nographic \
 }
 
-ipxe
-exit
+ipxe() {
+	kvm -cpu host -accel kvm \
+		-m 1024 -smp 2 -boot n \
+		-display curses -nographic \
+		-monitor telnet:127.0.0.1:1234,server,nowait \
+		-netdev user,id=net0,net=192.168.222.0/24,hostfwd=tcp::8022-:22,bootfile=$BOOTP \
+		-device virtio-net-pci,netdev=net0
+	# -echr 2 \
+}
+
+# aarch64
 ####################
 # Main Prog.
 ####################
@@ -86,7 +118,8 @@ esac
 disk="minimum"
 #
 nb_url="http://mirror.nju.edu.cn/alpine/latest-stable/releases/$vm_arch/netboot"
-modloop="modloop=$nb_url/modloop-$ker_ver"
+modloop_url="http://192.168.99.140/$vm_arch"
+modloop="modloop=$modloop_url/modloop-$ker_ver"
 
 # domain name you want to use
 my_domain="$disk-$vm_arch-01"
@@ -148,12 +181,11 @@ if [ "$arch" = "x86_64" ]; then
 else
 	virt-xml $my_domain --edit --cpu $cpu
 fi
-virt-xml $my_domain --edit --boot network
+# virt-xml $my_domain --edit --boot network
 
-# virt-xml $my_domain --add-device --network $my_network
-# [ $? != 0 ] && echo "Error: found error in network device add" && virsh undefine $my_domain && exit 4
-virt-xml $my_domain --add-device --network type=user,rom.file=/usr/lib/ipxe/snp.efi
-# -device virtio-net-device,netdev=eth0 \
+virt-xml $my_domain --add-device --network $my_network
+[ $? != 0 ] && echo "Error: found error in network device add" && virsh undefine $my_domain && exit 4
+# virt-xml $my_domain --add-device --network type=user,rom.file=/usr/lib/ipxe/snp.efi
 
 virt-xml $my_domain --add-device --console pty,target_type=virtio
 virt-xml $my_domain --add-device --channel unix,target_type=virtio

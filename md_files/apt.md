@@ -1,5 +1,5 @@
 ##### 25 个 apt-get/apt-cache 包管理命令
- 1. $ sudo apt-cache pkgnames ，列出所有可用的软件包名称
+ 1. $ <u>sudo</u> apt-cache pkgnames ，列出所有可用的软件包名称
  2. $ sudo apt-cache search vsftpd，列出 vsftpd 软件包的描述 
     - $ sudo apt-cache pkgnames vsftpd 列出 vsftpd 开头的软件包
  3. $ sudo apt-cache show vsftpd 查看软件包信息

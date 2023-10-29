@@ -1,8 +1,15 @@
-#### 这个网站的来历(1) -- 通过 Markdown 文件写文档
+#### 通过 Sphinx(rst)/Markdown 文件写文档
   - $ pip3 install sphinx
   - [本地 Sphinx 文档](sphinx/index.html)
-  - 
-
+  - 2023-2-12, 修改 theme 为 immaterial 
+    * pip install git+https://github.com/jbms/sphinx-immaterial.git
+    * 修改 conf.py 
+ 
+      ```
+      extension = ['sphinx_immaterial']
+      html_theme = 'sphinx_immaterial'
+      ```
+    * 其他原先的配置
 ```
 # Configuration file for the Sphinx documentation builder.
 # source/conf.py

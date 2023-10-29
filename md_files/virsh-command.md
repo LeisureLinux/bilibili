@@ -1,152 +1,154 @@
 #### Virsh 262 条命令全表
 ##### attach/detach 命令
-  - attach-device                 
-  - attach-disk                   
-  - attach-interface              
-  - detach-device                 
-  - detach-device-alias           
-  - detach-disk                   
-  - detach-interface              
-##### 备份 Backup 
-  - backup-begin                  
-  - backup-dumpxml                
+  - attach-device
+  - attach-disk
+  - attach-interface
+  - detach-device
+  - detach-device-alias
+  - detach-disk
+  - detach-interface
+##### 备份 Backup
+  - backup-begin
+  - backup-dumpxml
 ##### 块设备命令
-  - blkdeviotune                  
-  - blkiotune                     
-  - blockcommit                   
-  - blockcopy                     
-  - blockjob                      
-  - blockpull                     
-  - blockresize                   
+ ```
+  $ virsh blkdeviotune
+  $ virsh blkiotune
+  $ virsh blockcommit
+  $ virsh blockcopy
+  $ virsh blockjob
+  $ virsh blockpull
+  $ virsh blockresize
+ ```
 ##### 快照检查点命令
-  - checkpoint-create             
-  - checkpoint-create-as          
-  - checkpoint-delete             
-  - checkpoint-dumpxml            
-  - checkpoint-edit               
-  - checkpoint-info               
-  - checkpoint-list               
-  - checkpoint-parent             
+  - checkpoint-create            
+  - checkpoint-create-as         
+  - checkpoint-delete            
+  - checkpoint-dumpxml           
+  - checkpoint-edit              
+  - checkpoint-info              
+  - checkpoint-list              
+  - checkpoint-parent            
 ##### CPU 相关命令
-  - cpu-baseline                  
-  - cpu-compare                   
-  - cpu-models                    
-  - cpu-stats                     
+  - cpu-baseline                 
+  - cpu-compare                  
+  - cpu-models                   
+  - cpu-stats                    
 ##### dom 命令
-  - domblkerror                   
-  - domblkinfo                    
-  - domblklist                    
-  - domblkstat                    
-  - domblkthreshold               
-  - domcapabilities               
-  - domcontrol                    
-  - domdirtyrate-calc             
-  - domdisplay                    
-  - domfsfreeze                   
-  - domfsinfo                     
-  - domfsthaw                     
-  - domfstrim                     
-  - domhostname                   
-  - domid                         
-  - domifaddr                     
-  - domif-getlink                 
-  - domiflist                     
-  - domif-setlink                 
-  - domifstat                     
-  - domiftune                     
-  - dominfo                       
-  - domjobabort                   
-  - domjobinfo                    
-  - dommemstat                    
-  - domname                       
-  - dompmsuspend                  
-  - dompmwakeup                   
-  - domrename                     
-  - domstate                      
-  - domstats                      
-  - domtime                       
-  - domuuid                       
-  - domxml-from-native            
-  - domxml-to-native              
+  - domblkerror                  
+  - domblkinfo                   
+  - domblklist                   
+  - domblkstat                   
+  - domblkthreshold              
+  - domcapabilities              
+  - domcontrol                   
+  - domdirtyrate-calc            
+  - domdisplay                   
+  - domfsfreeze                  
+  - domfsinfo                    
+  - domfsthaw                    
+  - domfstrim                    
+  - domhostname                  
+  - domid                        
+  - domifaddr                    
+  - domif-getlink                
+  - domiflist                    
+  - domif-setlink                
+  - domifstat                    
+  - domiftune                    
+  - dominfo                      
+  - domjobabort                  
+  - domjobinfo                   
+  - dommemstat                   
+  - domname                      
+  - dompmsuspend                 
+  - dompmwakeup                  
+  - domrename                    
+  - domstate                     
+  - domstats                     
+  - domtime                      
+  - domuuid                      
+  - domxml-from-native           
+  - domxml-to-native             
 ##### 网卡管理
-  - iface-begin                   
-  - iface-bridge                  
-  - iface-commit                  
-  - iface-define                  
-  - iface-destroy                 
-  - iface-dumpxml                 
-  - iface-edit                    
-  - iface-list                    
-  - iface-mac                     
-  - iface-name                    
-  - iface-rollback                
-  - iface-start                   
-  - iface-unbridge                
-  - iface-undefine                
+  - iface-begin                  
+  - iface-bridge                 
+  - iface-commit                 
+  - iface-define                 
+  - iface-destroy                
+  - iface-dumpxml                
+  - iface-edit                   
+  - iface-list                   
+  - iface-mac                    
+  - iface-name                   
+  - iface-rollback               
+  - iface-start                  
+  - iface-unbridge               
+  - iface-undefine               
 ##### 迁移命令
-  - migrate                       
-  - migrate-compcache             
-  - migrate-getmaxdowntime        
-  - migrate-getspeed              
-  - migrate-postcopy              
-  - migrate-setmaxdowntime        
-  - migrate-setspeed              
+  - migrate                      
+  - migrate-compcache            
+  - migrate-getmaxdowntime       
+  - migrate-getspeed             
+  - migrate-postcopy             
+  - migrate-setmaxdowntime       
+  - migrate-setspeed             
 ##### 网络命令
-  - net-list                      
-  - net-info                      
-  - net-name                      
-  - net-autostart                 
-  - net-create                    
-  - net-define                    
-  - net-start                     
-  - net-destroy                   
-  - net-dhcp-leases               
-  - net-dumpxml                   
-  - net-edit                      
-  - net-event                     
-  - net-port-create               
-  - net-port-delete               
-  - net-port-dumpxml              
-  - net-port-list                 
-  - net-undefine                  
-  - net-update                    
-  - net-uuid                      
+  - net-list                     
+  - net-info                     
+  - net-name                     
+  - net-autostart                
+  - net-create                   
+  - net-define                   
+  - net-start                    
+  - net-destroy                  
+  - net-dhcp-leases              
+  - net-dumpxml                  
+  - net-edit                     
+  - net-event                    
+  - net-port-create              
+  - net-port-delete              
+  - net-port-dumpxml             
+  - net-port-list                
+  - net-undefine                 
+  - net-update                   
+  - net-uuid                     
 ##### 主机节点命令
-  - nodecpumap                    
-  - nodecpustats                  
-  - nodedev-create                
-  - nodedev-define                
-  - nodedev-destroy               
-  - nodedev-detach                
-  - nodedev-dumpxml               
-  - nodedev-event                 
-  - nodedev-list                  
-  - nodedev-reattach              
-  - nodedev-reset                 
-  - nodedev-start                 
-  - nodedev-undefine              
-  - nodeinfo                      
-  - node-memory-tune              
-  - nodememstats                  
-  - nodesuspend                   
-  - numatune                      
+  - nodecpumap                   
+  - nodecpustats                 
+  - nodedev-create               
+  - nodedev-define               
+  - nodedev-destroy              
+  - nodedev-detach               
+  - nodedev-dumpxml              
+  - nodedev-event                
+  - nodedev-list                 
+  - nodedev-reattach             
+  - nodedev-reset                
+  - nodedev-start                
+  - nodedev-undefine             
+  - nodeinfo                     
+  - node-memory-tune             
+  - nodememstats                 
+  - nodesuspend                  
+  - numatune                     
 ##### 网卡过滤命令
-  - nwfilter-binding-create       
-  - nwfilter-binding-delete       
-  - nwfilter-binding-dumpxml      
-  - nwfilter-binding-list         
-  - nwfilter-define               
-  - nwfilter-dumpxml              
-  - nwfilter-edit                 
-  - nwfilter-list                 
-  - nwfilter-undefine             
+  - nwfilter-binding-create      
+  - nwfilter-binding-delete      
+  - nwfilter-binding-dumpxml     
+  - nwfilter-binding-list        
+  - nwfilter-define              
+  - nwfilter-dumpxml             
+  - nwfilter-edit                
+  - nwfilter-list                
+  - nwfilter-undefine            
 ##### 存储池管理
   - pool-list
   - pool-info
   - pool-name
-  - pool-create                                    
+  - pool-create                                   
   - pool-start
-  - pool-autostart                
+  - pool-autostart               
   - pool-create-as
   - pool-define
   - pool-define-as
@@ -160,8 +162,8 @@
   - pool-uuid
   - pool-build
   - pool-capabilities
-  - find-storage-pool-sources     
-  - find-storage-pool-sources-as  
+  - find-storage-pool-sources
+  - find-storage-pool-sources-as
 ##### 存储卷管理命令
   - vol-list
   - vol-info

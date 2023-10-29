@@ -1,6 +1,6 @@
 #### 内网启用 DNSSEC 
   - [中国的公共 DNS 服务器](https://public-dns.info/nameserver/cn.html): 上海电信的节点 202.46.34.76 支持 DNSSEC
-  - DNSSEC 的作用：签名和校验。
+  - DNSSEC 的作用:“签名和校验”。
     - DNS 服务器开启 DNSSEC 功能
     - DNS Zone 的管理员用 DNSSEC 的 DNSKEY 对 DNS 记录签名
     - 域名服务提供商会生成一条 DS (Delegation Signer) 记录提供给父 zone(一般而言就是顶级域名TLD)来完成 “global chain of trust”
