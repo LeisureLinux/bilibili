@@ -55,7 +55,8 @@ test_pac() {
 # Main Prog.
 #
 test_pac
-if scp -q "$WPAD" adhole@wpad:/var/www/html/wpad; then
+# put username@hostname in your ~/.ssh/config file, so to mask the username in this script
+if scp -q "$WPAD" wpad:/var/www/html/wpad; then
 	echo "Successfully send new wpad.dat to wpad host"
 	test_pac remote
 	# Todo: reload remote Nginx
