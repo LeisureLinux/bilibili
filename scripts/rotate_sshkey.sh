@@ -12,14 +12,14 @@ AUTH_KEY="/home/${REMOTE_USER}/.ssh/authorized_keys"
 #
 if ! ssh -o PasswordAuthentication=no $host echo "Verified OK"; then
 	echo "Error: Current Key Not working on $host"
-	echo "Try run: ssh-copy-id $host"
+	echo "Please try run: ssh-copy-id -f $host"
 	exit
 fi
 #
 PRIV="$HOME"/.ssh/id_rsa
 PUB="$PRIV".pub
-# grab the last 8 chars in key part as key.
-oldkey=$(awk '{print substr($(NF - 1 ), length($(NF -1 )) - 8 )}' "$PUB")
+# grab the last 18 chars in key part as key.
+oldkey=$(awk '{print substr($(NF - 1 ), length($(NF -1 )) - 18 )}' "$PUB")
 # old_fp=$(ssh-keygen -l -f "$PUB")
 # old_key_id=$(awk '{print $NF}' "$PUB")
 mv "$PRIV" "$PRIV.old"
@@ -28,7 +28,7 @@ mv "$PUB" "$PRIV.old.pub"
 yes | ssh-keygen -t rsa -N '' -f "$PRIV"
 # new_key=$(awk '{print substr($(NF - 1 ), length($(NF -1 )) - 8 )}' "$PUB")
 # new_key_id=$(awk '{print $NF}' "$PUB")
-echo "Old Key: $old_key"
+# echo "Old Key: $oldkey"
 # echo "New Key ID: $new_key_id, New Key: $new_key"
 # Verify old key still working
 if ! ssh -o PasswordAuthentication=no -i $PRIV.old $host echo "Old Key Verified OK"; then
