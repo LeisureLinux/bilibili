@@ -50,9 +50,35 @@ EXCLUDE_ARTISTS = [
     "Eli Beer", "Rodney Brooks", "Stefan Larsson",
 ]
 
-# 生成封面用的字体(不存在则回退)
-FONT_SC = "/home/axu/.fonts/static/NotoSansSC-Bold.ttf"
-FONT_MUSIC = "/usr/share/fonts/truetype/noto/NotoMusic-Regular.ttf"
+# 生成封面用的字体(按候选依次查找, 找不到回退到 fontconfig)
+def _find_font(candidates, fallback_families):
+    from pathlib import Path
+    home = Path.home()
+    for c in candidates:
+        p = Path(str(c).replace("~", str(home)))
+        if p.exists():
+            return str(p)
+    # 回退: 用 fc-match 按字体族名查找
+    for fam in fallback_families:
+        try:
+            r = subprocess.run(["fc-match", "-f", "%{file}", fam],
+                               capture_output=True, text=True, timeout=10)
+            if r.returncode == 0 and r.stdout.strip():
+                return r.stdout.strip()
+        except Exception:
+            pass
+    return None
+
+
+FONT_SC = _find_font(
+    ["~/.fonts/static/NotoSansSC-Bold.ttf",
+     "/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc",
+     "/usr/share/fonts/truetype/noto/NotoSansCJK-Bold.ttc"],
+    ["Noto Sans SC:bold", "Noto Sans CJK SC:bold", "sans-serif:bold"])
+
+FONT_MUSIC = _find_font(
+    ["/usr/share/fonts/truetype/noto/NotoMusic-Regular.ttf"],
+    ["Noto Music"])
 
 
 # ---------------------------------------------------------------- 元数据工具
