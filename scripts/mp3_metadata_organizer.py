@@ -1,17 +1,19 @@
 #!/usr/bin/env python3
 """
-iPod 音乐整理工具 —— 从 iPod 复制音乐、按歌手归类、补全封面/歌词/元数据。
+mp3 音乐元数据整理工具 —— 把散装音乐导入、按歌手归类、补全元数据/封面/歌词。
+
+典型场景: 从 iPod / 播放器导出 mp3 后, 统一整理成规范的音乐库。
 
 Copyright: LeisureLinux@Bilibili
 VERSION:   1.0.0
 License:   MIT
 
 用法:
-  ipod_organize.py sync   <源目录> <目标目录> [--dry-run]   复制+排除非音乐+按歌手归类+去重
-  ipod_organize.py meta   <目录>                           元数据规范化(乱码修复 + 繁转简)
-  ipod_organize.py lyrics <目录> [--limit N] [--dry-run]   补歌词(netease 优先, 多候选词)
-  ipod_organize.py covers <目录> [--limit N] [--dry-run]   补封面(搜真封面, 搜不到生成渐变封面)
-  ipod_organize.py all    <源目录> <目标目录>               完整流程: sync -> meta -> lyrics -> covers
+  mp3_metadata_organizer.py sync   <源目录> <目标目录> [--dry-run]   复制+排除非音乐+按歌手归类+去重
+  mp3_metadata_organizer.py meta   <目录>                           元数据规范化(乱码修复 + 繁转简)
+  mp3_metadata_organizer.py lyrics <目录> [--limit N] [--dry-run]   补歌词(netease 优先, 多候选词)
+  mp3_metadata_organizer.py covers <目录> [--limit N] [--dry-run]   补封面(搜真封面, 搜不到生成渐变封面)
+  mp3_metadata_organizer.py all    <源目录> <目标目录>               完整流程: sync -> meta -> lyrics -> covers
 
 依赖:
   pip3 install mutagen opencc-python-reimplemented syncedlyrics sacad
@@ -23,6 +25,7 @@ License:   MIT
   - 繁转简: opencc t2s
   - 歌词源: netease 优先(中文覆盖好), 回退 lrclib; 搜索词做多候选
   - 封面: sacad 按 (artist, album) 搜专辑封面; 搜不到用渐变+音符生成封面
+  - sync 会排除常见播客/演讲(EXCLUDE_ARTISTS), 按需增删
 """
 import sys
 import re
@@ -392,7 +395,7 @@ def cmd_covers(root, limit=None, dry=False):
 
 # ---------------------------------------------------------------- main
 def main():
-    ap = argparse.ArgumentParser(description="iPod 音乐整理工具")
+    ap = argparse.ArgumentParser(description="mp3 音乐元数据整理工具")
     sub = ap.add_subparsers(dest="cmd", required=True)
 
     s = sub.add_parser("sync", help="复制+归类+去重")
