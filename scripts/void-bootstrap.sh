@@ -45,6 +45,7 @@ EXPLICIT_CONFIRM=0
 while [ $# -gt 0 ]; do
   case "$1" in
     --user) HAS_IDENTITY=1 ;;   # 单独 --user 就足以触发安装（无 SSH，走 console）
+    --help|-h) EXPLICIT_CONFIRM=-1 ;;   # 帮助优先：绝不进入安装分支
     --yes-i-know-this-wipes-the-disk) EXPLICIT_CONFIRM=1; shift; continue ;;
   esac
   # 用 printf %q 不可用（sh），简单地把参数逐个用单引号包起来
@@ -52,7 +53,8 @@ while [ $# -gt 0 ]; do
   ARGS="$ARGS '$esc'"
   shift
 done
-[ "$HAS_IDENTITY" -ge 1 ] && EXPLICIT_CONFIRM=1
+[ "$HAS_IDENTITY" -ge 1 ] && [ "$EXPLICIT_CONFIRM" -ge 0 ] && EXPLICIT_CONFIRM=1
+[ "$EXPLICIT_CONFIRM" -lt 0 ] && EXPLICIT_CONFIRM=0
 
 # ---------- 前置检查 ----------
 # Void live CD 只有 python3（无 curl/wget）；有 curl 时优先用 curl。
