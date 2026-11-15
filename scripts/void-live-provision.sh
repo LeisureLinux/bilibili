@@ -22,8 +22,10 @@ LIVE_PASSWORD=voidlinux          # Void 官方 live CD 默认口令（文档公�
 LIVE_SSH_OPTS=(-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
                -o ConnectTimeout=10 -o PreferredAuthentications=password
                -o PubkeyAuthentication=no -o NumberOfPasswordPrompts=1)
-INSTALLER=${INSTALLER:-/nfsroot/iso/void-linux/void-fresh-install.sh}
-REMOTE_DIR=/var/tmp
+# installer 默认就在本脚本同目录（仓库里三个脚本放一起），不硬编码任何本机路径
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd -P)
+INSTALLER=${INSTALLER:-$SCRIPT_DIR/void-fresh-install.sh}
+REMOTE_DIR=${REMOTE_DIR:-/var/tmp}
 DRY_RUN=0
 KEEP_ASKPASS=0
 
@@ -165,7 +167,7 @@ if (( DRY_RUN )); then
 fi
 
 # ---------- SSH_ASKPASS：只在运行时把 live CD 口令交给 ssh ----------
-ASKPASS=$(mktemp /var/tmp/void-live-askpass.XXXXXX) || die "无法创建 askpass"
+ASKPASS=$(mktemp "${TMPDIR:-/tmp}/void-live-askpass.XXXXXX") || die "无法创建 askpass"
 chmod 700 "$ASKPASS"
 cat >"$ASKPASS" <<EOF
 #!/bin/sh
@@ -191,7 +193,7 @@ printf '%s\n' "$probe" | grep -q UEFI || die "目标不是 UEFI 启动（install
 
 # ---------- 2) 传输 installer + 公钥 ----------
 log "2) 传输 installer 与公钥"
-PUBKEY_TMP=$(mktemp /var/tmp/void-live-pubkey.XXXXXX)
+PUBKEY_TMP=$(mktemp "${TMPDIR:-/tmp}/void-live-pubkey.XXXXXX")
 chmod 600 "$PUBKEY_TMP"
 printf '%s\n' "$PUBKEY" >"$PUBKEY_TMP"
 scp_live "$INSTALLER" "$PUBKEY_TMP" || die "scp 失败"
