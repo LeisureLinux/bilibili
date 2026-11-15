@@ -1,35 +1,35 @@
 #!/bin/bash
-# void-live-provision.sh — 从本机 PC 驱动 Void live CD 一键安装
+# void-live-provision.sh - drive a Void live CD install from the local PC
 #
-# 只在本机 PC 运行。它【在运行时】读取本机身份（用户名 / 公钥 / 时区），
-# 通过 live CD 默认账号 anon/voidlinux 把 void-fresh-install.sh 传进去并执行。
-# void-fresh-install.sh 本身保持零本机属性；这里也不硬编码任何身份。
+# Runs on the local PC. It reads local identity (user / pubkey / timezone) AT RUN TIME,
+# then logs into the live CD as anon/voidlinux and runs void-fresh-install.sh there.
+# void-fresh-install.sh stays identity-free; nothing here hardcodes identity either.
 #
 #   ./void-live-provision.sh --ip <VM-IP>
 #   ./void-live-provision.sh --ip <VM-IP> --user bob --pubkey ~/.ssh/bob.pub
 #   ./void-live-provision.sh --ip <VM-IP> --timezone UTC --hostname lab
 #   ./void-live-provision.sh --ip <VM-IP> --dry-run
 #
-# live CD 默认口令只在运行时通过 SSH_ASKPASS 传给 ssh，不写进任何文件。
-# 不重启虚机；安装完成后 installer 自己打印日志路径。
+# The live CD password is passed to ssh only at run time via SSH_ASKPASS, never stored.
+# Does not reboot the VM; the installer prints its log path when done.
 
 set -Eeuo pipefail
 
-# ---------- 默认值：中性技术参数 ----------
+# ---------- defaults: neutral technical values ----------
 IP=""
 LIVE_USER=anon
-LIVE_PASSWORD=voidlinux          # Void 官方 live CD 默认口令（文档公开值）
+LIVE_PASSWORD=voidlinux          # documented default password of the Void live CD
 LIVE_SSH_OPTS=(-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
                -o ConnectTimeout=10 -o PreferredAuthentications=password
                -o PubkeyAuthentication=no -o NumberOfPasswordPrompts=1)
-# installer 默认就在本脚本同目录（仓库里三个脚本放一起），不硬编码任何本机路径
+# installer defaults to the directory of this script (all scripts live together); no absolute local path
 SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd -P)
 INSTALLER=${INSTALLER:-$SCRIPT_DIR/void-fresh-install.sh}
 REMOTE_DIR=${REMOTE_DIR:-/var/tmp}
 DRY_RUN=0
 KEEP_ASKPASS=0
 
-# 身份字段：运行时从本机推导，或由参数覆盖
+# identity fields: derived at run time, or overridden by args
 OPT_USER=""
 OPT_PUBKEY=""
 OPT_PUBKEY_FILE=""
@@ -49,7 +49,7 @@ usage() {
 Usage: void-live-provision.sh --ip ADDRESS [OPTIONS]
 
 Required:
-  --ip ADDRESS             live CD 虚机的 IP（唯一必填）
+  --ip ADDRESS             IP of the live CD VM (the only required arg)
 
 Runtime-injected defaults (read from THIS machine at run time, overrideable):
   --user NAME              default: $(id -un)
@@ -81,39 +81,39 @@ Examples:
 EOF
 }
 
-# ---------- 参数 ----------
+# ---------- arguments ----------
 while (($#)); do
   case "$1" in
-    --ip)               [[ $# -ge 2 ]] || die "--ip 缺参数"; IP="$2"; shift 2 ;;
+    --ip)               [[ $# -ge 2 ]] || die "--ip requires an argument"; IP="$2"; shift 2 ;;
     --ip=*)             IP="${1#--ip=}"; shift ;;
-    --user)             [[ $# -ge 2 ]] || die "--user 缺参数"; OPT_USER="$2"; shift 2 ;;
-    --pubkey-file)      [[ $# -ge 2 ]] || die "--pubkey-file 缺参数"; OPT_PUBKEY_FILE="$2"; shift 2 ;;
-    --pubkey)           [[ $# -ge 2 ]] || die "--pubkey 缺参数"; OPT_PUBKEY="$2"; shift 2 ;;
-    --timezone)         [[ $# -ge 2 ]] || die "--timezone 缺参数"; OPT_TIMEZONE="$2"; shift 2 ;;
-    --locale)           [[ $# -ge 2 ]] || die "--locale 缺参数"; OPT_LOCALE="$2"; shift 2 ;;
-    --hostname)         [[ $# -ge 2 ]] || die "--hostname 缺参数"; OPT_HOSTNAME="$2"; shift 2 ;;
-    --repo)             [[ $# -ge 2 ]] || die "--repo 缺参数"; OPT_REPO="$2"; shift 2 ;;
-    --disk)             [[ $# -ge 2 ]] || die "--disk 缺参数"; OPT_DISK="$2"; shift 2 ;;
-    --initial-password) [[ $# -ge 2 ]] || die "--initial-password 缺参数"; OPT_INITIAL_PASSWORD="$2"; shift 2 ;;
-    --installer)        [[ $# -ge 2 ]] || die "--installer 缺参数"; INSTALLER="$2"; shift 2 ;;
-    --live-user)        [[ $# -ge 2 ]] || die "--live-user 缺参数"; LIVE_USER="$2"; shift 2 ;;
-    --live-password)    [[ $# -ge 2 ]] || die "--live-password 缺参数"; LIVE_PASSWORD="$2"; shift 2 ;;
-    --extra)            [[ $# -ge 2 ]] || die "--extra 缺参数"; OPT_EXTRA+=("$2"); shift 2 ;;
+    --user)             [[ $# -ge 2 ]] || die "--user requires an argument"; OPT_USER="$2"; shift 2 ;;
+    --pubkey-file)      [[ $# -ge 2 ]] || die "--pubkey-file requires an argument"; OPT_PUBKEY_FILE="$2"; shift 2 ;;
+    --pubkey)           [[ $# -ge 2 ]] || die "--pubkey requires an argument"; OPT_PUBKEY="$2"; shift 2 ;;
+    --timezone)         [[ $# -ge 2 ]] || die "--timezone requires an argument"; OPT_TIMEZONE="$2"; shift 2 ;;
+    --locale)           [[ $# -ge 2 ]] || die "--locale requires an argument"; OPT_LOCALE="$2"; shift 2 ;;
+    --hostname)         [[ $# -ge 2 ]] || die "--hostname requires an argument"; OPT_HOSTNAME="$2"; shift 2 ;;
+    --repo)             [[ $# -ge 2 ]] || die "--repo requires an argument"; OPT_REPO="$2"; shift 2 ;;
+    --disk)             [[ $# -ge 2 ]] || die "--disk requires an argument"; OPT_DISK="$2"; shift 2 ;;
+    --initial-password) [[ $# -ge 2 ]] || die "--initial-password requires an argument"; OPT_INITIAL_PASSWORD="$2"; shift 2 ;;
+    --installer)        [[ $# -ge 2 ]] || die "--installer requires an argument"; INSTALLER="$2"; shift 2 ;;
+    --live-user)        [[ $# -ge 2 ]] || die "--live-user requires an argument"; LIVE_USER="$2"; shift 2 ;;
+    --live-password)    [[ $# -ge 2 ]] || die "--live-password requires an argument"; LIVE_PASSWORD="$2"; shift 2 ;;
+    --extra)            [[ $# -ge 2 ]] || die "--extra requires an argument"; OPT_EXTRA+=("$2"); shift 2 ;;
     --dry-run)          DRY_RUN=1; shift ;;
     -h|--help)          usage; exit 0 ;;
-    *)                  die "未知参数: $1（用 --help 查看用法）" ;;
+    *)                  die "unknown option: $1 (see --help)" ;;
   esac
 done
 
 IP=${VOID_IP:-$IP}
-[[ -n "$IP" ]] || { usage >&2; die "必须提供 --ip"; }
-[[ "$IP" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]] || die "IP 格式不合法: $IP"
-[[ -r "$INSTALLER" ]] || die "找不到 installer: $INSTALLER"
+[[ -n "$IP" ]] || { usage >&2; die "--ip is required"; }
+[[ "$IP" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]] || die "invalid IP: $IP"
+[[ -r "$INSTALLER" ]] || die "installer not found: $INSTALLER"
 
-# ---------- 运行时注入本机身份 ----------
+# ---------- inject local identity at run time ----------
 USER_NAME=${OPT_USER:-${VOID_USER:-$(id -un)}}
-[[ "$USER_NAME" =~ ^[a-z_][a-z0-9_-]*[$]?$ ]] || die "用户名不合法: $USER_NAME"
-[[ "$USER_NAME" != root ]] || die "用户名不能是 root"
+[[ "$USER_NAME" =~ ^[a-z_][a-z0-9_-]*[$]?$ ]] || die "invalid username: $USER_NAME"
+[[ "$USER_NAME" != root ]] || die "username must not be root"
 
 if [[ -z "$OPT_PUBKEY" ]]; then
   PUBFILE=${OPT_PUBKEY_FILE:-${VOID_PUBKEY_FILE:-}}
@@ -122,52 +122,52 @@ if [[ -z "$OPT_PUBKEY" ]]; then
       [[ -r "$f" ]] && { PUBFILE="$f"; break; }
     done
   fi
-  [[ -n "$PUBFILE" && -r "$PUBFILE" ]] || die "找不到公钥文件（用 --pubkey-file 指定）"
+  [[ -n "$PUBFILE" && -r "$PUBFILE" ]] || die "no pubkey file found (use --pubkey-file)"
   PUBKEY=$(head -n1 "$PUBFILE")
   PUBKEY_SRC="$PUBFILE"
 else
   PUBKEY=${VOID_PUBKEY:-$OPT_PUBKEY}
-  PUBKEY_SRC="(命令行)"
+  PUBKEY_SRC="(command line)"
 fi
-[[ "$PUBKEY" =~ ^(ssh-(rsa|ed25519)|ecdsa-sha2-|sk-ssh-|sk-ecdsa-) ]] || die "公钥格式不合法: $PUBKEY_SRC"
+[[ "$PUBKEY" =~ ^(ssh-(rsa|ed25519)|ecdsa-sha2-|sk-ssh-|sk-ecdsa-) ]] || die "invalid pubkey: $PUBKEY_SRC"
 
 TZ_NAME=${OPT_TIMEZONE:-${VOID_TIMEZONE:-}}
 if [[ -z "$TZ_NAME" ]]; then
-  # /etc/localtime 通常是 /usr/share/zoneinfo/<Area>/<City> 的符号链接
+  # /etc/localtime is usually a symlink to /usr/share/zoneinfo/<Area>/<City>
   tzpath=$(readlink -f /etc/localtime 2>/dev/null || true)
   TZ_NAME=${tzpath#*/zoneinfo/}
   [[ "$TZ_NAME" != "$tzpath" && -n "$TZ_NAME" ]] || TZ_NAME=$(timedatectl show -p Timezone --value 2>/dev/null || true)
 fi
-[[ -n "$TZ_NAME" ]] || die "无法推断时区（用 --timezone 指定）"
+[[ -n "$TZ_NAME" ]] || die "cannot detect timezone (use --timezone)"
 
 LOC_NAME=${OPT_LOCALE:-${VOID_LOCALE:-}}
-# 默认不覆盖 locale：installer 用中性的 en_US.UTF-8。
-# 本机 LANG 常是 zh_CN.UTF-8，静默注入会改变装出来的系统语言环境。
+# Do not override locale by default: the installer uses neutral en_US.UTF-8.
+# The local LANG is often zh_CN.UTF-8; injecting it silently would change the target locale.
 LOCALE_ARG=()
 [[ -n "$LOC_NAME" ]] && LOCALE_ARG=(--locale "$LOC_NAME")
 
-# ---------- 展示计划 ----------
-log "运行计划"
-printf '  目标 live CD      : %s@%s\n' "$LIVE_USER" "$IP"
+# ---------- show plan ----------
+log "run plan"
+printf '  target live CD    : %s@%s\n' "$LIVE_USER" "$IP"
 printf '  installer         : %s\n' "$INSTALLER"
-printf '  注入用户名        : %s\n' "$USER_NAME"
-printf '  注入公钥          : %s\n' "$PUBKEY_SRC"
-printf '  公钥指纹          : %s\n' "$(printf '%s\n' "$PUBKEY" | ssh-keygen -lf - 2>/dev/null | awk '{print $2}' || echo '?')"
-printf '  注入时区          : %s\n' "$TZ_NAME"
-printf '  注入 locale       : %s\n' "${LOC_NAME:-<沿用 installer 默认>}"
+printf '  user              : %s\n' "$USER_NAME"
+printf '  pubkey            : %s\n' "$PUBKEY_SRC"
+printf '  pubkey fingerprint: %s\n' "$(printf '%s\n' "$PUBKEY" | ssh-keygen -lf - 2>/dev/null | awk '{print $2}' || echo '?')"
+printf '  timezone          : %s\n' "$TZ_NAME"
+printf '  locale            : %s\n' "${LOC_NAME:-<installer default>}"
 for kv in "hostname:${OPT_HOSTNAME:-}" "repo:${OPT_REPO:-}" "disk:${OPT_DISK:-}" \
-          "initial-password:${OPT_INITIAL_PASSWORD:+<已设置>}"; do
-  k=${kv%%:*}; v=${kv#*:}; [[ -n "$v" ]] && printf '  覆盖 %-16s: %s\n' "$k" "$v"
+          "initial-password:${OPT_INITIAL_PASSWORD:+<set>}"; do
+  k=${kv%%:*}; v=${kv#*:}; [[ -n "$v" ]] && printf '  override %-15s: %s\n' "$k" "$v"
 done
-printf '  额外参数          : %s\n' "${OPT_EXTRA[*]:-<无>}"
+printf '  extra args        : %s\n' "${OPT_EXTRA[*]:-<none>}"
 
 if (( DRY_RUN )); then
-  log "--dry-run：不连接、不传输、不安装"
+  log "--dry-run: no connect, no transfer, no install"
   exit 0
 fi
 
-# ---------- SSH_ASKPASS：只在运行时把 live CD 口令交给 ssh ----------
-ASKPASS=$(mktemp "${TMPDIR:-/tmp}/void-live-askpass.XXXXXX") || die "无法创建 askpass"
+# ---------- SSH_ASKPASS: hand the live CD password to ssh only at run time ----------
+ASKPASS=$(mktemp "${TMPDIR:-/tmp}/void-live-askpass.XXXXXX") || die "cannot create askpass"
 chmod 700 "$ASKPASS"
 cat >"$ASKPASS" <<EOF
 #!/bin/sh
@@ -184,23 +184,23 @@ scp_live() {
     setsid scp "${LIVE_SSH_OPTS[@]}" "$@" "$LIVE_USER@$IP:$REMOTE_DIR/"
 }
 
-# ---------- 1) 连通性 / 环境校验 ----------
-log "1) 校验 live CD"
-probe=$(ssh_live 'echo LIVE_OK; id -un; [ -d /sys/firmware/efi ] && echo UEFI || echo BIOS; lsblk -dn -o SIZE /dev/vda 2>/dev/null || true' 2>&1) || die "无法登录 live CD: $probe"
+# ---------- 1) connectivity / environment check ----------
+log "1) verify live CD"
+probe=$(ssh_live 'echo LIVE_OK; id -un; [ -d /sys/firmware/efi ] && echo UEFI || echo BIOS; lsblk -dn -o SIZE /dev/vda 2>/dev/null || true' 2>&1) || die "cannot log into live CD: $probe"
 printf '%s\n' "$probe" | sed 's/^/  /'
-printf '%s\n' "$probe" | grep -q LIVE_OK || die "live CD 响应异常"
-printf '%s\n' "$probe" | grep -q UEFI || die "目标不是 UEFI 启动（installer 只支持 UEFI）"
+printf '%s\n' "$probe" | grep -q LIVE_OK || die "unexpected live CD response"
+printf '%s\n' "$probe" | grep -q UEFI || die "target is not UEFI (installer supports UEFI only)"
 
-# ---------- 2) 传输 installer + 公钥 ----------
-log "2) 传输 installer 与公钥"
+# ---------- 2) transfer installer + pubkey ----------
+log "2) transfer installer and pubkey"
 PUBKEY_TMP=$(mktemp "${TMPDIR:-/tmp}/void-live-pubkey.XXXXXX")
 chmod 600 "$PUBKEY_TMP"
 printf '%s\n' "$PUBKEY" >"$PUBKEY_TMP"
-scp_live "$INSTALLER" "$PUBKEY_TMP" || die "scp 失败"
-# 远端路径：scp 保留本机文件名，公钥用固定名字便于引用
-ssh_live "chmod +x '$REMOTE_DIR/$(basename "$INSTALLER")'; mv -f '$REMOTE_DIR/$(basename "$PUBKEY_TMP")' '$REMOTE_DIR/void-provision.pub'; chmod 644 '$REMOTE_DIR/void-provision.pub'" || die "远端准备失败"
+scp_live "$INSTALLER" "$PUBKEY_TMP" || die "scp failed"
+# remote paths: scp keeps local names; the pubkey gets a fixed name for easy reference
+ssh_live "chmod +x '$REMOTE_DIR/$(basename "$INSTALLER")'; mv -f '$REMOTE_DIR/$(basename "$PUBKEY_TMP")' '$REMOTE_DIR/void-provision.pub'; chmod 644 '$REMOTE_DIR/void-provision.pub'" || die "remote prep failed"
 
-# ---------- 3) 组装 installer 参数（身份全部来自运行时） ----------
+# ---------- 3) build installer args (identity all from run time) ----------
 args=(--user "$USER_NAME" --pubkey-file "$REMOTE_DIR/void-provision.pub"
       --timezone "$TZ_NAME")
 ((${#LOCALE_ARG[@]})) && args+=("${LOCALE_ARG[@]}")
@@ -210,7 +210,7 @@ args=(--user "$USER_NAME" --pubkey-file "$REMOTE_DIR/void-provision.pub"
 [[ -n "$OPT_INITIAL_PASSWORD" ]] && args+=(--initial-password "$OPT_INITIAL_PASSWORD")
 ((${#OPT_EXTRA[@]})) && args+=("${OPT_EXTRA[@]}")
 
-log "3) 在 live CD 上执行安装（输出即 installer 日志）"
+log "3) run install on live CD (output is the installer log)"
 REMOTE_RUNNER="$REMOTE_DIR/void-provision-run.sh"
 {
   printf '#!/bin/sh\n'
@@ -219,14 +219,14 @@ REMOTE_RUNNER="$REMOTE_DIR/void-provision-run.sh"
   printf '\n'
 } >"$ASKPASS.runner"
 chmod 700 "$ASKPASS.runner"
-scp_live "$ASKPASS.runner" || die "传输执行脚本失败"
-ssh_live "mv -f '$REMOTE_DIR/$(basename "$ASKPASS.runner")' '$REMOTE_RUNNER'; chmod 700 '$REMOTE_RUNNER'" || die "远端准备失败"
-printf '  %s  (%s 个参数)\n' "$REMOTE_RUNNER" "${#args[@]}"
+scp_live "$ASKPASS.runner" || die "failed to transfer runner script"
+ssh_live "mv -f '$REMOTE_DIR/$(basename "$ASKPASS.runner")' '$REMOTE_RUNNER'; chmod 700 '$REMOTE_RUNNER'" || die "remote prep failed"
+printf '  %s  (%s args)\n' "$REMOTE_RUNNER" "${#args[@]}"
 echo "--------------------------------------------------------------"
 ssh_live "'$REMOTE_RUNNER'" || {
-  rc=$?; die "installer 返回 rc=$rc（日志在 live CD: /var/log/void-fresh-install.log）"; }
+  rc=$?; die "installer returned rc=$rc (log on live CD: /var/log/void-fresh-install.log)"; }
 echo "--------------------------------------------------------------"
 ssh_live "rm -f '$REMOTE_RUNNER' '$REMOTE_DIR/void-provision.pub'" 2>/dev/null || true
 
-log "完成。installer 日志：live CD /var/log/void-fresh-install.log（也复制进目标系统 /root/）"
-log "虚机未重启。要进新系统：virsh console <domain> 或改 boot order 后开机。"
+log "Done. installer log: live CD /var/log/void-fresh-install.log (also copied to /root/ in the target)"
+log "VM not rebooted. To enter the new system: virsh console <domain>, or change boot order and start."

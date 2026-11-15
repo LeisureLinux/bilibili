@@ -1,78 +1,78 @@
 #!/bin/bash
-# void-fresh-install.sh — 从零安装 Void Linux (UEFI/GPT, x86_64-glibc)
+# void-fresh-install.sh - Install Void Linux from scratch (UEFI/GPT, x86_64-glibc)
 #
-# 本脚本不含任何本机/个人身份信息：没有用户名、没有 SSH 公钥、没有主机名、不记录密码。
-# 所有身份数据都由调用方在运行时提供。
-# pubkey 可选：给了就能 SSH 密钥登录；没给则没有 SSH 登录，只用本地 console
-# 配初始口令（首次登录强制改密）。sshd 恒为「仅公钥 + 禁止 root」。
+# This script contains no machine-specific identity: no username, no SSH public key, no hostname, no stored passwords.
+# All identity data is supplied by the caller at run time.
+# pubkey is optional: with it, SSH key login works; without it there is no SSH login, only local console
+# with the initial password (forced change on first login). sshd is always publickey-only, root login disabled.
 #
-# 用法（在 Void live CD 上）：
+# Usage (on the Void live CD):
 #   sudo /var/tmp/void-fresh-install.sh --help
 #
-#   # 方式 A：公钥单独一个文件（推荐，身份数据与脚本完全分离）
+#   # Option A:pubkey in a separate file (recommended; identity stays out of the script)
 #   scp void-fresh-install.sh id_ed25519.pub anon@<vm>:/var/tmp/
 #   sudo /var/tmp/void-fresh-install.sh \
 #        --user myuser --pubkey-file /var/tmp/id_ed25519.pub
 #
-#   # 方式 B：外部配置文件
+#   # Option B:external config file
 #   sudo /var/tmp/void-fresh-install.sh --conf /var/tmp/void-install.conf
 #
-#   # 方式 C：环境变量
+#   # Option C:environment variables
 #   sudo env VOID_USER=myuser VOID_PUBKEY='ssh-ed25519 AAAA... comment' \
 #        /var/tmp/void-fresh-install.sh
 #
-# 依据: https://docs.voidlinux.org/installation/guides/chroot.html (官方 XBPS/chroot 法)
-# 不使用 Nixort/VoidLinux-Guide install.sh —— 该脚本实测有 7 个缺陷。
+# Based on: https://docs.voidlinux.org/installation/guides/chroot.html (official XBPS/chroot method)
+# Do not use Nixort/VoidLinux-Guide install.sh -- that script has 7 defects found by end-to-end testing.
 #
-# 已规避的坑（全部端到端实测）:
-#   1. 目标 chroot 必须有 /etc/resolv.conf，否则 xbps-install 报 Transient resolver failure
-#   2. 所有 xbps-install 带 -y + exec </dev/null，绝不弹 [Y/n]
-#   3. 只用 --repo 指定的源：宿主按官方换源法写 /etc/xbps.d，目标 rootdir 也先写自己的
-#      /etc/xbps.d 再调用 xbps-install（实测 -R 会「追加」仓库，导致连上别的源）
-#   5. 服务链接写 /etc/runit/runsvdir/default/，绝不写 /var/service（悬空 symlink 会穿透到 live 宿主）
-#   6. 干净 live CD 的 xbps 是旧版，必须先在宿主 -S / -u xbps 才能处理当前仓库
-#   7. 账号策略：root 禁止 SSH 登录且不注入任何公钥；普通用户仅公钥登录，
-#      初始口令 v01dl!nux 且首次登录强制修改（passwd -e）。
-#      不留任何额外的明文密码记录；预生成 ssh host keys + sshd -t 校验。
-#   8. 目标系统装 binutils 提供 /usr/bin/strip，消除 dracut 的 "Could not find 'strip'"
-#   9. 把 x11-fonts trigger 临时 stub 掉，装完字体后一次性重建缓存再还原
-#      （否则每装一个 X11 字体包都跑一遍 fc-cache，实测重复 46 次）
+# Pitfalls avoided (all verified end-to-end):
+#   1. the target chroot needs /etc/resolv.conf or xbps-install fails with Transient resolver failure
+#   2. every xbps-install uses -y and stdin is /dev/null, so no [Y/n] prompt
+#   3. Only the --repo mirror is used:the host /etc/xbps.d is rewritten per the Void docs and the target rootdir gets its own
+#      /etc/xbps.d before xbps-install (-R APPENDS repos and can hit an unintended mirror)
+#   5. service links go to /etc/runit/runsvdir/default/, never /var/service (a dangling symlink leaks into the live host)
+#   6. a clean live CD has old xbps; -S / -u xbps on the host is required for a current repo
+#   7. account policy: no root SSH login and no key for root; the ordinary user uses pubkey only,
+#      initial password v01dl!nux with forced change on first login (passwd -e).
+#      no other plaintext passwords; ssh host keys are pre-generated and sshd -t is checked.
+#   8. binutils is installed in the target to provide /usr/bin/strip (avoids dracut's "Could not find 'strip'")
+#   9. the x11-fonts trigger is stubbed, then font caches are rebuilt exactly once and restored
+#      (otherwise fc-cache runs once per X11 font package; 46 repeats were measured)
 #
-# 不重启。除「首次登录必须改掉的初始口令」外不保存任何密码。默认写日志到 /var/log/void-fresh-install.log（root:600），
-#   并复制一份到目标系统 /root/void-fresh-install.log，方便事后查看。
-#   10. 配置 serial console（GRUB console=ttyS0 + agetty-ttyS0），保证 virsh console 可用
-#   11. 不启用 elogind/dhcpcd 服务（dbus 按需拉起 elogind；NetworkManager 负责 DHCP）
-#   12. 字体缓存：base-system 之前就占位 stub，之后重写 + fc-cache 兜底，最终只重建一次
-#   13. sshd：PermitRootLogin no / PasswordAuthentication no / AuthenticationMethods publickey
+# No reboot.no passwords are saved except the initial one that must be changed at first login. Default log: /var/log/void-fresh-install.log (root:600),
+#   also copied into the target as /root/void-fresh-install.log.
+#   10. serial console configured (GRUB console=ttyS0 + agetty-ttyS0) so virsh console works
+#   11. elogind/dhcpcd services are not enabled (dbus activates elogind on demand; NetworkManager handles DHCP)
+#   12. font cache: stub before base-system, re-stub after it plus fc-cache fallback, one rebuild at the end
+#   13. sshd: PermitRootLogin no / PasswordAuthentication no / AuthenticationMethods publickey
 
 set -Eeuo pipefail
-exec </dev/null # 保证绝不阻塞在任何交互式提示
+exec </dev/null # never block on an interactive prompt
 
-# ---------- 默认值：全部是中性技术参数，不含任何身份信息 ----------
+# ---------- Defaults: neutral technical parameters only, no identity ----------
 DISK=/dev/vda
 MNT=/mnt/void-fresh
-REPO=https://mirrors.tuna.tsinghua.edu.cn/voidlinux/current # 可用 --repo 覆盖
+REPO=https://mirrors.tuna.tsinghua.edu.cn/voidlinux/current # override with --repo
 ARCH=x86_64
 ESP_SIZE=512M
-TIMEZONE=UTC        # 上游中性默认；可用 --timezone 覆盖
-LOCALE=en_US.UTF-8  # Void glibc 默认；可用 --locale 覆盖
-HOSTNAME_VALUE=void # 中性默认；可用 --hostname 覆盖
+TIMEZONE=UTC        # neutral upstream default; override with --timezone
+LOCALE=en_US.UTF-8  # Void glibc default; override with --locale
+HOSTNAME_VALUE=void # neutral default; override with --hostname
 FONTS_TRIGGER=/usr/libexec/xbps-triggers/x11-fonts
 LOGFILE=/var/log/void-fresh-install.log
-# 普通用户的初始口令：仅用于首次登录时修改（chage -d 0 / passwd -e），
-# SSH 只允许公钥认证，root 不允许登录。可用 --initial-password 覆盖。
+# Initial password for the ordinary user: only for the forced first-login change (chage -d 0 / passwd -e).
+# SSH is publickey-only and root login is disabled. Override with --initial-password.
 INITIAL_PASSWORD=${VOID_INITIAL_PASSWORD:-v01dl!nux}
 
-# 身份字段：故意没有默认值，必须由调用方提供
+# Identity fields: deliberately no default, must be supplied by the caller
 VOID_USER=${VOID_USER:-}
 VOID_PUBKEY=${VOID_PUBKEY:-}
 VOID_PUBKEY_FILE=${VOID_PUBKEY_FILE:-}
 VOID_GECOS=${VOID_GECOS:-}
-VOID_SSH_USERS=${VOID_SSH_USERS:-} # 默认仅新用户；root 永不注入公钥
+VOID_SSH_USERS=${VOID_SSH_USERS:-} # default: only the new user; root never gets a key
 VOID_REPO=${VOID_REPO:-}
 
 die() {
-  # tee 进程替换在快速失败时可能丢缓冲：同步写日志 + 直接写原始终端
+  # tee process substitution can lose output on fast failure: write log synchronously + direct to terminal
   printf '\n[FATAL] %s\n' "$*" >&2
   printf '[FATAL-sync] %s\n' "$*" >>"$LOGFILE" 2>/dev/null || true
   { printf '\n[FATAL] %s\n' "$*" >/dev/tty; } 2>/dev/null || true
@@ -118,76 +118,76 @@ Example config file (/var/tmp/void-install.conf):
 EOF
 }
 
-# ---------- 参数解析 ----------
+# ---------- Argument parsing ----------
 while (($#)); do
   case "$1" in
   --user)
-    [[ $# -ge 2 ]] || die "--user 缺参数"
+    [[ $# -ge 2 ]] || die "--user requires an argument"
     VOID_USER="$2"
     shift 2
     ;;
   --pubkey)
-    [[ $# -ge 2 ]] || die "--pubkey 缺参数"
+    [[ $# -ge 2 ]] || die "--pubkey requires an argument"
     VOID_PUBKEY="$2"
     shift 2
     ;;
   --pubkey-file)
-    [[ $# -ge 2 ]] || die "--pubkey-file 缺参数"
+    [[ $# -ge 2 ]] || die "--pubkey-file requires an argument"
     VOID_PUBKEY_FILE="$2"
     shift 2
     ;;
   --conf)
-    [[ $# -ge 2 ]] || die "--conf 缺参数"
+    [[ $# -ge 2 ]] || die "--conf requires an argument"
     CONF_FILE="$2"
     shift 2
     ;;
   --hostname)
-    [[ $# -ge 2 ]] || die "--hostname 缺参数"
+    [[ $# -ge 2 ]] || die "--hostname requires an argument"
     HOSTNAME_VALUE="$2"
     shift 2
     ;;
   --timezone)
-    [[ $# -ge 2 ]] || die "--timezone 缺参数"
+    [[ $# -ge 2 ]] || die "--timezone requires an argument"
     TIMEZONE="$2"
     shift 2
     ;;
   --locale)
-    [[ $# -ge 2 ]] || die "--locale 缺参数"
+    [[ $# -ge 2 ]] || die "--locale requires an argument"
     LOCALE="$2"
     shift 2
     ;;
   --disk)
-    [[ $# -ge 2 ]] || die "--disk 缺参数"
+    [[ $# -ge 2 ]] || die "--disk requires an argument"
     DISK="$2"
     shift 2
     ;;
   --repo)
-    [[ $# -ge 2 ]] || die "--repo 缺参数"
+    [[ $# -ge 2 ]] || die "--repo requires an argument"
     REPO="$2"
     shift 2
     ;;
   --esp-size)
-    [[ $# -ge 2 ]] || die "--esp-size 缺参数"
+    [[ $# -ge 2 ]] || die "--esp-size requires an argument"
     ESP_SIZE="$2"
     shift 2
     ;;
   --gecos)
-    [[ $# -ge 2 ]] || die "--gecos 缺参数"
+    [[ $# -ge 2 ]] || die "--gecos requires an argument"
     VOID_GECOS="$2"
     shift 2
     ;;
   --initial-password)
-    [[ $# -ge 2 ]] || die "--initial-password 缺参数"
+    [[ $# -ge 2 ]] || die "--initial-password requires an argument"
     INITIAL_PASSWORD="$2"
     shift 2
     ;;
   --log-file)
-    [[ $# -ge 2 ]] || die "--log-file 缺参数"
+    [[ $# -ge 2 ]] || die "--log-file requires an argument"
     LOGFILE="$2"
     shift 2
     ;;
   --ssh-users)
-    [[ $# -ge 2 ]] || die "--ssh-users 缺参数"
+    [[ $# -ge 2 ]] || die "--ssh-users requires an argument"
     VOID_SSH_USERS="$2"
     shift 2
     ;;
@@ -195,16 +195,16 @@ while (($#)); do
     usage
     exit 0
     ;;
-  *) die "未知参数: $1（用 --help 查看用法）" ;;
+  *) die "unknown option: $1 (see --help)" ;;
   esac
 done
 
-# 配置文件最后加载，可覆盖上面的值；命令行优先的场景由调用方自行排序
+# config file is loaded last and may override values above; caller decides CLI precedence
 if [[ -n "${CONF_FILE:-}" ]]; then
-  [[ -r "$CONF_FILE" ]] || die "无法读取配置文件: $CONF_FILE"
+  [[ -r "$CONF_FILE" ]] || die "cannot read config file: $CONF_FILE"
   # shellcheck disable=SC1090
   source "$CONF_FILE"
-  # 配置文件允许用 VOID_HOSTNAME / VOID_TIMEZONE / ... 形式
+  # config may use VOID_HOSTNAME / VOID_TIMEZONE / ... forms
   HOSTNAME_VALUE="${VOID_HOSTNAME:-$HOSTNAME_VALUE}"
   TIMEZONE="${VOID_TIMEZONE:-$TIMEZONE}"
   LOCALE="${VOID_LOCALE:-$LOCALE}"
@@ -214,54 +214,54 @@ if [[ -n "${CONF_FILE:-}" ]]; then
   INITIAL_PASSWORD="${VOID_INITIAL_PASSWORD:-$INITIAL_PASSWORD}"
 fi
 
-# ---------- 默认日志：控制台 + 文件（含 EXIT trap 输出） ----------
+# ---------- Default log: console + file (including EXIT trap output) ----------
 mkdir -p "$(dirname "$LOGFILE")" 2>/dev/null || true
 : >"$LOGFILE"
 chmod 600 "$LOGFILE" 2>/dev/null || true
-printf '===== void-fresh-install 开始 %s =====\n' "$(date -u +%FT%TZ)" >>"$LOGFILE"
-printf '  命令: %s %s\n' "$0" "$*" >>"$LOGFILE"
+printf '===== void-fresh-install START %s =====\n' "$(date -u +%FT%TZ)" >>"$LOGFILE"
+printf '  command: %s %s\n' "$0" "$*" >>"$LOGFILE"
 exec > >(tee -a "$LOGFILE") 2>&1
 
-# ---------- 身份输入校验（严格，绝不使用任何内置身份） ----------
+# ---------- Identity validation (strict; no built-in identity) ----------
 [[ -n "$VOID_USER" ]] || {
   usage >&2
-  die "必须提供 --user / VOID_USER"
+  die "must provide --user / VOID_USER"
 }
-[[ "$VOID_USER" =~ ^[a-z_][a-z0-9_-]*[$]?$ ]] || die "用户名不合法: $VOID_USER"
-[[ "$VOID_USER" != root ]] || die "--user 不能是 root"
-# pubkey 可选。sshd 恒为「仅公钥 + 禁止 root」：
-#   给了公钥 -> 可以 SSH 密钥登录（host 远程驱动场景）
-#   没给公钥 -> 没有任何 authorized_keys，SSH 无法登录；
-#               本地 USB live CD 重启后用 console + 初始口令登录即可。
+[[ "$VOID_USER" =~ ^[a-z_][a-z0-9_-]*[$]?$ ]] || die "invalid username: $VOID_USER"
+[[ "$VOID_USER" != root ]] || die "--user must not be root"
+# pubkey is optional. sshd is always publickey-only with root login disabled:
+#   with a key  -> SSH key login works (host-driven scenario)
+#   without    -> no authorized_keys at all, so no SSH login;
+#               a USB live CD install is reached via local console + initial password.
 if [[ -z "$VOID_PUBKEY" && -n "$VOID_PUBKEY_FILE" ]]; then
-  [[ -r "$VOID_PUBKEY_FILE" ]] || die "公钥文件不可读: $VOID_PUBKEY_FILE"
+  [[ -r "$VOID_PUBKEY_FILE" ]] || die "pubkey file is not readable: $VOID_PUBKEY_FILE"
   VOID_PUBKEY=$(head -n1 "$VOID_PUBKEY_FILE")
 fi
 if [[ -n "$VOID_PUBKEY" ]]; then
   [[ "$VOID_PUBKEY" =~ ^(ssh-(rsa|ed25519)|ecdsa-sha2-|sk-ssh-|sk-ecdsa-) ]] ||
-    die "公钥格式不合法（应以 ssh-ed25519 / ssh-rsa / ecdsa-sha2- 开头）"
-  [[ "$VOID_PUBKEY" != *"'"* ]] || die "公钥注释里不能含单引号"
+    die "invalid pubkey (must start with ssh-ed25519 / ssh-rsa / ecdsa-sha2-)"
+  [[ "$VOID_PUBKEY" != *"'"* ]] || die "pubkey comment must not contain a single quote"
   HAS_PUBKEY=1
 else
   HAS_PUBKEY=0
-  log "未提供公钥 -> 无 SSH 登录；装完用本地 console + 初始口令登录（首次登录强制改密）"
+  log "No pubkey supplied -> no SSH login; use local console + initial password after reboot (forced change)"
 fi
 VOID_GECOS="${VOID_GECOS:-$VOID_USER}"
 [[ -n "$VOID_SSH_USERS" ]] || VOID_SSH_USERS="$VOID_USER"
 HOSTNAME_VALUE="${HOSTNAME_VALUE:-void}"
-[[ "$HOSTNAME_VALUE" =~ ^[A-Za-z0-9][A-Za-z0-9.-]*$ ]] || die "主机名不合法"
-[[ -f "/usr/share/zoneinfo/$TIMEZONE" ]] || die "时区不存在: $TIMEZONE"
-[[ "$REPO" =~ ^https:// ]] || die "仓库必须是 https URL"
+[[ "$HOSTNAME_VALUE" =~ ^[A-Za-z0-9][A-Za-z0-9.-]*$ ]] || die "invalid hostname"
+[[ -f "/usr/share/zoneinfo/$TIMEZONE" ]] || die "timezone not found: $TIMEZONE"
+[[ "$REPO" =~ ^https:// ]] || die "repository must be an https URL"
 
 ESP="${DISK}1"
 ROOT="${DISK}2"
 
-# ---------- trap: 无论成功失败都卸载、还原 trigger ----------
+# ---------- trap: on success or failure, unmount and restore the trigger ----------
 cleanup() {
   local rc=$?
   if [[ -f /var/tmp/x11-fonts.orig ]]; then
     cp -a /var/tmp/x11-fonts.orig "$MNT$FONTS_TRIGGER" 2>/dev/null || true
-    # 若中途失败，别把 stub 的 fc-cache 留在装出来的系统里
+    # if we fail midway, do not leave a stub fc-cache in the installed system
     if [[ -x "$MNT/usr/bin/fc-cache.real" ]]; then
       mv -f "$MNT/usr/bin/fc-cache.real" "$MNT/usr/bin/fc-cache" 2>/dev/null || true
     fi
@@ -271,39 +271,39 @@ cleanup() {
     umount -R "$MNT" 2>/dev/null || true
   fi
   rmdir "$MNT" 2>/dev/null || true
-  if ((rc != 0)); then printf '\n[ABORTED rc=%d] 日志: %s\n' "$rc" "$LOGFILE" >&2; fi
+  if ((rc != 0)); then printf '\n[ABORTED rc=%d] log: %s\n' "$rc" "$LOGFILE" >&2; fi
   sleep 0.5 2>/dev/null || true
-  printf '===== void-fresh-install 结束 rc=%d %s =====\n' "$rc" "$(date -u +%FT%TZ)" >>"$LOGFILE" 2>/dev/null || true
+  printf '===== void-fresh-install END rc=%d %s =====\n' "$rc" "$(date -u +%FT%TZ)" >>"$LOGFILE" 2>/dev/null || true
   exit "$rc"
 }
 trap cleanup EXIT INT TERM
 
-# ---------- 0. 前置检查 + 干净 live CD 自举 ----------
-log "0) 前置检查 / live CD 自举"
-[ "$(id -u)" = 0 ] || die "必须 root（用 sudo 运行）"
-[ -b "$DISK" ] || die "$DISK 不是块设备"
-[ -d /sys/firmware/efi ] || die "不是 UEFI 启动"
-[ "$(cat /sys/firmware/efi/fw_platform_size)" = 64 ] || die "不是 64-bit UEFI"
+# ---------- 0. Preflight / live CD bootstrap ----------
+log "0) preflight / live CD bootstrap"
+[ "$(id -u)" = 0 ] || die "must run as root (use sudo)"
+[ -b "$DISK" ] || die "$DISK is not a block device"
+[ -d /sys/firmware/efi ] || die "not booted in UEFI mode"
+[ "$(cat /sys/firmware/efi/fw_platform_size)" = 64 ] || die "not 64-bit UEFI"
 for c in sfdisk wipefs mkfs.vfat mkfs.ext4 blkid mount umount xbps-install xbps-query \
   chroot useradd ssh-keygen sshd grub-install grub-mkconfig \
   xbps-reconfigure udevadm install awk grep sed findmnt head; do
-  command -v "$c" >/dev/null || die "缺命令: $c"
+  command -v "$c" >/dev/null || die "missing command: $c"
 done
-findmnt -rn -o SOURCE | grep -q "^$DISK" && die "$DISK 已挂载" || true
-sfdisk -d "$DISK" >/dev/null 2>&1 && log "注意: $DISK 已有分区表，将全部抹掉" || true
+findmnt -rn -o SOURCE | grep -q "^$DISK" && die "$DISK is already mounted" || true
+sfdisk -d "$DISK" >/dev/null 2>&1 && log "NOTE: $DISK already has a partition table; it will be wiped" || true
 
-log "0a) 把 live 宿主切到 $REPO（官方换源法：/etc/xbps.d 覆盖 /usr/share/xbps.d）"
+log "0a) switch live host repo to $REPO (Void docs: /etc/xbps.d overrides /usr/share/xbps.d)"
 mkdir -p /etc/xbps.d
 cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
 sed -i -E "s|^repository=.*|repository=$REPO|" /etc/xbps.d/*-repository-*.conf
-# 干净 live CD 的 xbps 是旧版（本 ISO 为 0.59.2_3），同步当前仓库后会强制自更新
+# A clean live CD has old xbps (0.59.2_3 on this ISO); syncing a current repo forces a self-update
 xbps-install -S -y
 xbps-install -y -u xbps
 log "    xbps: $(xbps-install --version)"
 grep -h '^repository' /etc/xbps.d/*-repository-*.conf
 
-# ---------- 1. 分区 ----------
-log "1) GPT 分区 + 格式化"
+# ---------- 1. partition ----------
+log "1) GPT partition + format"
 wipefs -a "$DISK" >/dev/null 2>&1 || true
 sfdisk --wipe always "$DISK" <<EOF
 label: gpt
@@ -316,36 +316,36 @@ for i in 1 2; do
     [ -b "$DISK$i" ] && break
     sleep 0.25
   done
-  [ -b "$DISK$i" ] || die "分区 $DISK$i 未出现"
+  [ -b "$DISK$i" ] || die "partition $DISK$i did not appear"
 done
 mkfs.vfat -F32 "$ESP"
 mkfs.ext4 -F "$ROOT"
 sfdisk -d "$DISK"
 
-# ---------- 2. 挂载 ----------
-log "2) 挂载"
+# ---------- 2. mount ----------
+log "2) mount"
 mkdir -p "$MNT"
 mount "$ROOT" "$MNT"
 mkdir -p "$MNT/boot/efi"
 mount "$ESP" "$MNT/boot/efi"
 
 # ---------- 3. RSA keys + base-system ----------
-log "3) 安装 base-system（源: $REPO）"
+log "3) install base-system (repo: $REPO)"
 mkdir -p "$MNT/var/db/xbps/keys" "$MNT/etc/xbps.d"
 cp -a /var/db/xbps/keys/. "$MNT/var/db/xbps/keys/"
 printf 'repository=%s\n' "$REPO" >"$MNT/etc/xbps.d/00-repository-main.conf"
-# 目标 rootdir 已有自己的 conf -> 不带 -R，避免追加别的源
-# 字体缓存抑制必须在【任何】xbps 解包之前：base-system 阶段也会装 X11 字体并
-# 触发 x11-fonts。先在空 rootfs 里建占位 trigger，装完后立刻重写一次。
+# The target rootdir already has its own conf -> no -R, so no extra repo is appended
+# Font-cache suppression must happen BEFORE any xbps unpack: base-system also installs X11 fonts and
+# triggers x11-fonts. Create a placeholder trigger in the empty rootfs, then re-stub right after install.
 mkdir -p "$MNT/usr/libexec/xbps-triggers" "$MNT/usr/bin"
 printf '#!/bin/sh\nexit 0\n' >"$MNT$FONTS_TRIGGER"
 chmod 755 "$MNT$FONTS_TRIGGER"
 
 env XBPS_ARCH="$ARCH" xbps-install -S -y -r "$MNT" base-system
 
-log "3b) 抑制 x11-fonts / fc-cache 重复触发（装完后一次性重建）"
-# base-system 已把真正的 trigger 装进来了 -> 此时才备份原件，再覆盖成 stub
-[[ -f "$MNT$FONTS_TRIGGER" ]] || die "目标系统缺少 $FONTS_TRIGGER"
+log "3b) suppress repeated x11-fonts / fc-cache triggers (one rebuild at the end)"
+# base-system has installed the real trigger -> back it up NOW, then overwrite with the stub
+[[ -f "$MNT$FONTS_TRIGGER" ]] || die "target is missing $FONTS_TRIGGER"
 cp -a "$MNT$FONTS_TRIGGER" /var/tmp/x11-fonts.orig
 printf '#!/bin/sh\nexit 0\n' >"$MNT$FONTS_TRIGGER"
 chmod 755 "$MNT$FONTS_TRIGGER"
@@ -355,10 +355,10 @@ if [[ -x "$MNT/usr/bin/fc-cache" && ! -e "$MNT/usr/bin/fc-cache.real" ]]; then
   chmod 755 "$MNT/usr/bin/fc-cache"
 fi
 
-# ---------- 4. 目标系统源 / DNS / 基础配置 ----------
-log "4) 写入目标系统仓库源与 DNS"
+# ---------- 4. target repo / DNS / base config ----------
+log "4) write target repo config and DNS"
 [[ "$(grep -h '^repository' "$MNT/etc/xbps.d/00-repository-main.conf")" = "repository=$REPO" ]] ||
-  die "目标仓库源写入异常"
+  die "target repo config is wrong"
 cp /etc/resolv.conf "$MNT/etc/resolv.conf"
 [[ -f "$MNT/etc/hosts" ]] || cp /etc/hosts "$MNT/etc/hosts"
 printf '%s\n' "$HOSTNAME_VALUE" >"$MNT/etc/hostname"
@@ -375,8 +375,8 @@ UUID=$ESP_UUID /boot/efi vfat defaults 0 2
 tmpfs /tmp tmpfs defaults,nosuid,nodev 0 0
 EOF
 
-# ---------- 5. 挂载 chroot API（含 efivarfs） ----------
-log "5) 挂载 chroot API"
+# ---------- 5. mount chroot API (incl. efivarfs) ----------
+log "5) mount chroot API"
 mkdir -p "$MNT"/{dev,proc,sys,run}
 mount --rbind /dev "$MNT/dev"
 mount --make-rslave "$MNT/dev"
@@ -388,46 +388,46 @@ mount --make-rslave "$MNT/run"
 mkdir -p "$MNT/sys/firmware/efi/efivars"
 mount -t efivarfs none "$MNT/sys/firmware/efi/efivars" 2>/dev/null || true
 
-# ---------- 6. chroot 内装桌面/网络/GRUB ----------
-log "6) chroot 内安装额外包（全部 -y，无交互）"
-# binutils 也装进目标：以后内核升级跑 dracut 时才有 strip
+# ---------- 6. install desktop/network/GRUB in chroot ----------
+log "6) install extra packages in chroot (all -y, non-interactive)"
+# binutils goes into the target too, so future kernel upgrades have strip for dracut
 PKGS="sudo xtools dbus pipewire wireplumber NetworkManager openssh elogind polkit \
       vim xorg xfce4 lightdm lightdm-gtk-greeter grub-x86_64-efi efibootmgr fastfetch binutils"
 chroot "$MNT" /bin/sh -c "xbps-install -S -y -u $PKGS"
 chroot "$MNT" /bin/sh -c "xbps-reconfigure -f glibc-locales"
 
-# 6b) 字体 stub 保持到 step 9 之后：xbps-reconfigure -fa 会重跑所有
-#     包的 INSTALL 脚本并再次触发 x11-fonts，过早还原会前功尽弃。
-#     单次重建统一放到 step 9 末尾（见 "9b"）。
+# 6b) Keep the font stub until AFTER step 9: xbps-reconfigure -fa re-runs every
+#     package INSTALL script and re-triggers x11-fonts; restoring early defeats it.
+#     The single rebuild happens at the end of step 9 (see "9b").
 
-# ---------- 7. 账号 / SSH 公钥 / 口令策略 ----------
-log "7) 创建用户 $VOID_USER + 可选注入公钥 + 设置首次登录改密"
+# ---------- 7. account / SSH pubkey / password policy ----------
+log "7) create user $VOID_USER + optional pubkey + forced first-login password change"
 chroot "$MNT" /bin/sh -c \
   "id -u '$VOID_USER' >/dev/null 2>&1 || useradd -m -G wheel,users,audio,video,network -s /bin/bash -c '$VOID_GECOS' '$VOID_USER'"
 printf '%%wheel ALL=(ALL) ALL\n' >"$MNT/etc/sudoers.d/10-wheel"
 chmod 0440 "$MNT/etc/sudoers.d/10-wheel"
 
-# 初始口令（仅用于首次登录时被要求修改；SSH 本身不允许口令认证）
+# Initial password (only for the forced change at first login; SSH never allows password auth)
 printf '%s:%s\n' "$VOID_USER" "$INITIAL_PASSWORD" | chroot "$MNT" chpasswd -c SHA512
-# 强制首次登录改口令：公钥认证成功后，PAM account 阶段会提示
-# "You are required to change your password immediately"，先要求输入【当前口令
-# = 初始口令】再设新口令。这是仅公钥 + 首次改密的正常交互（不是被锁在外面）。
+# Force first-login change: after pubkey auth succeeds, the PAM account stage prompts
+# "You are required to change your password immediately" and asks for the CURRENT
+# password (= initial) before setting a new one. Normal for publickey-only + forced change, not a lockout.
 chroot "$MNT" passwd -e "$VOID_USER" >/dev/null 2>&1 || \
-  chroot "$MNT" chage -d 0 "$VOID_USER" >/dev/null 2>&1 || die "无法设置首次登录改密"
-log "    初始口令已设置。首次登录（SSH 公钥或本地 console）都会被要求改密"
+  chroot "$MNT" chage -d 0 "$VOID_USER" >/dev/null 2>&1 || die "could not set forced first-login password change"
+log "    Initial password set. First login (SSH key or local console) will require a change"
 
-# 公钥只写 --ssh-users 指定的账号，且【强制拒绝 root】
+# Write the key only to accounts in --ssh-users, and ALWAYS refuse root
 if [[ "$HAS_PUBKEY" -eq 1 ]]; then
 IFS=',' read -ra _ssh_users <<<"$VOID_SSH_USERS"
 for u in "${_ssh_users[@]}"; do
   u=$(printf '%s' "$u" | tr -d '[:space:]')
   [[ -n "$u" ]] || continue
   if [[ "$u" = root ]]; then
-    printf '  [deny] 拒绝把公钥写入 root 的 authorized_keys（root 禁止 SSH 登录）\n'
+    printf '  [deny] refusing to write a key into root authorized_keys (root SSH login is disabled)\n'
     continue
   fi
   h="/home/$u"
-  [[ -d "$MNT$h" ]] || die "账号 $u 的主目录不存在（只能用已存在的账号）"
+  [[ -d "$MNT$h" ]] || die "account $u home dir missing (only existing accounts allowed)"
   mkdir -p "$MNT$h/.ssh"
   printf '%s\n' "$VOID_PUBKEY" >"$MNT$h/.ssh/authorized_keys"
   chmod 700 "$MNT$h/.ssh"
@@ -437,16 +437,16 @@ for u in "${_ssh_users[@]}"; do
 done
 fi
 
-# 确保 root 没有任何 authorized_keys / .ssh/rc 提示残留
+# Ensure root has no leftover authorized_keys / .ssh/rc
 rm -f "$MNT/root/.ssh/authorized_keys" "$MNT/root/.ssh/rc" 2>/dev/null || true
 rmdir "$MNT/root/.ssh" 2>/dev/null || true
 
-# ---- sshd：恒定「仅公钥 + 禁止 root」，与是否提供公钥无关 ----
-# 没提供公钥时目标系统没有任何 authorized_keys，因此 SSH 无法登录；
-# 本地 USB live CD 场景本来就用 console，不需要也不应该放开密码认证。
+# ---- sshd: always publickey-only + root disabled, regardless of pubkey ----
+# With no pubkey there are no authorized_keys, so SSH login is impossible;
+# a USB live CD install uses the console anyway, so password auth must NOT be enabled.
 mkdir -p "$MNT/etc/ssh/sshd_config.d"
 cat >"$MNT/etc/ssh/sshd_config.d/10-hardening.conf" <<'SSHDCFG'
-# 由 void-fresh-install.sh 生成：仅公钥登录
+# Generated by void-fresh-install.sh: publickey-only
 PermitRootLogin no
 PubkeyAuthentication yes
 PasswordAuthentication no
@@ -457,28 +457,28 @@ PermitEmptyPasswords no
 UsePAM yes
 SSHDCFG
 chmod 644 "$MNT/etc/ssh/sshd_config.d/10-hardening.conf"
-# OpenSSH 的 Include 位于主配置靠前处（本镜像第 16 行，先于任何设置项），
-# 因此 drop-in 会优先生效；若镜像版本没有 Include，则补一行到最前面。
+# OpenSSH Include is near the top of the main config (line 16 on this image, before any setting),
+# so the drop-in wins; if an image lacks Include, prepend one.
 grep -qE '^[[:space:]]*Include[[:space:]]+/etc/ssh/sshd_config.d/' "$MNT/etc/ssh/sshd_config" || {
   sed -i '1i Include /etc/ssh/sshd_config.d/*.conf' "$MNT/etc/ssh/sshd_config"; }
 
-# 预生成 host keys + 校验配置（这一步必须过，否则装出来登不进）
+# Pre-generate host keys + validate config (must pass or the system is unreachable)
 chroot "$MNT" ssh-keygen -A >/dev/null 2>&1 || true
-chroot "$MNT" /usr/bin/sshd -t || die "sshd -t 校验失败"
-log "    sshd -t OK：仅公钥 / 禁止 root（无公钥时无 SSH 登录，走 console）"
+chroot "$MNT" /usr/bin/sshd -t || die "sshd -t validation failed"
+log "    sshd -t OK: publickey-only / root disabled (no key => no SSH login, use console)"
 
-# ---------- 8. 服务：写 /etc/runit/runsvdir/default/ ----------
-log "8) 启用服务"
+# ---------- 8. services: write /etc/runit/runsvdir/default/ ----------
+log "8) enable services"
 mkdir -p "$MNT/etc/runit/runsvdir/default"
 [[ -e "$MNT/etc/runit/runsvdir/current" ]] || ln -s default "$MNT/etc/runit/runsvdir/current"
-# 不启用 elogind：dbus 会按需拉起；两者同开每秒报 "already running" 并重启（串口刷屏）
-# dhcpcd 保留启用（与 NM 并存时由 NM 的 internal DHCP 后端统一管理）；
-# 显式写 dhcp=internal，避免不同 NM 版本默认后端变化导致重启后拿不到 IP。
+# Do not enable elogind: dbus activates it on demand; both together crash-loop every second (serial spam)
+# dhcpcd stays enabled (NM internal DHCP backend manages addressing);
+# explicitly set dhcp=internal so NM default changes cannot lose the IP after reboot.
 mkdir -p "$MNT/etc/NetworkManager/conf.d"
 printf '[main]\ndhcp=internal\n' >"$MNT/etc/NetworkManager/conf.d/10-dhcp-internal.conf"
 for s in dbus polkitd NetworkManager dhcpcd sshd lightdm agetty-ttyS0; do
   [[ -d "$MNT/etc/sv/$s" ]] || {
-    printf '  [skip] %s (无服务定义)\n' "$s"
+    printf '  [skip] %s (no service definition)\n' "$s"
     continue
   }
   ln -sf "/etc/sv/$s" "$MNT/etc/runit/runsvdir/default/$s"
@@ -486,11 +486,11 @@ for s in dbus polkitd NetworkManager dhcpcd sshd lightdm agetty-ttyS0; do
 done
 
 # ---------- 9. GRUB (UEFI) ----------
-log "9) 安装 GRUB + 生成 initramfs/grub.cfg"
+log "9) install GRUB + generate initramfs/grub.cfg"
 chroot "$MNT" /bin/sh -c 'grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=Void' ||
   chroot "$MNT" /bin/sh -c 'grub-install --no-nvram --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=Void'
 chroot "$MNT" /bin/sh -c 'xbps-reconfigure -fa'
-# serial console：内核消息与 GRUB 菜单都走 ttyS0，配合 agetty-ttyS0
+# serial console: kernel messages and GRUB menu go to ttyS0, with agetty-ttyS0
 cat >"$MNT/etc/default/grub" <<'GRUBCFG'
 GRUB_DEFAULT=0
 GRUB_TIMEOUT=5
@@ -502,12 +502,12 @@ GRUB_SERIAL_COMMAND="serial --speed=115200 --unit=0 --word=8 --parity=no --stop=
 GRUBCFG
 chroot "$MNT" /bin/sh -c 'grub-mkconfig -o /boot/grub/grub.cfg'
 
-# ---------- 9b. xbps-reconfigure -fa 之后：唯一一次字体缓存重建 ----------
-log "9b) 唯一一次重建 X11 字体索引 + fontconfig 缓存"
+# ---------- 9b. after xbps-reconfigure -fa: the ONE font-cache rebuild ----------
+log "9b) single rebuild of X11 font indexes + fontconfig cache"
 if [[ -x "$MNT/usr/bin/fc-cache.real" ]]; then
   mv -f "$MNT/usr/bin/fc-cache.real" "$MNT/usr/bin/fc-cache"
 fi
-printf '  [font] 单次重建开始 %s\n' "$(date -u +%FT%TZ)"
+printf '  [font] single rebuild START %s\n' "$(date -u +%FT%TZ)"
 chroot "$MNT" /bin/sh -c '
   set -e
   for d in /usr/share/fonts/X11/*/ /usr/share/fonts/X11/*/*/; do
@@ -519,45 +519,45 @@ chroot "$MNT" /bin/sh -c '
   done
   fc-cache -f
 '
-printf '  [font] 单次重建结束 %s\n' "$(date -u +%FT%TZ)"
+printf '  [font] single rebuild END %s\n' "$(date -u +%FT%TZ)"
 cp -a /var/tmp/x11-fonts.orig "$MNT$FONTS_TRIGGER"
 rm -f /var/tmp/x11-fonts.orig
-log "    x11-fonts trigger 与 fc-cache 已还原"
+log "    x11-fonts trigger and fc-cache restored"
 
 
-# ---------- 10. 验收 ----------
-log "10) 验收"
-printf '  包数: '
+# ---------- 10. verification ----------
+log "10) verification"
+printf '  packages: '
 xbps-query -r "$MNT" -l | wc -l
-printf '  源:   '
+printf '  repo:   '
 grep -h '^repository' "$MNT/etc/xbps.d/"*.conf
-printf '  密码: 仅设初始口令并强制首次登录修改（SSH 仅公钥）\n'
+printf '  password: initial only, forced change at first login (SSH publickey-only)\n'
 printf '  authorized_keys: '
 find "$MNT/root/.ssh" "$MNT/home" -name authorized_keys -printf '%p ' 2>/dev/null || true
 echo
 printf '  SSH host keys: '
 (ls "$MNT/etc/ssh/" | grep -c ssh_host_) || true
-printf '  服务: '
+printf '  services: '
 ls "$MNT/etc/runit/runsvdir/default/" | tr '\n' ' '
 echo
 printf '  strip: '
 (ls -la "$MNT/usr/bin/strip" 2>/dev/null | awk '{print $NF}') || true
 printf '  EFI:  '
 find "$MNT/boot/efi" -name 'grubx64.efi' -printf '%p\n'
-printf '  grub 条目: '
+printf '  grub entries: '
 (grep -c menuentry "$MNT/boot/grub/grub.cfg") || true
-printf '  sshd 有效配置: '
+printf '  effective sshd: '
 chroot "$MNT" /usr/bin/sshd -T 2>/dev/null | grep -iE '^(permitrootlogin|passwordauthentication|kbdinteractiveauthentication|authenticationmethods)' | tr '\n' ' '
 echo
 printf '  root authorized_keys: '
-[ -e "$MNT/root/.ssh/authorized_keys" ] && echo '存在(错误!)' || echo '不存在 ✅'
+[ -e "$MNT/root/.ssh/authorized_keys" ] && echo 'PRESENT (ERROR!)' || echo 'absent OK'
 printf '  dhcp=internal: '
-grep -h 'dhcp=' "$MNT/etc/NetworkManager/conf.d/"*.conf 2>/dev/null || echo '(未写)' 
+grep -h 'dhcp=' "$MNT/etc/NetworkManager/conf.d/"*.conf 2>/dev/null || echo '(not set)' 
 
 mkdir -p "$MNT/root"
 cp "$LOGFILE" "$MNT/root/void-fresh-install.log" 2>/dev/null || true
 chmod 600 "$MNT/root/void-fresh-install.log" 2>/dev/null || true
-log "安装完成。root 禁止 SSH 且无 authorized_keys；sshd 仅公钥。"
-log "有公钥=可 SSH 密钥登录；无公钥=走本地 console。两种都需首次登录改初始口令。"
-log "virsh console 可用；未保存任何额外明文密码。没有重启。"
-log "日志: $LOGFILE （目标系统内也存一份 /root/void-fresh-install.log）"
+log "Done. root SSH disabled with no authorized_keys; sshd is publickey-only."
+log "With a key: SSH key login. Without: local console. Both require changing the initial password."
+log "virsh console works; no extra plaintext passwords saved. No reboot."
+log "log: $LOGFILE (also copied to /root/void-fresh-install.log in the target)"
