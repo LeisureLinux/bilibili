@@ -401,7 +401,7 @@ chroot "$MNT" /bin/sh -c "xbps-reconfigure -f glibc-locales"
 #     单次重建统一放到 step 9 末尾（见 "9b"）。
 
 # ---------- 7. 账号 / SSH 公钥 / 口令策略 ----------
-log "7) 创建用户 $VOID_USER + 注入公钥 + 设置首次登录改密"
+log "7) 创建用户 $VOID_USER + 可选注入公钥 + 设置首次登录改密"
 chroot "$MNT" /bin/sh -c \
   "id -u '$VOID_USER' >/dev/null 2>&1 || useradd -m -G wheel,users,audio,video,network -s /bin/bash -c '$VOID_GECOS' '$VOID_USER'"
 printf '%%wheel ALL=(ALL) ALL\n' >"$MNT/etc/sudoers.d/10-wheel"
@@ -557,6 +557,7 @@ grep -h 'dhcp=' "$MNT/etc/NetworkManager/conf.d/"*.conf 2>/dev/null || echo '(�
 mkdir -p "$MNT/root"
 cp "$LOGFILE" "$MNT/root/void-fresh-install.log" 2>/dev/null || true
 chmod 600 "$MNT/root/void-fresh-install.log" 2>/dev/null || true
-log "安装完成。root 禁止 SSH 且无 authorized_keys；SSH 仅公钥；普通用户首次登录须改初始口令。"
+log "安装完成。root 禁止 SSH 且无 authorized_keys；sshd 仅公钥。"
+log "有公钥=可 SSH 密钥登录；无公钥=走本地 console。两种都需首次登录改初始口令。"
 log "virsh console 可用；未保存任何额外明文密码。没有重启。"
 log "日志: $LOGFILE （目标系统内也存一份 /root/void-fresh-install.log）"
