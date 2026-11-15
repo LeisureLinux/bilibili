@@ -2,7 +2,9 @@
 # void-fresh-install.sh — 从零安装 Void Linux (UEFI/GPT, x86_64-glibc)
 #
 # 本脚本不含任何本机/个人身份信息：没有用户名、没有 SSH 公钥、没有主机名、不记录密码。
-# 所有身份数据都由调用方在运行时提供（命令行 / 环境变量 / 外部配置文件 / 独立公钥文件）。
+# 所有身份数据都由调用方在运行时提供。
+# pubkey 可选：给了就能 SSH 密钥登录；没给则没有 SSH 登录，只用本地 console
+# 配初始口令（首次登录强制改密）。sshd 恒为「仅公钥 + 禁止 root」。
 #
 # 用法（在 Void live CD 上）：
 #   sudo /var/tmp/void-fresh-install.sh --help
@@ -83,10 +85,12 @@ usage() {
   cat <<'EOF'
 Usage: void-fresh-install.sh [OPTIONS]
 
-Required identity (no defaults baked into this script):
+Required identity:
   --user NAME              primary account to create (e.g. alice)
+Optional (needed only if you want SSH key login):
   --pubkey-file FILE       file containing ONE ssh public key
      or --pubkey 'KEY'     literal public key string
+  If omitted: no SSH login; use local console with the initial password.
      or --conf FILE        shell-style config setting VOID_USER / VOID_PUBKEY(_FILE) / ...
   Environment equivalents: VOID_USER, VOID_PUBKEY, VOID_PUBKEY_FILE, VOID_SSH_USERS
 
@@ -225,17 +229,23 @@ exec > >(tee -a "$LOGFILE") 2>&1
 }
 [[ "$VOID_USER" =~ ^[a-z_][a-z0-9_-]*[$]?$ ]] || die "用户名不合法: $VOID_USER"
 [[ "$VOID_USER" != root ]] || die "--user 不能是 root"
-if [[ -z "$VOID_PUBKEY" ]]; then
-  [[ -n "$VOID_PUBKEY_FILE" ]] || {
-    usage >&2
-    die "必须提供 --pubkey / --pubkey-file / VOID_PUBKEY"
-  }
+# pubkey 可选。sshd 恒为「仅公钥 + 禁止 root」：
+#   给了公钥 -> 可以 SSH 密钥登录（host 远程驱动场景）
+#   没给公钥 -> 没有任何 authorized_keys，SSH 无法登录；
+#               本地 USB live CD 重启后用 console + 初始口令登录即可。
+if [[ -z "$VOID_PUBKEY" && -n "$VOID_PUBKEY_FILE" ]]; then
   [[ -r "$VOID_PUBKEY_FILE" ]] || die "公钥文件不可读: $VOID_PUBKEY_FILE"
   VOID_PUBKEY=$(head -n1 "$VOID_PUBKEY_FILE")
 fi
-[[ "$VOID_PUBKEY" =~ ^(ssh-(rsa|ed25519)|ecdsa-sha2-|sk-ssh-|sk-ecdsa-) ]] ||
-  die "公钥格式不合法（应以 ssh-ed25519 / ssh-rsa / ecdsa-sha2- 开头）"
-[[ "$VOID_PUBKEY" != *"'"* ]] || die "公钥注释里不能含单引号"
+if [[ -n "$VOID_PUBKEY" ]]; then
+  [[ "$VOID_PUBKEY" =~ ^(ssh-(rsa|ed25519)|ecdsa-sha2-|sk-ssh-|sk-ecdsa-) ]] ||
+    die "公钥格式不合法（应以 ssh-ed25519 / ssh-rsa / ecdsa-sha2- 开头）"
+  [[ "$VOID_PUBKEY" != *"'"* ]] || die "公钥注释里不能含单引号"
+  HAS_PUBKEY=1
+else
+  HAS_PUBKEY=0
+  log "未提供公钥 -> 无 SSH 登录；装完用本地 console + 初始口令登录（首次登录强制改密）"
+fi
 VOID_GECOS="${VOID_GECOS:-$VOID_USER}"
 [[ -n "$VOID_SSH_USERS" ]] || VOID_SSH_USERS="$VOID_USER"
 HOSTNAME_VALUE="${HOSTNAME_VALUE:-void}"
@@ -404,10 +414,10 @@ printf '%s:%s\n' "$VOID_USER" "$INITIAL_PASSWORD" | chroot "$MNT" chpasswd -c SH
 # = 初始口令】再设新口令。这是仅公钥 + 首次改密的正常交互（不是被锁在外面）。
 chroot "$MNT" passwd -e "$VOID_USER" >/dev/null 2>&1 || \
   chroot "$MNT" chage -d 0 "$VOID_USER" >/dev/null 2>&1 || die "无法设置首次登录改密"
-log "    初始口令已设置。首次公钥登录会被要求输入当前口令(=初始口令)并立即改密"
-log "    这不是认证失败：SSH 只允许公钥，口令仅用于 PAM 的强制改密流程"
+log "    初始口令已设置。首次登录（SSH 公钥或本地 console）都会被要求改密"
 
 # 公钥只写 --ssh-users 指定的账号，且【强制拒绝 root】
+if [[ "$HAS_PUBKEY" -eq 1 ]]; then
 IFS=',' read -ra _ssh_users <<<"$VOID_SSH_USERS"
 for u in "${_ssh_users[@]}"; do
   u=$(printf '%s' "$u" | tr -d '[:space:]')
@@ -425,12 +435,15 @@ for u in "${_ssh_users[@]}"; do
   chroot "$MNT" /bin/sh -c "chown -R \"\$(id -u '$u'):\$(id -g '$u')\" '$h/.ssh'"
   printf '  [key] %s -> %s/.ssh/authorized_keys\n' "$u" "$h"
 done
+fi
 
 # 确保 root 没有任何 authorized_keys / .ssh/rc 提示残留
 rm -f "$MNT/root/.ssh/authorized_keys" "$MNT/root/.ssh/rc" 2>/dev/null || true
 rmdir "$MNT/root/.ssh" 2>/dev/null || true
 
-# ---- sshd 加固：仅公钥、禁止 root、关闭所有口令/键盘交互认证 ----
+# ---- sshd：恒定「仅公钥 + 禁止 root」，与是否提供公钥无关 ----
+# 没提供公钥时目标系统没有任何 authorized_keys，因此 SSH 无法登录；
+# 本地 USB live CD 场景本来就用 console，不需要也不应该放开密码认证。
 mkdir -p "$MNT/etc/ssh/sshd_config.d"
 cat >"$MNT/etc/ssh/sshd_config.d/10-hardening.conf" <<'SSHDCFG'
 # 由 void-fresh-install.sh 生成：仅公钥登录
@@ -452,7 +465,7 @@ grep -qE '^[[:space:]]*Include[[:space:]]+/etc/ssh/sshd_config.d/' "$MNT/etc/ssh
 # 预生成 host keys + 校验配置（这一步必须过，否则装出来登不进）
 chroot "$MNT" ssh-keygen -A >/dev/null 2>&1 || true
 chroot "$MNT" /usr/bin/sshd -t || die "sshd -t 校验失败"
-log "    sshd -t OK：仅公钥 / 禁止 root"
+log "    sshd -t OK：仅公钥 / 禁止 root（无公钥时无 SSH 登录，走 console）"
 
 # ---------- 8. 服务：写 /etc/runit/runsvdir/default/ ----------
 log "8) 启用服务"

@@ -3,13 +3,16 @@
 #
 # Void 官方 live CD 没有 curl/wget，只有 python3。用一行 python3 拉取并执行：
 #   python3 -c 'import urllib.request as u,subprocess as s;p="/tmp/void-bootstrap.sh";open(p,"wb").write(u.urlopen("https://raw.githubusercontent.com/LeisureLinux/bilibili/master/scripts/void-bootstrap.sh",timeout=60).read());s.run(["sudo","-n","sh",p])'
-# 有 curl 的机器上也可以用：
-#   curl -fsSL .../void-bootstrap.sh | sh -s -- --user alice --pubkey-file /path/alice.pub
+# 有 curl 的机器上，USB 本机 live CD 最简用法（重启后走 console）：
+#   curl -fsSL .../void-bootstrap.sh | sudo sh -s -- --user alice
 #
 # 安全设计：
-#   * 本脚本【绝不】自动抹盘。不带参数时只把 installer 下到临时目录并打印用法。
-#   * 只有显式给了 --user 和 --pubkey-file/--pubkey（或 --yes-i-know-this-wipes-the-disk）
-#     才执行安装，且执行前会再确认一次目标盘。
+#   * 本脚本【绝不】自动抹盘。不带 --user 时只下载 installer 并打印用法。
+#   * 场景 B（USB 本机 live CD）：curl|sh + --user alice 即可，不需要 pubkey。
+#     sshd 仍只认公钥，因此没有 SSH 登录；重启后用 console + 初始口令登录
+#     并强制改密。
+#   * 场景 A（从 host 远程驱动虚机）：用 void-live-provision.sh --ip <IP>，
+#     它会在运行时注入 pubkey，装完即可密钥登录（仅公钥）。
 #   * installer 本体保持零本机属性；身份由调用方在运行时提供。
 #   * 全程不写任何密码/密钥到仓库，不依赖本机身份。
 #
@@ -31,7 +34,7 @@ HAS_IDENTITY=0
 EXPLICIT_CONFIRM=0
 while [ $# -gt 0 ]; do
   case "$1" in
-    --user|--pubkey|--pubkey-file) HAS_IDENTITY=$((HAS_IDENTITY+1)) ;;
+    --user) HAS_IDENTITY=1 ;;   # 单独 --user 就足以触发安装（无 SSH，走 console）
     --yes-i-know-this-wipes-the-disk) EXPLICIT_CONFIRM=1; shift; continue ;;
   esac
   # 用 printf %q 不可用（sh），简单地把参数逐个用单引号包起来
@@ -39,7 +42,7 @@ while [ $# -gt 0 ]; do
   ARGS="$ARGS '$esc'"
   shift
 done
-[ "$HAS_IDENTITY" -ge 2 ] && EXPLICIT_CONFIRM=1
+[ "$HAS_IDENTITY" -ge 1 ] && EXPLICIT_CONFIRM=1
 
 # ---------- 前置检查 ----------
 # Void live CD 只有 python3（无 curl/wget）；有 curl 时优先用 curl。
@@ -65,13 +68,13 @@ if [ "$EXPLICIT_CONFIRM" -eq 0 ]; then
   "$DEST" --help 2>/dev/null | head -40 || true
   cat <<'EOF'
 
-要真正安装（会抹掉 /dev/vda），请显式提供身份参数，例如：
+USB 本机 live CD（最简单，重启后走 console）：
+  curl -fsSL .../void-bootstrap.sh | sudo sh -s -- --user alice
+  # 或用已下载的：<下载目录>/void-fresh-install.sh --user alice
+  # 无公钥 -> 无 SSH 登录；console 用初始口令登录并强制改密
 
-  python3 -c 'import urllib.request as u,subprocess as s;p="/tmp/void-bootstrap.sh";open(p,"wb").write(u.urlopen("https://raw.githubusercontent.com/LeisureLinux/bilibili/master/scripts/void-bootstrap.sh",timeout=60).read());s.run(["sudo","-n","sh",p])' \
-       -- --user alice --pubkey-file /path/to/alice.pub
-
-或在已下载的脚本上直接运行：
-  <下载目录>/void-fresh-install.sh --user alice --pubkey-file /path/to/alice.pub
+从另一台机器远程注入公钥（装完仅公钥登录）：
+  curl -fsSL .../void-bootstrap.sh | sudo sh -s -- --user alice --pubkey-file /path/alice.pub
 EOF
   exit 0
 fi
