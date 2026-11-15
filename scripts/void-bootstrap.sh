@@ -1,7 +1,9 @@
 #!/bin/sh
 # void-bootstrap.sh — 在 Void live CD 里通过 curl|sh 一键取回安装器
 #
-#   curl -fsSL https://raw.githubusercontent.com/LeisureLinux/bilibili/master/scripts/void-bootstrap.sh | sh
+# Void 官方 live CD 没有 curl/wget，只有 python3。用一行 python3 拉取并执行：
+#   python3 -c 'import urllib.request;exec(urllib.request.urlopen("https://raw.githubusercontent.com/LeisureLinux/bilibili/master/scripts/void-bootstrap.sh").read())'
+# 有 curl 的机器上也可以用：
 #   curl -fsSL .../void-bootstrap.sh | sh -s -- --user alice --pubkey-file /path/alice.pub
 #
 # 安全设计：
@@ -40,12 +42,19 @@ done
 [ "$HAS_IDENTITY" -ge 2 ] && EXPLICIT_CONFIRM=1
 
 # ---------- 前置检查 ----------
-command -v curl >/dev/null || die "live CD 缺少 curl"
-[ "$(id -u)" -eq 0 ] || die "请用 root 运行，或: curl ... | sudo sh -s -- ..."
+# Void live CD 只有 python3（无 curl/wget）；有 curl 时优先用 curl。
+if command -v curl >/dev/null 2>&1; then
+  dl() { curl -fsSL --max-time 60 "$1" -o "$2"; }
+elif command -v python3 >/dev/null 2>&1; then
+  dl() { python3 -c 'import sys,urllib.request,ssl; u,o=sys.argv[1],sys.argv[2]; ctx=ssl.create_default_context(); open(o,"wb").write(urllib.request.urlopen(u,timeout=60,context=ctx).read())' "$1" "$2"; }
+else
+  die "live CD 既无 curl 也无 python3，无法下载"
+fi
+[ "$(id -u)" -eq 0 ] || die "请用 root 运行（python3 ... | sudo sh -s -- ...）"
 [ -d /sys/firmware/efi ] || die "不是 UEFI 启动"
 
 log "下载 installer -> $DEST"
-curl -fsSL --max-time 60 "$INSTALLER_URL" -o "$DEST" || die "下载失败: $INSTALLER_URL"
+dl "$INSTALLER_URL" "$DEST" || die "下载失败: $INSTALLER_URL"
 chmod 755 "$DEST"
 printf '  字节数: %s\n' "$(wc -c <"$DEST")"
 sh -n "$DEST" 2>/dev/null || die "下载的文件不是合法 shell 脚本"
@@ -58,8 +67,8 @@ if [ "$EXPLICIT_CONFIRM" -eq 0 ]; then
 
 要真正安装（会抹掉 /dev/vda），请显式提供身份参数，例如：
 
-  curl -fsSL .../void-bootstrap.sh | sh -s -- \
-       --user alice --pubkey-file /path/to/alice.pub
+  python3 -c 'import urllib.request;exec(urllib.request.urlopen(".../void-bootstrap.sh").read())' \
+       -- --user alice --pubkey-file /path/to/alice.pub
 
 或在已下载的脚本上直接运行：
   /var/tmp/void-fresh-install.sh --user alice --pubkey-file /path/to/alice.pub
