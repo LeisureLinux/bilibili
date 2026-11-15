@@ -1,9 +1,19 @@
 #!/bin/sh
 # void-bootstrap.sh — 在 Void live CD 里通过 curl|sh 一键取回安装器
 #
-# Void 官方 live CD 没有 curl/wget，只有 python3。用一行 python3 拉取并执行：
-#   python3 -c 'import urllib.request as u,subprocess as s;p="/tmp/void-bootstrap.sh";open(p,"wb").write(u.urlopen("https://raw.githubusercontent.com/LeisureLinux/bilibili/master/scripts/void-bootstrap.sh",timeout=60).read());s.run(["sudo","-n","sh",p])'
-# 有 curl 的机器上，USB 本机 live CD 最简用法（重启后走 console）：
+# Void 官方 live CD 没有 curl/wget，只有 python3。两条路：
+#
+# (推荐, 零额外依赖) 用 python3 拉取并执行，不用装任何东西：
+#   python3 -c 'import urllib.request as u,subprocess as s;p="/tmp/void-bootstrap.sh";open(p,"wb").write(u.urlopen("https://raw.githubusercontent.com/LeisureLinux/bilibili/master/scripts/void-bootstrap.sh",timeout=60).read());s.run(["sudo","-n","sh",p,"--user","alice"])'
+#
+# (想要真正的 curl|bash) 先在 live CD 里装 curl。ISO 自带索引是旧快照，
+# 默认源下 curl-8.11.1_2.sig2 已 404，必须先换源 + -S；新版 libcurl 又需要
+# 升级 libssh2。最短可靠四步（约 2 秒）：
+#   sudo mkdir -p /etc/xbps.d
+#   sudo cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
+#   sudo sed -i 's|https://repo-default.voidlinux.org|https://mirrors.tuna.tsinghua.edu.cn/voidlinux|g' /etc/xbps.d/*-repository-*.conf
+#   sudo xbps-install -Syu curl libssh2
+# 然后：
 #   curl -fsSL .../void-bootstrap.sh | sudo sh -s -- --user alice
 #
 # 安全设计：
